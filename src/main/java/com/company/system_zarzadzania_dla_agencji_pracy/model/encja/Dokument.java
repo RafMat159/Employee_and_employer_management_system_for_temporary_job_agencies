@@ -1,8 +1,9 @@
-package com.company.system_zarzadzania_dla_agencji_pracy;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
 
 
-import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "dokument")

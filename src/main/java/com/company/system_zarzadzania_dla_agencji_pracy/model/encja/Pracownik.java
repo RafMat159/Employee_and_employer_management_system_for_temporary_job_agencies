@@ -1,9 +1,9 @@
-package com.company.system_zarzadzania_dla_agencji_pracy;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
 
-import jakarta.persistence.*;
 import org.springframework.lang.NonNull;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -17,16 +17,16 @@ public class Pracownik {
     @NonNull
     private String imie;
 
-    @NonNull
+    //@NonNull
     private String nazwisko;
 
-    @NonNull
+    //@NonNull
     private String nrTelefonu;
 
 
     private String adresZamieszkania;
 
-    @NonNull
+    //@NonNull
     private String pesel;
 
     @NonNull
