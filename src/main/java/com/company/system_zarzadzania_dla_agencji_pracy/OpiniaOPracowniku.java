@@ -12,12 +12,6 @@ public class OpiniaOPracowniku {
     private Integer idOpinii;
 
     @NonNull
-    private Integer idPracodawcy;
-
-    @NonNull
-    private Integer idPracownika;
-
-    @NonNull
     private boolean czyPoleca;
 
     @ManyToOne()

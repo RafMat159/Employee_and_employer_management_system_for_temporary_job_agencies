@@ -24,7 +24,6 @@ public class Administrator {
     @NonNull
     private String nrTelefonu;
 
-
     private String adresZamieszkania;
 
     @NonNull
@@ -32,9 +31,6 @@ public class Administrator {
 
     @NonNull
     private Date dataUrodzenia;
-
-    @NonNull
-    private Integer idUzytkownika;
 
     @OneToMany(mappedBy = "administrator")
     private Set<PracownikAgencji> pracownicyAgencji;

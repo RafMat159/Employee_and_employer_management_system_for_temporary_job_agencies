@@ -31,12 +31,6 @@ public class Pracodawca {
     @NonNull
     private Double biezaceKoszty;
 
-    @NonNull
-    private Integer idAdministratora;
-
-    @NonNull
-    private Integer idUzytkownika;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
     private Uzytkownik uzytkownik;

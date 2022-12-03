@@ -33,17 +33,11 @@ public class PracownikAgencji {
     @NonNull
     private Date dataUrodzenia;
 
-    @NonNull
-    private Integer idAdministratora;
-
-    @NonNull
-    private Integer idUzytkownika;
-
     @ManyToOne()
     @JoinColumn(name = "idAdministratora", nullable = false)
     private Administrator administrator;
 
-    @OneToMany(mappedBy = "administrator")
+    @OneToMany(mappedBy = "pracownikAgencji")
     private Set<Wynagrodzenie> wynagrodzenia;
 
     @OneToOne(cascade = CascadeType.ALL)

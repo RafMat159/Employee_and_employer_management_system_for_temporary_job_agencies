@@ -35,12 +35,6 @@ public class Pracownik {
     @NonNull
     private Date dataUrodzenia;
 
-    @NonNull
-    private Integer idAdministratora;
-
-    @NonNull
-    private Integer idUzytkownika;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
     private Uzytkownik uzytkownik;
@@ -51,7 +45,7 @@ public class Pracownik {
 
     @OneToOne(mappedBy = "pracownik")
     private Wynagrodzenie wynagrodzenie;
-
+    //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
     @OneToMany(mappedBy = "pracownik")
     private Set<Dokument> dokumenty;
 
@@ -60,5 +54,8 @@ public class Pracownik {
 
     @OneToMany(mappedBy = "pracownik")
     private Set<OpiniaOPracowniku> opinieOPracowniku;
+
+    @ManyToMany(mappedBy = "pracownicy")
+    Set<Zlecenie> zlecenia;
 
 }

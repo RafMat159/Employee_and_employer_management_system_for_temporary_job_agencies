@@ -21,8 +21,6 @@ public class Wynagrodzenie {
     @NonNull
     private boolean czyWyplacone;
 
-    private Integer idPracownikaAgencji;
-
     @ManyToOne()
     @JoinColumn(name = "idPracownikaAgencji", nullable = true)
     private PracownikAgencji pracownikAgencji;

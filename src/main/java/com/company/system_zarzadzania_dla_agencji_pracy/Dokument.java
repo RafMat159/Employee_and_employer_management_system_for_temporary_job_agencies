@@ -18,10 +18,6 @@ public class Dokument {
     @NonNull
     private String tresc;
 
-    private Integer idPracodawcy;
-
-    private Integer idPracownika;
-
     @ManyToOne()
     @JoinColumn(name = "idPracodawcy", nullable = true)
     private Pracodawca pracodawca;
