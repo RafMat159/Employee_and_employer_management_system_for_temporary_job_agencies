@@ -45,10 +45,4 @@ public class Pracodawca {
     @OneToMany(mappedBy = "pracodawca")
     private Set<Dokument> dokumenty;
 
-    @OneToMany(mappedBy = "pracodawca")
-    private Set<OpiniaOPracodawcy> opinieOPracodawcy;
-
-    @OneToMany(mappedBy = "pracodawca")
-    private Set<OpiniaOPracowniku> opinieOPracowniku;
-
 }

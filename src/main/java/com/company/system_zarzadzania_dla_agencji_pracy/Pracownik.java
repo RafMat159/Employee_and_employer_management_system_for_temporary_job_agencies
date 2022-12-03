@@ -49,12 +49,6 @@ public class Pracownik {
     @OneToMany(mappedBy = "pracownik")
     private Set<Dokument> dokumenty;
 
-    @OneToMany(mappedBy = "pracownik")
-    private Set<OpiniaOPracodawcy> opinieOPracodawcy;
-
-    @OneToMany(mappedBy = "pracownik")
-    private Set<OpiniaOPracowniku> opinieOPracowniku;
-
     @ManyToMany(mappedBy = "pracownicy")
     Set<Zlecenie> zlecenia;
 
