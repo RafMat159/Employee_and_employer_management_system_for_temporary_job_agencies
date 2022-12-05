@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
 import org.springframework.lang.NonNull;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "uzytkownik")
-public class Uzytkownik {
+public class User {
 
     //pola
     @Id
@@ -29,20 +29,20 @@ public class Uzytkownik {
     private Administrator administrator;
 
     @OneToOne(mappedBy = "uzytkownik")
-    private PracownikAgencji pracownikAgencji;
+    private AgencyEmployee pracownikAgencji;
 
     @OneToOne(mappedBy = "uzytkownik")
-    private Pracownik pracownik;
+    private Employee pracownik;
 
     @OneToOne(mappedBy = "uzytkownik")
-    private Pracodawca pracodawca;
+    private Employer pracodawca;
 
     //konstruktory
 
-    public Uzytkownik() {
+    public User() {
     }
 
-    public Uzytkownik(Integer idUzytkownika, @NonNull String haslo, @NonNull String mail, @NonNull String rola, Administrator administrator, PracownikAgencji pracownikAgencji, Pracownik pracownik, Pracodawca pracodawca) {
+    public User(Integer idUzytkownika, @NonNull String haslo, @NonNull String mail, @NonNull String rola, Administrator administrator, AgencyEmployee pracownikAgencji, Employee pracownik, Employer pracodawca) {
         this.idUzytkownika = idUzytkownika;
         this.haslo = haslo;
         this.mail = mail;
@@ -99,27 +99,27 @@ public class Uzytkownik {
         this.administrator = administrator;
     }
 
-    public PracownikAgencji getPracownikAgencji() {
+    public AgencyEmployee getPracownikAgencji() {
         return pracownikAgencji;
     }
 
-    public void setPracownikAgencji(PracownikAgencji pracownikAgencji) {
+    public void setPracownikAgencji(AgencyEmployee pracownikAgencji) {
         this.pracownikAgencji = pracownikAgencji;
     }
 
-    public Pracownik getPracownik() {
+    public Employee getPracownik() {
         return pracownik;
     }
 
-    public void setPracownik(Pracownik pracownik) {
+    public void setPracownik(Employee pracownik) {
         this.pracownik = pracownik;
     }
 
-    public Pracodawca getPracodawca() {
+    public Employer getPracodawca() {
         return pracodawca;
     }
 
-    public void setPracodawca(Pracodawca pracodawca) {
+    public void setPracodawca(Employer pracodawca) {
         this.pracodawca = pracodawca;
     }
 }

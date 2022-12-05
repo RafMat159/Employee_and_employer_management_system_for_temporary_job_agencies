@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
 import org.springframework.lang.NonNull;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "wynagrodzenie")
-public class Wynagrodzenie {
+public class Salary {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -24,10 +24,10 @@ public class Wynagrodzenie {
 
     @ManyToOne()
     @JoinColumn(name = "idPracownikaAgencji", nullable = true)
-    private PracownikAgencji pracownikAgencji;
+    private AgencyEmployee pracownikAgencji;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPracownika", referencedColumnName = "idPracownika")
-    private Pracownik pracownik;
+    private Employee pracownik;
 
 }

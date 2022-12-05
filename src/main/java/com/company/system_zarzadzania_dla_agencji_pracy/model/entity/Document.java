@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
 import org.springframework.lang.NonNull;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "dokument")
-public class Dokument {
+public class Document {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -21,11 +21,11 @@ public class Dokument {
 
     @ManyToOne()
     @JoinColumn(name = "idPracodawcy", nullable = true)
-    private Pracodawca pracodawca;
+    private Employer pracodawca;
 
     @ManyToOne()
     @JoinColumn(name = "idPracownika", nullable = true)
-    private Pracownik pracownik;
+    private Employee pracownik;
 
 
 }

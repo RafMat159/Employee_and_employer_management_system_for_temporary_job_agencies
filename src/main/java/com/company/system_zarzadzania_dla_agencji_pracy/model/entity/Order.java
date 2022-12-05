@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 import org.springframework.lang.NonNull;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "zlecenie")
-public class Zlecenie {
+public class Order {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -34,10 +34,10 @@ public class Zlecenie {
 
     @ManyToOne()
     @JoinColumn(name = "idPracodawcy", nullable = false)
-    private Pracodawca pracodawca;
+    private Employer pracodawca;
 
     @ManyToMany
     @JoinTable(name="zlecenie_pracownik",
     joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
-    Set<Pracownik> pracownicy;
+    Set<Employee> pracownicy;
 }

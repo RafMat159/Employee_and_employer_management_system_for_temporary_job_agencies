@@ -1,5 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
-
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 import org.springframework.lang.NonNull;
 
@@ -8,12 +7,13 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "administrator")
-public class Administrator {
+@Table(name="pracownikagencji")
+public class AgencyEmployee {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idAdministratora;
+    private Integer idPracownikaAgencji;
+
 
     @NonNull
     private String imie;
@@ -24,6 +24,7 @@ public class Administrator {
     @NonNull
     private String nrTelefonu;
 
+
     private String adresZamieszkania;
 
     @NonNull
@@ -32,18 +33,15 @@ public class Administrator {
     @NonNull
     private Date dataUrodzenia;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<PracownikAgencji> pracownicyAgencji;
+    @ManyToOne()
+    @JoinColumn(name = "idAdministratora", nullable = false)
+    private Administrator administrator;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<Pracownik> pracownicy;
-
-    @OneToMany(mappedBy = "administrator")
-    private Set<Pracodawca> pracodawcy;
-
+    @OneToMany(mappedBy = "pracownikAgencji")
+    private Set<Salary> wynagrodzenia;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-    private Uzytkownik uzytkownik;
+    private User uzytkownik;
 
 }

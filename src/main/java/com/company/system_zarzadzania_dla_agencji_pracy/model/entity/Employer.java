@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 import org.springframework.lang.NonNull;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "pracodawca")
-public class Pracodawca {
+public class Employer {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -33,16 +33,16 @@ public class Pracodawca {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-    private Uzytkownik uzytkownik;
+    private User uzytkownik;
 
     @ManyToOne()
     @JoinColumn(name = "idAdministratora", nullable = false)
     private Administrator administrator;
 
     @OneToMany(mappedBy = "pracodawca")
-    private Set<Zlecenie> zlecenia;
+    private Set<Order> zlecenia;
 
     @OneToMany(mappedBy = "pracodawca")
-    private Set<Dokument> dokumenty;
+    private Set<Document> dokumenty;
 
 }

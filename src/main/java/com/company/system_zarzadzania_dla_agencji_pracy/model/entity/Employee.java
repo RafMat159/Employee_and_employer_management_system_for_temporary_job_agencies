@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.model.encja;
+package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 import org.springframework.lang.NonNull;
 
@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "pracownicy")
-public class Pracownik {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -37,19 +37,19 @@ public class Pracownik {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-    private Uzytkownik uzytkownik;
+    private User uzytkownik;
 
     @ManyToOne()
     @JoinColumn(name = "idAdministratora", nullable = false)
     private Administrator administrator;
 
     @OneToOne(mappedBy = "pracownik")
-    private Wynagrodzenie wynagrodzenie;
+    private Salary wynagrodzenie;
     //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
     @OneToMany(mappedBy = "pracownik")
-    private Set<Dokument> dokumenty;
+    private Set<Document> dokumenty;
 
     @ManyToMany(mappedBy = "pracownicy")
-    Set<Zlecenie> zlecenia;
+    Set<Order> zlecenia;
 
 }

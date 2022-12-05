@@ -1,4 +1,4 @@
-package com.company.system_zarzadzania_dla_agencji_pracy.kontoler;
+package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.UserRegisterRQ;
 import org.springframework.stereotype.Controller;
