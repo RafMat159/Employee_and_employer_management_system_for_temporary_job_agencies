@@ -1,55 +1,49 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
-import org.springframework.lang.NonNull;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 import java.sql.Date;
-import java.util.Set;
 
 @Entity
-@Table(name = "pracownicy")
-public class Employee {
+@Table(name = "pracownik")
+@PrimaryKeyJoinColumn(name = "idUzytkownika")
+public class Employee extends User{
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idPracownika;
+    @Column(name = "imie")
+    private String name;
 
-    @NonNull
-    private String imie;
+    @Column(name = "nazwisko")
+    private String surname;
 
-    //@NonNull
-    private String nazwisko;
+    @Column(name = "nrTelefonu")
+    private String phoneNumber;
 
-    //@NonNull
-    private String nrTelefonu;
+    @Column(name = "adresZamieszkania")
+    private String address;
 
-
-    private String adresZamieszkania;
-
-    //@NonNull
+    @Column(name = "pesel")
     private String pesel;
 
-    @NonNull
-    private boolean statusStudenta;
+    @Column(name = "statusStudenta")
+    private boolean studentStatus;
 
-    @NonNull
-    private Date dataUrodzenia;
+    @Column(name = "dataUrodzenia")
+    private Date dateOfBirth;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-    private User uzytkownik;
 
-    @ManyToOne()
-    @JoinColumn(name = "idAdministratora", nullable = false)
-    private Administrator administrator;
-
-    @OneToOne(mappedBy = "pracownik")
-    private Salary wynagrodzenie;
-    //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
-    @OneToMany(mappedBy = "pracownik")
-    private Set<Document> dokumenty;
-
-    @ManyToMany(mappedBy = "pracownicy")
-    Set<Order> zlecenia;
+//    @ManyToOne()
+//    @JoinColumn(name = "idAdministratora", nullable = false)
+//    private Administrator administrator;
+//
+//    @OneToOne(mappedBy = "pracownik")
+//    private Salary wynagrodzenie;
+//    //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
+//    @OneToMany(mappedBy = "pracownik")
+//    private Set<Document> dokumenty;
+//
+//    @ManyToMany(mappedBy = "pracownicy")
+//    Set<Order> zlecenia;
 
 }

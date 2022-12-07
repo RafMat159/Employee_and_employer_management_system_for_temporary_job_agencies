@@ -1,49 +1,48 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
-import org.springframework.lang.NonNull;
-
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import java.sql.Date;
 
 @Entity
 @Table(name = "administrator")
-public class Administrator {
+@PrimaryKeyJoinColumn(name = "idUzytkownika")
+public class Administrator extends User{
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer idAdministratora;
 
-    @NonNull
-    private String imie;
+    @Column(name = "imie")
+    private String name;
 
-    @NonNull
-    private String nazwisko;
+    @Column(name = "nazwisko")
+    private String surname;
 
-    @NonNull
-    private String nrTelefonu;
+    @Column(name = "nrTelefonu")
+    private String phoneNumber;
 
-    private String adresZamieszkania;
+    @Column(name = "adresZamieszkania")
+    private String address;
 
-    @NonNull
+    @Column(name = "pesel")
     private String pesel;
 
-    @NonNull
-    private Date dataUrodzenia;
+    @Column(name = "dataUrodzenia")
+    private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<AgencyEmployee> pracownicyAgencji;
-
-    @OneToMany(mappedBy = "administrator")
-    private Set<Employee> pracownicy;
-
-    @OneToMany(mappedBy = "administrator")
-    private Set<Employer> pracodawcy;
-
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-    private User uzytkownik;
+//    @OneToMany(mappedBy = "administrator")
+//    private Set<AgencyEmployee> pracownicyAgencji;
+//
+//    @OneToMany(mappedBy = "administrator")
+//    private Set<Employee> pracownicy;
+//
+//    @OneToMany(mappedBy = "administrator")
+//    private Set<Employer> pracodawcy;
+//
+//
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
+//    private User uzytkownik;
 
 }

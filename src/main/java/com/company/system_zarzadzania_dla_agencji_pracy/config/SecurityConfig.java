@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -25,20 +24,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
-
+    @Override
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(requests -> requests
                 .mvcMatchers("/").permitAll()
-                .mvcMatchers("/img/", "/styles/").permitAll()
-                .mvcMatchers("/register", "/confirmation").permitAll()
-                .mvcMatchers("/secured").hasAnyRole("USER", "ADMIN")
+                .mvcMatchers("/img/**", "/styles/**").permitAll()
+                .mvcMatchers("/static/**").permitAll()
+                //.mvcMatchers("/register", "/confirmation").permitAll()
+                .mvcMatchers("/registration_step1").permitAll()
+                .mvcMatchers("/registration_step1/registration_step2").permitAll()
+                .mvcMatchers("/registration_step1/registration_step2/registration_step3_w").hasRole("PRACOWNIK") //?W takim razie po wpisaniu mail i password zostają wysłane dane do bazy
+//                .mvcMatchers("/secured").hasAnyRole("PRACOWNIK")
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         );
         http.formLogin(login -> login.loginPage("/login").permitAll());
         http.csrf().disable();
-        return http.getOrBuild();
     }
 
     @Override
@@ -46,12 +53,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 
-    //utworzuć klasę userCredentialsService, a w niej nadpisać metodę loadUserByUsername - zwrócić w niej zbildowanego użytkownika z
-    //wbudowanej klasy w springu
 }
