@@ -25,11 +25,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Transactional
-    public void addUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
+//    @Transactional
+//    public void addUser(User user){
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        userRepository.save(user);
+//    }
 
     @Transactional
     @Override

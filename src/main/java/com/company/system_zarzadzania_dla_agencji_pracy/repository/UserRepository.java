@@ -15,12 +15,13 @@ public interface UserRepository extends JpaRepository<User,Integer> {
      @Query("SELECT u from User u where u.mail = :mail")
      Optional<User> findUserByMail(@Param("mail") String mail);
 
+//     User addUser(User user);
 
-     //jeszcze nie uzywam
-     @Query("SELECT u from User u where u.role = :role")
-     List<User> findAllByRolesName(@Param("role")String role);
-
-     //jeszcze nie uzywam
-     @Query("SELECT u from User u where u.mail = :mail")
-     void deleteByMail(@Param("role") String mail);
+//     //jeszcze nie uzywam
+//     @Query("SELECT u from User u where u.role = :role")
+//     List<User> findAllByRolesName(@Param("role")String role);
+//
+//     //jeszcze nie uzywam
+//     @Query("SELECT u from User u where u.mail = :mail")
+//     void deleteByMail(@Param("role") String mail);
 }

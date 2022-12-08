@@ -1,12 +1,16 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@Setter
 @Table(name = "pracownik")
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 public class Employee extends User{
@@ -33,9 +37,9 @@ public class Employee extends User{
     private Date dateOfBirth;
 
 
-//    @ManyToOne()
-//    @JoinColumn(name = "idAdministratora", nullable = false)
-//    private Administrator administrator;
+    @ManyToOne()
+    @JoinColumn(name = "idAdministratora")
+    private Administrator administrator;
 //
 //    @OneToOne(mappedBy = "pracownik")
 //    private Salary wynagrodzenie;

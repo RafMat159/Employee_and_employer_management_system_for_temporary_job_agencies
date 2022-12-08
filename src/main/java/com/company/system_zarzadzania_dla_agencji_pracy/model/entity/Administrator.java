@@ -1,13 +1,18 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "administrator")
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 public class Administrator extends User{
@@ -34,11 +39,11 @@ public class Administrator extends User{
 //    @OneToMany(mappedBy = "administrator")
 //    private Set<AgencyEmployee> pracownicyAgencji;
 //
-//    @OneToMany(mappedBy = "administrator")
-//    private Set<Employee> pracownicy;
+    @OneToMany(mappedBy = "administrator")
+    private Set<Employee> pracownicy;
 //
-//    @OneToMany(mappedBy = "administrator")
-//    private Set<Employer> pracodawcy;
+    @OneToMany(mappedBy = "administrator")
+    private Set<Employer> pracodawcy;
 //
 //
 //    @OneToOne(cascade = CascadeType.ALL)

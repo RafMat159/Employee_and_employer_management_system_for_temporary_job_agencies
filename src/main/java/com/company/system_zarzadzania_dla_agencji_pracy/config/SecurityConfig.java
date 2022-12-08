@@ -36,15 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/img/**", "/styles/**").permitAll()
                 .mvcMatchers("/static/**").permitAll()
-                //.mvcMatchers("/register", "/confirmation").permitAll()
-                .mvcMatchers("/registration_step1").permitAll()
-                .mvcMatchers("/registration_step1/registration_step2").permitAll()
-                .mvcMatchers("/registration_step1/registration_step2/registration_step3_w").hasRole("PRACOWNIK") //?W takim razie po wpisaniu mail i password zostają wysłane dane do bazy
-//                .mvcMatchers("/secured").hasAnyRole("PRACOWNIK")
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
+                .mvcMatchers("/register/**").permitAll()
+                .mvcMatchers("/pracownik").hasAnyRole("PRACOWNIK")
+                .mvcMatchers("/pracownikagencji").hasAnyRole("PRACOWNIKAGENCJI")
+                .mvcMatchers("/pracodawca").hasAnyRole("PRACODAWCA")
+                .mvcMatchers("/administrator/**").hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
         );
         http.formLogin(login -> login.loginPage("/login").permitAll());
+        http.formLogin(login -> login.successForwardUrl("/home"));
         http.csrf().disable();
     }
 
