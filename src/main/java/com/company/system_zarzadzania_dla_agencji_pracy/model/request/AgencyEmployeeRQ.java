@@ -10,9 +10,9 @@ import java.sql.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeRQ {
+public class AgencyEmployeeRQ {
 
-    @Email(message = "Nie podano poprawnego formatu mail")
+    @Email(message = "Nie podano poprawnego formatu mail. Nazwa domeny powinna zawierać @agencja.com", regexp = "^[A-Za-z0-9._%+-]+@agencja\\.com$")
     @NotBlank
     private String mail;
 
@@ -31,14 +31,14 @@ public class EmployeeRQ {
     @NotBlank(message = "Nie podano numeru telefonu.")
     private String phoneNumber;
 
+
     private String address;
 
     @NotBlank(message = "Nie podano poprawnego peselu")
     private String pesel;
 
-    private boolean studentStatus;
-
     @NotNull
     @Past(message = "Nie podano daty z przeszlosci")
     private Date dateOfBirth;
+
 }

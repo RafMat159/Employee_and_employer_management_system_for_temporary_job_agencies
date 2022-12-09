@@ -20,12 +20,13 @@ public class LoginController {
     }
 
     @GetMapping( "/login")
-    public ModelAndView loginPage() {
-        User user = new User();
-        ModelAndView model = new ModelAndView();
-        model.addObject(user);
-        model.setViewName("login-form");
-        return model;
+    public String loginPage() {
+//        User user = new User();
+//        ModelAndView model = new ModelAndView();
+//        model.addObject(user);
+
+//        model.setViewName("login-form");
+        return "login-form";
     }
 
 //    @PostMapping("/login")

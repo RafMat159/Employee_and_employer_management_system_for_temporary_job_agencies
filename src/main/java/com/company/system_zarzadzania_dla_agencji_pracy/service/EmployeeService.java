@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -43,7 +42,7 @@ public class EmployeeService {
         employee.setPesel(employeeRQ.getPesel());
         employee.setDateOfBirth(employeeRQ.getDateOfBirth());
         employee.setAdministrator(administrator);
-        employee.setStudentStatus(true); //ręcznie na daną chwilę, bo nie wiem jak to zrobić w froncie
+        employee.setStudentStatus(employeeRQ.isStudentStatus());
 
         employee.setMail(employeeRQ.getMail());
         employee.setPassword(passwordEncoder.encode(employeeRQ.getPassword()));

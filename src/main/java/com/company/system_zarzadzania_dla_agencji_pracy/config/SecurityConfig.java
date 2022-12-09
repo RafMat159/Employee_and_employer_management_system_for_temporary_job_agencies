@@ -37,14 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/img/**", "/styles/**").permitAll()
                 .mvcMatchers("/static/**").permitAll()
                 .mvcMatchers("/register/**").permitAll()
-                .mvcMatchers("/pracownik").hasAnyRole("PRACOWNIK")
-                .mvcMatchers("/pracownikagencji").hasAnyRole("PRACOWNIKAGENCJI")
-                .mvcMatchers("/pracodawca").hasAnyRole("PRACODAWCA")
+                .mvcMatchers("/pracownik/**").hasAnyRole("PRACOWNIK")
+                .mvcMatchers("/pracownikagencji/**").hasAnyRole("PRACOWNIKAGENCJI")
+                .mvcMatchers("/pracodawca/**").hasAnyRole("PRACODAWCA")
                 .mvcMatchers("/administrator/**").hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
         );
-        http.formLogin(login -> login.loginPage("/login").permitAll());
-        http.formLogin(login -> login.successForwardUrl("/home"));
+        http.formLogin(login -> login.loginPage("/login")
+                .loginProcessingUrl("/authenticateUser")
+                .defaultSuccessUrl("/home",true)
+                .permitAll());
         http.csrf().disable();
     }
 
