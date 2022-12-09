@@ -17,7 +17,7 @@ public class EmployeeRQ {
     private String mail;
 
     @NotBlank(message = "Nie podano hasla")
-    @Size(min = 2)
+    @Size(min = 2, message = "Podaj dluzsze haslo.")
     private String password;
 
     @NotBlank(message = "Nie podano imienia")

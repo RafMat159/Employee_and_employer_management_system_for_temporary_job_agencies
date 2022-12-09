@@ -32,7 +32,7 @@ public class EmployeeService {
     public void addEmployee(EmployeeRQ employeeRQ,Administrator administrator) {    //dodanie pracownika po walidacji danych
         Employee employee = new Employee();
 
-        employee.setMail(employeeRQ.getMail());
+
         employee.setName(employeeRQ.getName());
         employee.setSurname(employeeRQ.getSurname());
         employee.setPhoneNumber(employeeRQ.getPhoneNumber());
@@ -44,8 +44,11 @@ public class EmployeeService {
         employee.setDateOfBirth(employeeRQ.getDateOfBirth());
         employee.setAdministrator(administrator);
         employee.setStudentStatus(true); //ręcznie na daną chwilę, bo nie wiem jak to zrobić w froncie
+
+        employee.setMail(employeeRQ.getMail());
         employee.setPassword(passwordEncoder.encode(employeeRQ.getPassword()));
         employee.setRole(Role.PRACOWNIK);
+
         employeeRepository.save(employee);
     }
 
