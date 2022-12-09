@@ -15,6 +15,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
      @Query("SELECT u from User u where u.mail = :mail")
      Optional<User> findUserByMail(@Param("mail") String mail);
 
+//     @Query("SELECT u from User u INNER JOIN ")
+//     Optional<User> findUserByPesel(@Param("pesel") String pesel);
+
 //     User addUser(User user);
 
 //     //jeszcze nie uzywam

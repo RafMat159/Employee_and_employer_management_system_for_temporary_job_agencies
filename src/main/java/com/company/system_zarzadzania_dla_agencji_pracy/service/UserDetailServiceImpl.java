@@ -17,12 +17,13 @@ import java.util.Optional;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    //private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserDetailServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserDetailServiceImpl(UserRepository userRepository//, PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        //this.passwordEncoder = passwordEncoder;
     }
 
 //    @Transactional

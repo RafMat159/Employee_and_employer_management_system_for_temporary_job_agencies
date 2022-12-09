@@ -17,7 +17,7 @@
         <h2>REJESTRACJA</h2>
         <h3>KROK 2</h3>
 
-        <form th:action="@{/register/pracownik}"  th:object="${employee}" method="post" class="form">
+        <form th:action="@{/register/pracownik}"  th:object="${employeeRQ}" method="post" class="form">
 
             <div class="inputs">
                 <p class = "registration">Adres e-mail *</p>
@@ -73,6 +73,10 @@
   
             <div class="form__field">
                 <input type="submit" value="Zarejestruj">
+            </div>
+
+            <div th:if="${existedUsername != null}" class="alert alert-danger notification" role="alert">
+                <p th:text="${existedUsername}"></p><p> Podana nazwa maila jest zajeta</p>
             </div>
 
         </form>
