@@ -48,7 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/authenticateUser")
                 .defaultSuccessUrl("/home",true)
                 .permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                .logout(LogoutConfigurer::permitAll)
+                .exceptionHandling(configurer->configurer.accessDeniedPage("/access-denied"));
         http.csrf().disable();
     }
 
