@@ -28,19 +28,34 @@ public class HomeController {
         return "index";
     }
 
+//    @GetMapping("/home")
+//    public ModelAndView welcomePage(Principal principal) {
+//
+//        Optional<User> userOpt = userRepository.findUserByMail(principal.getName());
+//        ModelAndView model = new ModelAndView();
+//        User user = userOpt.get();
+//        model.setViewName("home-page");
+//        return model;
+////        switch(user.getRole()){
+////            case PRACOWNIK :
+////                return "pracownik";
+////            case :
+////
+////        }
+//    }
     @GetMapping("/home")
-    public ModelAndView welcomePage(Principal principal) {
+    public String welcomePage(Principal principal) {
 
         Optional<User> userOpt = userRepository.findUserByMail(principal.getName());
-        ModelAndView model = new ModelAndView();
         User user = userOpt.get();
-        model.setViewName("home-page");
-        return model;
-//        switch(user.getRole()){
-//            case PRACOWNIK :
-//                return "pracownik";
-//            case :
-//
-//        }
+        switch(user.getRole()){
+            case ADMINISTRATOR :
+                return "administrator-home-page";
+            case PRACOWNIK:
+            case PRACODAWCA:
+            case PRACOWNIKAGENCJI:
+                return "home-page";
+        }
+        return "index";
     }
 }

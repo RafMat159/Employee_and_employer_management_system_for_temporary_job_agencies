@@ -1,6 +1,7 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "administrator")
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 public class Administrator extends User{
@@ -36,12 +38,12 @@ public class Administrator extends User{
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
-//    @OneToMany(mappedBy = "administrator")
-//    private Set<AgencyEmployee> pracownicyAgencji;
-//
+    @OneToMany(mappedBy = "administrator")
+    private Set<AgencyEmployee> pracownicyAgencji;
+
     @OneToMany(mappedBy = "administrator")
     private Set<Employee> pracownicy;
-//
+
     @OneToMany(mappedBy = "administrator")
     private Set<Employer> pracodawcy;
 //

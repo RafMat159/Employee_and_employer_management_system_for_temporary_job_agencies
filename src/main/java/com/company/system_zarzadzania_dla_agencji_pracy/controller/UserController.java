@@ -13,9 +13,5 @@ public class UserController {
     }
 
 
-//    @GetMapping
-//    public ModelAndView
-
-    //get & post
 
 }

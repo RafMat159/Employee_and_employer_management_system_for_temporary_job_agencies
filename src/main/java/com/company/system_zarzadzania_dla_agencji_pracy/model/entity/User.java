@@ -2,6 +2,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "uzytkownik")
 public class User {

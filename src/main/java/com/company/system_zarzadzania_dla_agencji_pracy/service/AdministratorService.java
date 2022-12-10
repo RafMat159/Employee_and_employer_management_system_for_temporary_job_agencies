@@ -1,26 +1,20 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.User;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.AdministratorRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
-
 @Service
-public class UserService {
+public class AdministratorService {
 
     private UserRepository userRepository;
+    private AdministratorRepository administratorRepository; //moze sie przyda
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public AdministratorService(UserRepository userRepository, AdministratorRepository administratorRepository) {
         this.userRepository = userRepository;
-    }
-
-    @Transactional
-    public List<User> findAllUsers(){
-        return userRepository.findAll();
+        this.administratorRepository = administratorRepository;
     }
 
 }

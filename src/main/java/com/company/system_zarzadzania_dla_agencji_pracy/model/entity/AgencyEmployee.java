@@ -1,5 +1,6 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name="pracownikagencji")
 public class AgencyEmployee extends User {
 

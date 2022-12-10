@@ -33,9 +33,15 @@
         </form>
 
         <p>Nie masz konta? <a th:href="@{/register}">Zarejestruj się</a></p>
+        <a th:href="@{/}">Powrót na strone startową</a>
 
     </div>
-
+    <div th:if="${param.logout!=null}" class="alert alert-success ml-2">
+        <i>Wylogowanie nastąpiło poprawnie.</i>
+    </div>
+    <div th:if="${param.error!=null}" class="alert alert-danger ml-2">
+        <i>Podano błędne dane.</i>
+    </div>
 </div>
 
 </body>

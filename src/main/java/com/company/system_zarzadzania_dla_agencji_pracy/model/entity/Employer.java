@@ -1,5 +1,6 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 @Table(name = "pracodawca")
