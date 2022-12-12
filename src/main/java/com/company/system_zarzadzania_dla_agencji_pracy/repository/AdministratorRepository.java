@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator,Integer> {
+
     @Query("SELECT a from Administrator a where a.mail = :mail")
     Optional<Administrator> findAdministratorByMail(@Param("mail") String mail);
 }

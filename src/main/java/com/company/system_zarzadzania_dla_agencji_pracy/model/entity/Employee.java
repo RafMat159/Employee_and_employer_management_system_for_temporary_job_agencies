@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -15,6 +17,7 @@ import java.sql.Date;
 @Setter
 @Table(name = "pracownik")
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
+@OnDelete(action = OnDeleteAction.CASCADE)
 public class Employee extends User{
 
     @Column(name = "imie")

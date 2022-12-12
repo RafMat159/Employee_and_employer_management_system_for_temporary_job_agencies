@@ -34,6 +34,7 @@
       <td th:text="${user.password}" />
       <td th:text="${user.role}" />
       <td>
+        <a th:href="@{/administrator/lista-uzytkownikow/{id}(id=${user.idUzytkownika})}" class="btn btn-danger ml-2">Usun</a>
       </td>
     </tr>
     </tbody>
