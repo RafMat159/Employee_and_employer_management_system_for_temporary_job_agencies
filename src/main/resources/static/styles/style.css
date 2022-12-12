@@ -18,7 +18,7 @@ body {
   align-items: center;
   display: flex;
   flex-direction: row;
-  
+
 }
 .align__item--start {
   align-self: flex-start;
@@ -46,11 +46,11 @@ input::placeholder {
   outline: 0;
   padding: 0.5rem 1rem;
   width: 100%;
- 
+
 }
 .form  {
   text-align: left;
-  
+
 }
 
 .grid {
@@ -63,8 +63,7 @@ h2 {
   font-size: 2.75rem;
   font-weight: 100;
   margin: 0 0 1rem;
-  text-transform: uppercase;
-  font: Helvetica Neue, sans-serif;
+  text-transform: uppercase;;
 }
 
 h3 {
@@ -72,7 +71,6 @@ h3 {
   text-transform: uppercase;
   margin: 0 0 1rem;
   font-weight: 100;
-  font: Helvetica Neue, sans-serif;
 }
 
 svg {
@@ -130,7 +128,7 @@ a {
   background-image: linear-gradient(160deg, #88d5ed 0%, #65e2ede6 100%);
   color: #fff;
   width: 100%;
-} 
+}
 
 /*Panel rejestracyjny - zmiany stylu */
 
@@ -144,10 +142,122 @@ a {
   margin-bottom: 0.5rem;
   width: min-content;
   margin-right: 2%;
-} 
+}
 
 .inputs input {
   text-align: left;
   float: left;
   margin-bottom: 0.5rem;
+}
+
+
+/* Strona główna */
+
+section{
+  color: rgb(23, 21, 21);
+  min-width: 100%;
+  min-height: 10rem;
+  margin: 0;
+  align-self: stretch;
+  clear: both;
+}
+
+.header {
+  background-color: #bdceef;
+  min-width: 100%;
+  max-height:max-content;
+  min-height: min-content;
+  height: 3rem;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.footer{
+  background-color:rgba(32, 44, 72, 0.951);
+  min-width: 100%;
+  max-height:max-content;
+  min-height: fit-content;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.start {
+  background-image: url("../img/start.jpg");
+  background-color: transparent;
+  min-width: 100%;
+  min-height: 50%;
+  max-height: 60%;
+  margin: 0;
+  clear: both;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  height: 70%;
+}
+
+img{
+  width: 100%;
+  height: 100%;
+  object-fit:cover;
+}
+
+
+.con {
+  background-color: #bdceef;
+  display: inline-block;
+  width: 20%;
+  height: fit-content;
+  position: relative;
+  top: -75px;
+  margin-left: 6%;
+  padding: 2%;
+  text-align: center;
+  box-sizing: content-box;
+  font-size: 1.2vmax;
+}
+
+.btn_start {
+  margin-right: 20px;
+  background-color: #eef2fb;
+  border-radius: 5%;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0.5rem 1rem;
+}
+
+.btn_start:hover {
+  background-color: #ffffff;
+  color: #aac1ef;
+}
+
+.conStart {
+  display: inline-block;
+  width: fit-content;
+  clear: both;
+  margin-left: 5%;
+  vertical-align: middle;
+  height: 3rem;
+  padding-top: 1%;
+}
+
+.conStartNav {
+  width: fit-content;
+  float: right;
+  clear: both;
+  vertical-align: middle;
+  padding-top: 0.5%;
+}
+
+.footer {
+  text-align: center;
+  color: #7e8ba3;
+}
+
+.hello{
+  width: fit-content;
+  float: right;
+  clear: both;
+  margin-right: 15%;
 }
