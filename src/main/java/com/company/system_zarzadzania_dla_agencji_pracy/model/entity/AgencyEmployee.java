@@ -38,12 +38,12 @@ public class AgencyEmployee extends User {
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
 //    @OneToMany(mappedBy = "pracownikAgencji")
-//    private Set<Salary> wynagrodzenia;
+//    private List<Salary> wynagrodzenia;
 //
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")

@@ -10,7 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -41,14 +41,14 @@ public class Administrator extends User{
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<AgencyEmployee> pracownicyAgencji;
+    @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
+    private List<AgencyEmployee> pracownicyAgencji;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<Employee> pracownicy;
+    @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
+    private List<Employee> pracownicy;
 
-    @OneToMany(mappedBy = "administrator")
-    private Set<Employer> pracodawcy;
+    @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
+    private List<Employer> pracodawcy;
 //
 //
 //    @OneToOne(cascade = CascadeType.ALL)

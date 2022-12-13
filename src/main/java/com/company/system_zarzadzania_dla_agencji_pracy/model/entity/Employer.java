@@ -38,14 +38,14 @@ public class Employer extends User{
     private Double currentCosts;
 //
 //
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
 //    @OneToMany(mappedBy = "pracodawca")
-//    private Set<Order> zlecenia;
+//    private List<Order> zlecenia;
 //
 //    @OneToMany(mappedBy = "pracodawca")
-//    private Set<Document> dokumenty;
+//    private List<Document> dokumenty;
 //
 }

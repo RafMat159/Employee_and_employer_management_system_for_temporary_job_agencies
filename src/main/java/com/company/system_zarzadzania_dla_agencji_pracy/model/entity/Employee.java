@@ -41,8 +41,11 @@ public class Employee extends User{
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
+    @Column(name = "dostepnosc")
+    private boolean availability;
 
-    @ManyToOne()
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
@@ -50,9 +53,9 @@ public class Employee extends User{
 //    private Salary wynagrodzenie;
 //    //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
 //    @OneToMany(mappedBy = "pracownik")
-//    private Set<Document> dokumenty;
+//    private List<Document> dokumenty;
 //
 //    @ManyToMany(mappedBy = "pracownicy")
-//    Set<Order> zlecenia;
+//    List<Order> zlecenia;
 
 }

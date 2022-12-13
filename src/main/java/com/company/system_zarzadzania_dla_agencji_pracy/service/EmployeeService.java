@@ -43,6 +43,7 @@ public class EmployeeService {
         employee.setDateOfBirth(employeeRQ.getDateOfBirth());
         employee.setAdministrator(administrator);
         employee.setStudentStatus(employeeRQ.isStudentStatus());
+        employee.setAvailability(false);                                //domyślnie dostępność pracownika jest ustawiona na false, może to zmienić poprzez naciśnięcie przycisku "Dostępny"
 
         employee.setMail(employeeRQ.getMail());
         employee.setPassword(passwordEncoder.encode(employeeRQ.getPassword()));

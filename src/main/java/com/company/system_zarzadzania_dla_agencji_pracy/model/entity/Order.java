@@ -39,5 +39,5 @@
 //    @ManyToMany
 //    @JoinTable(name="zlecenie_pracownik",
 //    joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
-//    Set<Employee> pracownicy;
+//    List<Employee> pracownicy;
 //}
