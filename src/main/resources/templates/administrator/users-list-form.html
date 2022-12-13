@@ -30,17 +30,18 @@
     </thead>
     <tbody>
     <tr th:each="user: ${users}">
-      <td th:text="${user.mail}" />
-      <td th:text="${user.password}" />
-      <td th:text="${user.role}" />
-      <td>
-        <a th:href="@{/administrator/lista-uzytkownikow/{id}(id=${user.idUzytkownika})}" class="btn btn-danger ml-2">Usun</a>
-      </td>
+      <div th:if = "${user.role.name() != 'ADMINISTRATOR'}">
+        <td th:text="${user.mail}" />
+        <td th:text="${user.password}" />
+        <td th:text="${user.role}" />
+        <td>
+          <a  th:href="@{/administrator/lista-uzytkownikow/{id}(id=${user.idUzytkownika})}" class="btn btn-danger ml-2">Usun</a>
+        </td>
+      </div>
     </tr>
     </tbody>
-
   </table>
-
+  <a th:href= "@{/home}">Powrót na stronę główną</a></p>
 </div>
 </body>
 

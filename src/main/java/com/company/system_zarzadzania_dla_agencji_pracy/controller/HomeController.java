@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -50,7 +49,7 @@ public class HomeController {
         User user = userOpt.get();
         switch(user.getRole()){
             case ADMINISTRATOR :
-                return "administrator-home-page";
+                return "administrator/administrator-home-page";
             case PRACOWNIK:
             case PRACODAWCA:
             case PRACOWNIKAGENCJI:

@@ -66,7 +66,7 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(employeeRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu
+        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
             model.addAttribute("existedUsername",mail);
             return "register-employee";
@@ -98,7 +98,7 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(employerRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu
+        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
             model.addAttribute("existedUsername",mail);
             return "register-employer";
@@ -131,7 +131,7 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(agencyEmployeeRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu
+        if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
             model.addAttribute("existedUsername",mail);
             return "register-agencyemployee";

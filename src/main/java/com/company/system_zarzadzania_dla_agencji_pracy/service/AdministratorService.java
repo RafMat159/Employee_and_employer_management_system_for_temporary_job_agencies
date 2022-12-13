@@ -1,5 +1,6 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.User;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.AdministratorRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdministratorService {
@@ -22,12 +24,23 @@ public class AdministratorService {
     }
 
     @Transactional
-    public List<User> findAllUsers(){
+    public List<User> findAllUsers() {
         return userRepository.findAll();
     }
 
     @Transactional
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Transactional
+    public Optional<Administrator> checkIfAdministratorIsPresent(String mail) {
+        return administratorRepository.findAdministratorByMail(mail);
+    }
+
+    @Transactional
+    public boolean checkIfUserIsPresent(String enteredMail) {
+        Optional<User> userOpt = userRepository.findUserByMail(enteredMail);
+        return userOpt.isPresent();
     }
 }
