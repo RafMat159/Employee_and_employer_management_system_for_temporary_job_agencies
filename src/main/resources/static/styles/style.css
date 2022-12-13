@@ -63,7 +63,7 @@ h2 {
   font-size: 2.75rem;
   font-weight: 100;
   margin: 0 0 1rem;
-  text-transform: uppercase;;
+  text-transform: uppercase;
 }
 
 h3 {
@@ -81,6 +81,8 @@ svg {
 
 a {
   color: #7e8ba3;
+  text-decoration: none;
+  scroll-behavior: smooth;
 }
 
 /*Logowanie/Rejestracja */
@@ -105,7 +107,6 @@ a {
 .register input[type=submit] {
   background-image: linear-gradient(160deg, #41cdf8 0%, #3ce2e8e6 100%);
   color: #fff;
-  margin-bottom: 6rem;
   width: 100%;
   margin-top: 1rem;
 }
@@ -113,7 +114,6 @@ a {
 .register input[type=submit]:hover {
   background-image: linear-gradient(160deg, #88d5ed 0%, #65e2ede6 100%);
   color: #fff;
-  margin-bottom: 6rem;
   width: 100%;
 }
 
@@ -172,8 +172,6 @@ a {
   font: 300 1rem/1.5 Helvetica Neue, sans-serif;
 
 }
-
-
 /* Strona główna */
 
 section{
@@ -283,4 +281,20 @@ img{
   float: right;
   clear: both;
   margin-right: 15%;
+}
+
+.kontakt {
+  width: 85%;
+  height: 300px;
+  margin-left: 6%;
+  padding: 2%;
+  background-color: #bdceef;
+  scroll-behavior: smooth;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.small {
+  width: 33%;
+  float: left;
 }
