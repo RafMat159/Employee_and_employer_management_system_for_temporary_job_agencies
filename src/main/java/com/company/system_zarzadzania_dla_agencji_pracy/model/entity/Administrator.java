@@ -42,13 +42,14 @@ public class Administrator extends User{
     private Date dateOfBirth;
 
     @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
-    private List<AgencyEmployee> pracownicyAgencji;
+    private List<AgencyEmployee> agencyEmployees;
 
     @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
-    private List<Employee> pracownicy;
+    private List<Employee> employees;
 
-    @OneToMany(mappedBy = "administrator",fetch = FetchType.LAZY)
-    private List<Employer> pracodawcy;
+    @OneToMany(mappedBy = "administrator",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Employer> employers;
 //
 //
 //    @OneToOne(cascade = CascadeType.ALL)

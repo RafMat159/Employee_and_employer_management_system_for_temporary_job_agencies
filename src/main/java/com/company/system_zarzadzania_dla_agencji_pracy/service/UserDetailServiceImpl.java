@@ -17,20 +17,11 @@ import java.util.Optional;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     private UserRepository userRepository;
-    //private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserDetailServiceImpl(UserRepository userRepository//, PasswordEncoder passwordEncoder
-    ) {
+    public UserDetailServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        //this.passwordEncoder = passwordEncoder;
     }
-
-//    @Transactional
-//    public void addUser(User user){
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userRepository.save(user);
-//    }
 
     @Transactional
     @Override

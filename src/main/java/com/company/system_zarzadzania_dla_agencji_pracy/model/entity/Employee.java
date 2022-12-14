@@ -45,7 +45,7 @@ public class Employee extends User{
     private boolean availability;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //

@@ -40,6 +40,11 @@ public class AdministratorController {
         this.agencyEmployeeService = agencyEmployeeService;
     }
 
+    @GetMapping("/home")
+    public String getHomePage(){
+        return "administrator/administrator-home-page";
+    }
+
 
     @GetMapping("/lista-uzytkownikow")
     public String findAllUsers(Model model){

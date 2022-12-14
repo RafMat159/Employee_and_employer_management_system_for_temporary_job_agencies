@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AdministratorRepository extends JpaRepository<Administrator,Integer> {
 
-    @Query("SELECT a from Administrator a where a.mail = :mail")
+    @Query("SELECT a FROM Administrator a LEFT JOIN FETCH a.agencyEmployees pa WHERE a.mail = :mail")
     Optional<Administrator> findAdministratorByMail(@Param("mail") String mail);
 }

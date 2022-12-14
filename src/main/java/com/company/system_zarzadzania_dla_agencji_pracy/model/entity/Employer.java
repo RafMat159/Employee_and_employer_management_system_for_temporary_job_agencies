@@ -38,7 +38,7 @@ public class Employer extends User{
     private Double currentCosts;
 //
 //
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
