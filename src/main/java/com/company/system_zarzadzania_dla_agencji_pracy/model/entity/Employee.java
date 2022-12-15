@@ -42,8 +42,6 @@ public class Employee extends User{
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
-    @Column(name = "dostepnosc")
-    private boolean availability;
 
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
