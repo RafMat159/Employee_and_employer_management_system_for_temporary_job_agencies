@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <h1>Nice to see you</h1>
+
+<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}">Dodaj zlecenie</a></div>
 
 <a th:href="@{/logout}">Wyloguj się</a></p>
 </body>

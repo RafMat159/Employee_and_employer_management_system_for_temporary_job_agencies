@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Dodaj Zlecenie</title>
+</head>
+<body>
+<div align="center">
+    <h1>Dodaj Zlecenie</h1>
+    <form th:action="@{/pracodawca/dodaj-zlecenie}" method="post" th:object="${orderRQ}">
+        <label>Data wykonania:</label>
+        <input type="date" th:field="*{executionDate}" autofocus required/><br/>
+
+        <label>Miejsce wykonania zlecenia:</label>
+        <input type="text" th:field="*{performancePlace}" /><br/>
+
+        <label>Charakter pracy:</label>
+        <input type="text" th:field="*{workNature}" /><br/>
+
+        <label>Godziny pracy</label>
+        <input type="text" th:field="*{workingHours}" /><br/>
+
+        <label>Stawka godzinowa</label>
+        <input type="number" step="0.01" th:field="*{hourlyRate}" /><br/>
+
+        <label>Ilo?? miejsc</label>
+        <input type="number" th:field="*{vacanciesNumber}" /><br/>
+
+        <button type="submit">Dodaj zlecenie</button>
+        <div>
+            <span th:if="${#fields.hasErrors('executionDate')}" th:errors="*{executionDate}"></span>
+        </div>
+        <div>
+            <span th:if="${#fields.hasErrors('performancePlace')}" th:errors="*{performancePlace}"></span>
+        </div>
+        <div>
+            <span th:if="${#fields.hasErrors('workNature')}" th:errors="*{workNature}"></span>
+        </div>
+        <div>
+            <span th:if="${#fields.hasErrors('workingHours')}" th:errors="*{workingHours}"></span>
+        </div>
+        <div>
+            <span th:if="${#fields.hasErrors('hourlyRate')}" th:errors="*{hourlyRate}"></span>
+        </div>
+        <div>
+            <span th:if="${#fields.hasErrors('vacanciesNumber')}" th:errors="*{vacanciesNumber}"></span>
+        </div>
+    </form>
+
+
+
+</div>
+</body>
+</html>

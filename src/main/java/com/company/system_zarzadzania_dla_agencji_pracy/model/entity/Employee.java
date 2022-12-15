@@ -51,7 +51,7 @@ public class Employee extends User{
 //
 //    @OneToOne(mappedBy = "pracownik")
 //    private Salary wynagrodzenie;
-//    //TODO CZY TUTAJ SIE DA JAKOS OKRESLIC NULL LUB NOT NULL
+
 //    @OneToMany(mappedBy = "pracownik")
 //    private List<Document> dokumenty;
 //

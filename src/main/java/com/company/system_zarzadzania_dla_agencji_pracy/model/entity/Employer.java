@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -42,8 +43,9 @@ public class Employer extends User{
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
-//    @OneToMany(mappedBy = "pracodawca")
-//    private List<Order> zlecenia;
+    @OneToMany(mappedBy = "pracodawca",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Order> zlecenia;
 //
 //    @OneToMany(mappedBy = "pracodawca")
 //    private List<Document> dokumenty;

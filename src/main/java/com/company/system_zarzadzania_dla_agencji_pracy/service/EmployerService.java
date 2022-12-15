@@ -2,27 +2,33 @@ package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployerRQ;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepository;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class EmployerService {
 
     PasswordEncoder passwordEncoder;
     EmployerRepository employerRepository;
+    OrderRepository orderRepository;
 
     @Autowired
-    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository) {
+    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository) {
         this.passwordEncoder = passwordEncoder;
         this.employerRepository = employerRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Transactional
@@ -45,6 +51,29 @@ public class EmployerService {
         employer.setRole(Role.PRACODAWCA);
 
         employerRepository.save(employer);
+    }
+
+    @Transactional
+    public Optional<Employer> checkIfEmployerIsPresent(String mail) {
+        return employerRepository.findEmployerByMail(mail);
+    }
+
+    @Transactional
+    public void addNewOrder(OrderRQ orderRQ, Employer employer){
+        Order order = new Order();
+        Date date = Date.valueOf(LocalDate.now());          //ustawienie biezacej daty
+        order.setExecutionDate(orderRQ.getExecutionDate());
+        order.setAvailabilityDate(date);
+        order.setPerformancePlace(orderRQ.getPerformancePlace());
+        order.setWorkNature(orderRQ.getWorkNature());
+        order.setWorkingHours(orderRQ.getWorkingHours());
+        order.setHourlyRate(orderRQ.getHourlyRate());
+        order.setVacanciesNumber(orderRQ.getVacanciesNumber());
+//        order.setConfirmedEmployer(false);
+//        order.setConfirmedEmployee(false);
+        order.setPracodawca(employer);
+
+        orderRepository.save(order);
     }
 
 }
