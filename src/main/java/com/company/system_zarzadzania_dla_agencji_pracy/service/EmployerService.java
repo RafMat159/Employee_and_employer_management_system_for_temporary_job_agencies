@@ -69,8 +69,8 @@ public class EmployerService {
         order.setWorkingHours(orderRQ.getWorkingHours());
         order.setHourlyRate(orderRQ.getHourlyRate());
         order.setVacanciesNumber(orderRQ.getVacanciesNumber());
-//        order.setConfirmedEmployer(false);
-//        order.setConfirmedEmployee(false);
+        order.setConfirmedEmployer(null);
+        order.setConfirmedEmployee(null);
         order.setPracodawca(employer);
 
         orderRepository.save(order);

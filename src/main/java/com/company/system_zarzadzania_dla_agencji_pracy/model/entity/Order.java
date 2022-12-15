@@ -44,10 +44,10 @@ public class Order {
     private Integer vacanciesNumber;
 
     @Column(name = "ZatwierdzonePracodawca")
-    private boolean  confirmedEmployer;
+    private Boolean  confirmedEmployer;
 
     @Column(name = "ZatwierdzonePracownik")
-    private boolean  confirmedEmployee;
+    private Boolean  confirmedEmployee;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idPracodawcy")
