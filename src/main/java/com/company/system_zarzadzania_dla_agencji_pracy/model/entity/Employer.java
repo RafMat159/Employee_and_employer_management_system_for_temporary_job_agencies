@@ -37,17 +37,19 @@ public class Employer extends User{
 
     @Column(name = "biezaceKoszty")
     private Double currentCosts;
-//
-//
+
+
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
-//
-    @OneToMany(mappedBy = "pracodawca",cascade = CascadeType.ALL,
+
+    @OneToMany(mappedBy = "employer",cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Order> zlecenia;
-//
-//    @OneToMany(mappedBy = "pracodawca")
-//    private List<Document> dokumenty;
-//
+    private List<Order> orders;
+
+    @OneToMany(mappedBy = "employer",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Document> documents;
+
 }

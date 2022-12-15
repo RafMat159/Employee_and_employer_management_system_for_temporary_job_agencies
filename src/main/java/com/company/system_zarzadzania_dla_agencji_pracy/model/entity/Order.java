@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -51,7 +52,7 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idPracodawcy")
-    private Employer pracodawca;
+    private Employer employer;
 
 //    @ManyToMany
 //    @JoinTable(name="zlecenie_pracownik",

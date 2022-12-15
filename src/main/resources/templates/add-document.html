@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Nowy dokument</title>
+</head>
+<body>
+<div align="center">
+    <h1>Nowy dokument</h1>
+    <form action="#" th:action="@{/pracodawca/dodaj-dokument}" method="post" th:object="${documentRQ}">
+        <label>Typ dokumentu(tytu?):</label>
+        <input type="text" th:field="*{documentType}" /><br/>
+
+        <label>Tre??:</label>
+        <textarea rows="5" cols="25" th:field="*{content}"></textarea>
+        <br/>
+
+        <button type="submit">Dodaj</button>
+    </form>
+</div>
+</body>
+</html>

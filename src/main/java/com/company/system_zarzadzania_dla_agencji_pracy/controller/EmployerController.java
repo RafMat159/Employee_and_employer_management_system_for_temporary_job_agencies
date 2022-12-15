@@ -2,6 +2,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
@@ -61,5 +62,31 @@ public class EmployerController {
         return "employer/add-order";
     }
 
+
+
+    @GetMapping("/dodaj-dokument-form")
+    public String getDocumentForm(Model model){
+        DocumentRQ documentRQ = new DocumentRQ();
+        model.addAttribute("documentRQ",documentRQ);
+        return "add-document";
+    }
+
+    @PostMapping("/dodaj-dokument")
+    public String addNewOrder(@Valid @ModelAttribute("documentRQ") DocumentRQ documentRQ, BindingResult bindingResult, Model model, Principal principal){
+
+        if(bindingResult.hasErrors()){
+            return "add-document";
+        }
+
+        Optional<Employer> employerOpt = employerService.checkIfEmployerIsPresent(principal.getName());
+
+        if(employerOpt.isPresent()){               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
+            Employer employer = employerOpt.get();
+            employerService.addNewDocumentEmployer(documentRQ,employer);
+            return "redirect:/pracodawca/dodaj-dokument-form";
+        }
+
+        return "add-document";
+    }
 
 }

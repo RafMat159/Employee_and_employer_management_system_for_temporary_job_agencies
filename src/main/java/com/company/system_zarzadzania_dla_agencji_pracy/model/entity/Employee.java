@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,8 +53,9 @@ public class Employee extends User{
 //    @OneToOne(mappedBy = "pracownik")
 //    private Salary wynagrodzenie;
 
-//    @OneToMany(mappedBy = "pracownik")
-//    private List<Document> dokumenty;
+    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Document> documents;
 //
 //    @ManyToMany(mappedBy = "pracownicy")
 //    List<Order> zlecenia;

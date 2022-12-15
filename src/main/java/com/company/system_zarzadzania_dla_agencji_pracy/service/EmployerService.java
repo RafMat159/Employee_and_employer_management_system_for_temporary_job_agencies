@@ -2,10 +2,13 @@ package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployerRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.DocumentRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +26,14 @@ public class EmployerService {
     PasswordEncoder passwordEncoder;
     EmployerRepository employerRepository;
     OrderRepository orderRepository;
+    DocumentRepository documentRepository;
 
     @Autowired
-    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository) {
+    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository, DocumentRepository documentRepository) {
         this.passwordEncoder = passwordEncoder;
         this.employerRepository = employerRepository;
         this.orderRepository = orderRepository;
+        this.documentRepository = documentRepository;
     }
 
     @Transactional
@@ -71,9 +76,20 @@ public class EmployerService {
         order.setVacanciesNumber(orderRQ.getVacanciesNumber());
         order.setConfirmedEmployer(null);
         order.setConfirmedEmployee(null);
-        order.setPracodawca(employer);
+        order.setEmployer(employer);
 
         orderRepository.save(order);
     }
+
+    @Transactional
+    public void addNewDocumentEmployer(DocumentRQ documentRQ, Employer employer){
+        Document document = new Document();
+        document.setDocumentType(documentRQ.getDocumentType());
+        document.setContent(documentRQ.getContent());
+        document.setEmployer(employer);
+        document.setEmployee(null);
+        documentRepository.save(document);
+    }
+
 
 }
