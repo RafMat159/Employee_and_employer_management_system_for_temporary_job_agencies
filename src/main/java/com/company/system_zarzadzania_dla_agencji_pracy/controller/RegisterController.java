@@ -68,7 +68,7 @@ public class RegisterController {
 
         if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
-            model.addAttribute("existedUsername",mail);
+            model.addAttribute("existingUsername",mail);
             return "register-employee";
         }
 
@@ -100,7 +100,7 @@ public class RegisterController {
 
         if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
-            model.addAttribute("existedUsername",mail);
+            model.addAttribute("existingUsername",mail);
             return "register-employer";
         }
 
@@ -133,7 +133,7 @@ public class RegisterController {
 
         if(userOpt.isPresent()){                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
             String mail = userOpt.get().getMail();
-            model.addAttribute("existedUsername",mail);
+            model.addAttribute("existingUsername",mail);
             return "register-agencyemployee";
         }
 

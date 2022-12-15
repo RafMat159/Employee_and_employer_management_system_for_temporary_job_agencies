@@ -81,8 +81,8 @@
         <input type="submit" value="Dodaj pracownika agencji">
       </div>
 
-      <div th:if="${existedUsername != null}" class="alert alert-danger notification" role="alert">
-        <p th:text="${existedUsername}"></p><p> Podana nazwa maila jest zajeta</p>
+      <div th:if="${existingUsername != null}" class="alert alert-danger notification" role="alert">
+        <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajeta</p>
       </div>
       <div>
         <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>

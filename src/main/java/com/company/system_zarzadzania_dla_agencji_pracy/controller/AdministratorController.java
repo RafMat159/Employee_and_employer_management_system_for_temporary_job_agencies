@@ -79,7 +79,7 @@ public class AdministratorController {
             return "administrator/user-creation-page";
         }
         if(administratorService.checkIfUserIsPresent(employeeRQ.getMail())) {
-            model.addAttribute("existedUsername", employeeRQ.getMail());
+            model.addAttribute("existingUsername", employeeRQ.getMail());
             return "administrator/employee-creation-page";
         }
 
@@ -108,7 +108,7 @@ public class AdministratorController {
             return "administrator/employer-creation-page";
         }
         if(administratorService.checkIfUserIsPresent(employerRQ.getMail())) {
-            model.addAttribute("existedUsername", employerRQ.getMail());
+            model.addAttribute("existingUsername", employerRQ.getMail());
             return "administrator/employer-creation-page";
         }
 
@@ -138,7 +138,7 @@ public class AdministratorController {
             return "administrator/agency-employee-creation-page";
         }
         if(administratorService.checkIfUserIsPresent(agencyEmployeeRQ.getMail())) {
-            model.addAttribute("existedUsername", agencyEmployeeRQ.getMail());
+            model.addAttribute("existingUsername", agencyEmployeeRQ.getMail());
             return "administrator/agency-employee-creation-page";
         }
 
