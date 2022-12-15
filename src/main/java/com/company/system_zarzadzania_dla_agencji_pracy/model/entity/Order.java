@@ -44,11 +44,6 @@ public class Order {
     @Column(name = "iloscMiejsc")
     private Integer vacanciesNumber;
 
-    @Column(name = "ZatwierdzonePracodawca")
-    private Boolean  confirmedEmployer;
-
-    @Column(name = "ZatwierdzonePracownik")
-    private Boolean  confirmedEmployee;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idPracodawcy")

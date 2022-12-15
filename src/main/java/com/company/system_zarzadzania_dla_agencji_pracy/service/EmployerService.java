@@ -59,7 +59,7 @@ public class EmployerService {
     }
 
     @Transactional
-    public Optional<Employer> checkIfEmployerIsPresent(String mail) {
+    public Optional<Employer> getEmployer(String mail) {
         return employerRepository.findEmployerByMail(mail);
     }
 
@@ -74,8 +74,6 @@ public class EmployerService {
         order.setWorkingHours(orderRQ.getWorkingHours());
         order.setHourlyRate(orderRQ.getHourlyRate());
         order.setVacanciesNumber(orderRQ.getVacanciesNumber());
-        order.setConfirmedEmployer(null);
-        order.setConfirmedEmployee(null);
         order.setEmployer(employer);
 
         orderRepository.save(order);
@@ -91,5 +89,10 @@ public class EmployerService {
         documentRepository.save(document);
     }
 
+
+    @Transactional
+    public Optional<Document> getDocument(Integer idDokumentu){
+        return documentRepository.findById(idDokumentu);
+    }
 
 }

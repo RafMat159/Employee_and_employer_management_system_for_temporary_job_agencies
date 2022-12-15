@@ -9,6 +9,7 @@
 
 <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}">Dodaj zlecenie</a></div>
 <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-dokument-form}">Dodaj dokument</a></div>
+<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}">Lista dokumentów</a></div>
 <!--<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}">Dodaj zlecenie</a></div>-->
 
 <a th:href="@{/logout}">Wyloguj się</a></p>
