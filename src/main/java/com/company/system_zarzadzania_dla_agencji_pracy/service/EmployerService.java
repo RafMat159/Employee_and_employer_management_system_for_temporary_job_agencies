@@ -95,4 +95,7 @@ public class EmployerService {
         return documentRepository.findById(idDokumentu);
     }
 
+    public void deleteDocument(Integer id) {
+        documentRepository.deleteById(id);
+    }
 }

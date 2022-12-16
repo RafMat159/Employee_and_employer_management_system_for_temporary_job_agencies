@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <title>Dodaj Zlecenie</title>
@@ -44,6 +44,11 @@
         </div>
         <div>
             <span th:if="${#fields.hasErrors('vacanciesNumber')}" th:errors="*{vacanciesNumber}"></span>
+        </div>
+
+
+        <div>
+            <a th:href= "@{/pracodawca/home}">Powrót na stron? g?ówn?</a>
         </div>
     </form>
 

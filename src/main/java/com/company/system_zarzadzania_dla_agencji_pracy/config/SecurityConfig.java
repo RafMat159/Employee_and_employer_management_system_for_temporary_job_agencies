@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/pracownikagencji/**").hasAnyRole("PRACOWNIKAGENCJI")
                 .mvcMatchers("/pracodawca/**").hasAnyRole("PRACODAWCA")
                 .mvcMatchers("/administrator/**").hasRole("ADMINISTRATOR")
+                .mvcMatchers("/dodaj-dokument-form").hasAnyRole("PRACODAWCA","PRACOWNIK")
                 .anyRequest().authenticated()
         );
         http.formLogin(login -> login.loginPage("/login")

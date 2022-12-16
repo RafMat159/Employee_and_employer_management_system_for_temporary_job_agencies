@@ -29,7 +29,7 @@ public class EmployerController {
 
 
     @GetMapping("/home")
-    public String getHomePage(){
+    public String getHomePageEmployer(){
         return "home-page";
     }
 
@@ -70,12 +70,11 @@ public class EmployerController {
             model.addAttribute("documents",documents);
             return "documents-list";
         }
-
         return "home-page";
     }
 
     @GetMapping("/lista-dokumentow/{id}")
-    public String getDocumentDetails(@PathVariable("id") Integer idDokumentu,  Model model){
+    public String getDocumentDetailsEmployer(@PathVariable("id") Integer idDokumentu,  Model model){
 
         Optional<Document> documentOpt = employerService.getDocument(idDokumentu);
 
@@ -85,21 +84,20 @@ public class EmployerController {
             model.addAttribute("documentType",document.getDocumentType());
             return "document-details";
         }
-
         return "documents-list";
     }
 
 
 
-    @GetMapping("/dodaj-dokument-form")
-    public String getDocumentForm(Model model){
-        DocumentRQ documentRQ = new DocumentRQ();
-        model.addAttribute("documentRQ",documentRQ);
-        return "add-document";
-    }
+//    @GetMapping("/dodaj-dokument-form")
+//    public String getDocumentForm(Model model){
+//        DocumentRQ documentRQ = new DocumentRQ();
+//        model.addAttribute("documentRQ",documentRQ);
+//        return "add-document";
+//    }
 
     @PostMapping("/dodaj-dokument")
-    public String addNewOrder(@Valid @ModelAttribute("documentRQ") DocumentRQ documentRQ, BindingResult bindingResult, Model model, Principal principal){
+    public String addNewOrderEmployer(@Valid @ModelAttribute("documentRQ") DocumentRQ documentRQ, BindingResult bindingResult, Model model, Principal principal){
 
         if(bindingResult.hasErrors()){
             return "add-document";
@@ -110,10 +108,16 @@ public class EmployerController {
         if(employerOpt.isPresent()){               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
             Employer employer = employerOpt.get();
             employerService.addNewDocumentEmployer(documentRQ,employer);
-            return "redirect:/pracodawca/dodaj-dokument-form";
+            return "redirect:/dodaj-dokument-form";
         }
-
         return "add-document";
+    }
+
+
+    @GetMapping("/lista-dokumentow/usun/{id}")
+    public String deleteDocumentEmployer(@PathVariable("id") Integer id){
+        employerService.deleteDocument(id);
+        return "redirect:/pracodawca/lista-dokumentow";
     }
 
 }

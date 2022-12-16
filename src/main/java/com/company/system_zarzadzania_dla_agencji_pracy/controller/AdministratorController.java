@@ -41,7 +41,7 @@ public class AdministratorController {
     }
 
     @GetMapping("/home")
-    public String getHomePage(){
+    public String getHomePageAdministrator(){
         return "administrator/administrator-home-page";
     }
 
