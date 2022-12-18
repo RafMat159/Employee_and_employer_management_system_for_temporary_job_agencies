@@ -20,9 +20,11 @@ body {
   flex-direction: row;
 
 }
+
 .align__item--start {
   align-self: flex-start;
 }
+
 .align__item--end {
   align-self: flex-end;
 }
@@ -35,6 +37,7 @@ input {
   border: 0;
   font: inherit;
 }
+
 input::placeholder {
   color: #7e8ba3;
 }
@@ -42,13 +45,15 @@ input::placeholder {
 .form__field {
   margin-bottom: 1rem;
 }
+
 .form input {
   outline: 0;
   padding: 0.5rem 1rem;
   width: 100%;
 
 }
-.form  {
+
+.form {
   text-align: left;
 
 }
@@ -93,6 +98,7 @@ a {
   padding: 4rem 2rem;
   border-radius: 25px;
 }
+
 .register input {
   border: 1px solid #5192a6;
   border-radius: 999px;
@@ -100,7 +106,7 @@ a {
   text-align: center;
 }
 
-.register input{
+.register input {
   background-color: #fff;
 }
 
@@ -138,7 +144,7 @@ a {
   margin-left: 5%;
 }
 
-.register input[type=checkbox]{
+.register input[type=checkbox] {
   margin-bottom: 0.5rem;
   width: min-content;
   margin-right: 2%;
@@ -150,7 +156,9 @@ a {
   margin-bottom: 0.5rem;
 }
 
-.register_btn {
+.register_a {
+  appearance: button;
+  display:block;
   border: 1px solid #5192a6;
   border-radius: 999px;
   background-color: transparent;
@@ -162,19 +170,13 @@ a {
   padding: 0.5rem 1rem;
 }
 
-.register_btn:hover {
+.register_a:hover {
   background-image: linear-gradient(160deg, #88d5ed 0%, #65e2ede6 100%);
 }
 
-.register_a{
-  color: #fff;
-  font: inherit;
-  font: 300 1rem/1.5 Helvetica Neue, sans-serif;
-
-}
 /* Strona główna */
 
-section{
+section {
   color: rgb(23, 21, 21);
   min-width: 100%;
   min-height: 10rem;
@@ -186,17 +188,17 @@ section{
 .header {
   background-color: #bdceef;
   min-width: 100%;
-  max-height:max-content;
+  max-height: max-content;
   min-height: min-content;
   height: 3rem;
   margin: 0;
   align-self: flex-start;
 }
 
-.footer{
-  background-color:rgba(32, 44, 72, 0.951);
+.footer {
+  background-color: rgba(32, 44, 72, 0.951);
   min-width: 100%;
-  max-height:max-content;
+  max-height: max-content;
   min-height: fit-content;
   margin: 0;
   align-self: flex-start;
@@ -217,10 +219,10 @@ section{
   height: 70%;
 }
 
-img{
+img {
   width: 100%;
   height: 100%;
-  object-fit:cover;
+  object-fit: cover;
 }
 
 
@@ -236,19 +238,21 @@ img{
   text-align: center;
   box-sizing: content-box;
   font-size: 1.2vmax;
+  box-shadow: 0 0 50px #42454ba8;
 }
 
-.btn_start {
+.aStart {
+  appearance: button;
   margin-right: 20px;
   background-color: #eef2fb;
   border-radius: 5%;
   border: none;
   cursor: pointer;
   overflow: hidden;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
 }
 
-.btn_start:hover {
+.aStart:hover {
   background-color: #ffffff;
   color: #aac1ef;
 }
@@ -269,6 +273,7 @@ img{
   clear: both;
   vertical-align: middle;
   padding-top: 0.5%;
+  padding-right: 2%;
 }
 
 .footer {
@@ -276,7 +281,7 @@ img{
   color: #7e8ba3;
 }
 
-.hello{
+.hello {
   width: fit-content;
   float: right;
   clear: both;
@@ -292,9 +297,116 @@ img{
   scroll-behavior: smooth;
   text-align: center;
   vertical-align: middle;
+  box-shadow: 0 0 50px #42454ba8;
 }
 
 .small {
   width: 33%;
   float: left;
+}
+
+/* Home-page userów */
+
+.navPanel {
+  width: 20%;
+  float: left;
+  min-height:1000px;
+  background-color: #bdceef;
+  padding: 1%;
+}
+
+.contentBox {
+  width: 80%;
+  margin-left: 20%;
+  min-height: 1000px;
+  background-color: #f3f3f3;
+  padding: 5%;
+}
+
+.aPanel {
+  appearance: button;
+  display:block;
+  width: 100%;
+  height: 40px;
+  padding-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
+  text-decoration: none;
+  background-color: #f3f3f3;
+  font-size: 1.2vmax;
+}
+
+.aPanel:hover {
+  color:#f3f3f3;
+  background-color: rgba(68, 92, 122, 0.767);
+}
+
+.aLogout{
+  appearance: button;
+  display:block;
+  width: 100%;
+  height: 30px;
+  padding: 2%;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  text-decoration: none;
+  color: #f3f3f3;
+  font-size: 1.2vmax;
+  background-color: rgba(68, 92, 122, 0.767);
+}
+
+.aLogout:hover{
+  background-color: rgba(68, 92, 122, 0.571);
+}
+
+/* Lista uzytkownikow */
+table, tr, td, th{
+  border: 1px solid rgba(68, 92, 122, 0.767);
+  font-size: 1vmax;
+  border-collapse: collapse;
+  padding: 5px;
+  background-color: #ffffff;
+}
+
+.aButton {
+  appearance: button;
+  display:block;
+  width: 100%;
+  height: 30px;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.aButton:hover{
+  color: #ec6666;
+}
+
+/* Dodawanie uzytkownikow */
+.aAdmin {
+  appearance: button;
+  display:block;
+  width: 100%;
+  height: 40px;
+  padding-top: 5px;
+  text-align: center;
+  margin-bottom: 5px;
+  text-decoration: none;
+  background-color: #ffffff;
+  font-size: 1.2vmax;
+  color: rgba(22, 22, 22, 0.849);
+}
+
+.aAdmin:hover {
+  background-color: rgba(68, 92, 122, 0.571);
+  color: #ffffff;
+}
+
+.submit{
+  background-color: rgba(68, 92, 122, 0.571);
+}
+
+.submit:hover{
+  background-color: #bdceef;
 }

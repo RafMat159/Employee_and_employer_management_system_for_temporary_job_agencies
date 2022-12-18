@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Strona główna</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strona domowa</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
-<body>
-<h1> Witaj administratorze</h1>
-<a th:href="@{/administrator/lista-uzytkownikow}">Lista uzytkownikow</a>
-<a th:href="@{/logout}">Wyloguj się</a></p>
-<a th:href="@{/administrator/utworz-uzytkownika}">Utworz uzytkownika</a></p>
+
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w panelu administratora</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+        </div>
+
+    </div>
+    <div class="navPanel">
+        <a href="" class="aPanel">Mój profil</a>
+        <a th:href="@{/administrator/lista-uzytkownikow}" class="aPanel">Użytkownicy systemu</a>
+        <a th:href="@{/administrator/utworz-uzytkownika}" class="aPanel">Dodawanie użytkowników</a>
+    </div>
+    <div class="contentBox">
+
+
+    </div>
+</section>
+
 </body>
+
 </html>

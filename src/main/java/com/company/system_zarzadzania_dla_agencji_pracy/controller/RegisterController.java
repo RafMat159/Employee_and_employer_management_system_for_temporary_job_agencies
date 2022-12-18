@@ -115,14 +115,14 @@ public class RegisterController {
     }
 
 
-    @GetMapping("/register/pracownikagencji")
+    @GetMapping("/register/pracownik-agencji")
     public String getAgencyEmployeeForm(Model model){
         AgencyEmployeeRQ agencyEmployeeRQ = new AgencyEmployeeRQ();
         model.addAttribute("agencyEmployeeRQ",agencyEmployeeRQ);
         return "register-agencyemployee";
     }
 
-    @PostMapping("/register/pracownikagencji")
+    @PostMapping("/register/pracownik-agencji")
     public String newAgencyEmployee(@Valid @ModelAttribute("agencyEmployeeRQ") AgencyEmployeeRQ agencyEmployeeRQ, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "register-agencyemployee";
