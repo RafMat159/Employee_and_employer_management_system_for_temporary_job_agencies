@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <title>Twoje dane</title>
+</head>
+<body>
+<h3>Twoje dane</h3>
+<div th:object="${agencyEmployee}" >
+  <p>Adres e-mail <span th:text="*{mail}"></span></p>
+  <p>Imie: <span th:text="*{name}" ></span></p>
+  <p>Nazwisko:<span th:text="*{surname}" ></span></p>
+  <p>Numer telefonu:<span th:text="*{phoneNumber}" ></span></p>
+  <p>Adres zamieszkania:<span th:text="*{address}" ></span></p>
+  <p>PESEL:<span th:text="*{pesel}" ></span></p>
+  <p>Data urodzenia:<span th:text="*{dateOfBirth}" ></span></p>
+</div>
+<a th:href= "@{/agency-employee/home}">Powrót na stronę główną</a>
+<a th:href= "@{/usun-konto}">Usun konto</a>
+</body>
+</html>

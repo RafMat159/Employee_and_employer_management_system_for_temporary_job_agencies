@@ -3,6 +3,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.service;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.AgencyEmployee;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.AgencyEmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.AgencyEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class AgencyEmployeeService {
@@ -23,6 +25,12 @@ public class AgencyEmployeeService {
         this.passwordEncoder = passwordEncoder;
         this.agencyEmployeeRepository = agencyEmployeeRepository;
     }
+
+    @Transactional
+    public Optional<AgencyEmployee> getAgencyEmployee(String mail) {
+        return agencyEmployeeRepository.findAgencyEmployeeByMail(mail);
+    }
+
 
     @Transactional
     public void addAgencyEmployee(AgencyEmployeeRQ agencyEmployeeRQ, Administrator administrator) {    //dodanie pracownika po walidacji danych

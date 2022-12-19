@@ -40,7 +40,7 @@ public class EmployeeController {
 
         Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
 
-        if(employeeOpt.isPresent()){               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
+        if(employeeOpt.isPresent()){
             Employee employee = employeeOpt.get();
             List<Document> documents = employee.getDocuments();
             model.addAttribute("documents",documents);
@@ -72,7 +72,7 @@ public class EmployeeController {
 
         Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
 
-        if(employeeOpt.isPresent()){               //sprawdzenie czy istnieje pracownik, jesli nie to nie mozna dodac zlecenia
+        if(employeeOpt.isPresent()){
             Employee employee = employeeOpt.get();
             employeeService.addNewDocumentEmployee(documentRQ,employee);
             return "redirect:/dodaj-dokument-form";
@@ -85,6 +85,20 @@ public class EmployeeController {
     public String deleteDocumentEmployee(@PathVariable("id") Integer id){
         employeeService.deleteDocumentEmployee(id);
         return "redirect:/pracownik/lista-dokumentow";
+    }
+
+
+    @GetMapping("/dane-uzytkownika")
+    public String getAccountInformation(Model model, Principal principal){
+
+        Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
+
+        if(employeeOpt.isPresent()){
+            Employee employee = employeeOpt.get();
+            model.addAttribute("employee",employee);
+            return "employee/employee-account-details";
+        }
+        return "index";
     }
 
 }

@@ -64,7 +64,7 @@ public class EmployerController {
 
         Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
 
-        if(employerOpt.isPresent()){               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
+        if(employerOpt.isPresent()){
             Employer employer = employerOpt.get();
             List<Document> documents = employer.getDocuments();
             model.addAttribute("documents",documents);
@@ -105,7 +105,7 @@ public class EmployerController {
 
         Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
 
-        if(employerOpt.isPresent()){               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
+        if(employerOpt.isPresent()){
             Employer employer = employerOpt.get();
             employerService.addNewDocumentEmployer(documentRQ,employer);
             return "redirect:/dodaj-dokument-form";
@@ -120,4 +120,16 @@ public class EmployerController {
         return "redirect:/pracodawca/lista-dokumentow";
     }
 
+    @GetMapping("/dane-uzytkownika")
+    public String getAccountInformation(Model model, Principal principal){
+
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+
+        if(employerOpt.isPresent()){
+            Employer employer = employerOpt.get();
+            model.addAttribute("employer",employer);
+            return "employer/employer-account-details";
+        }
+        return "index";
+    }
 }

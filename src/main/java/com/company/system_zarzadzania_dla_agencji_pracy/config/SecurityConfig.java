@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/img/**", "/styles/**").permitAll()
                 .mvcMatchers("/static/**").permitAll()
                 .mvcMatchers("/register/**").permitAll()
+                .mvcMatchers("/usun-konto").hasAnyRole("PRACOWNIK","PRACOWNIKAGENCJI","PRACODAWCA")
                 .mvcMatchers("/pracownik/**").hasAnyRole("PRACOWNIK")
                 .mvcMatchers("/pracownikagencji/**").hasAnyRole("PRACOWNIKAGENCJI")
                 .mvcMatchers("/pracodawca/**").hasAnyRole("PRACODAWCA")

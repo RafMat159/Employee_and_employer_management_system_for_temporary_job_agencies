@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Twoje dane</title>
+</head>
+<body>
+    <h3>Twoje dane</h3>
+<div th:object="${employer}" >
+    <p>Adres e-mail <span th:text="*{mail}"></span></p>
+    <p>Nazwa firmy: <span th:text="*{companyName}" ></span></p>
+    <p>Rok zalożenia:<span th:text="*{foundationYear}" ></span></p>
+    <p>Adres siedziby:<span th:text="*{address}" ></span></p>
+    <p>NIP: <span th:text="*{NIP}" ></span></p>
+    <p>Numer telefonu :<span th:text="*{phoneNumber}" ></span></p>
+</div>
+    <a th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
+    <a th:href= "@{/usun-konto}">Usun konto</a>
+</body>
+</html>

@@ -11,6 +11,7 @@ import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.DocumentRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,17 +24,19 @@ import java.util.Optional;
 @Service
 public class EmployerService {
 
-    PasswordEncoder passwordEncoder;
-    EmployerRepository employerRepository;
-    OrderRepository orderRepository;
-    DocumentRepository documentRepository;
+    private PasswordEncoder passwordEncoder;
+    private EmployerRepository employerRepository;
+    private OrderRepository orderRepository;
+    private DocumentRepository documentRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository, DocumentRepository documentRepository) {
+    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository, DocumentRepository documentRepository, UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.employerRepository = employerRepository;
         this.orderRepository = orderRepository;
         this.documentRepository = documentRepository;
+        this.userRepository = userRepository;
     }
 
     @Transactional
@@ -99,4 +102,9 @@ public class EmployerService {
     public void deleteDocumentEmployer(Integer id) {
         documentRepository.deleteById(id);
     }
+
+//    @Transactional
+//    public void deleteOwnAccount(Integer id) {
+//        userRepository.deleteById(id);
+//    }
 }
