@@ -1,6 +1,7 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.AgencyEmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployerRQ;
@@ -151,5 +152,19 @@ public class AdministratorController {
         return "administrator/user-creation-page";
     }
 
+
+
+    @GetMapping("/dane-uzytkownika")
+    public String getAccountInformation(Model model, Principal principal){
+
+        Optional<Administrator> administratorOpt = administratorService.checkIfAdministratorIsPresent(principal.getName());
+
+        if(administratorOpt.isPresent()){
+            Administrator administrator = administratorOpt.get();
+            model.addAttribute("administrator",administrator);
+            return "administrator/administrator-account-details";
+        }
+        return "index";
+    }
 
 }
