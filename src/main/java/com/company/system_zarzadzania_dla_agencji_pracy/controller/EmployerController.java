@@ -76,7 +76,7 @@ public class EmployerController {
     @GetMapping("/lista-dokumentow/{id}")
     public String getDocumentDetailsEmployer(@PathVariable("id") Integer idDokumentu,  Model model){
 
-        Optional<Document> documentOpt = employerService.getDocument(idDokumentu);
+        Optional<Document> documentOpt = employerService.getDocumentEmployer(idDokumentu);
 
         if(documentOpt.isPresent()){               //sprawdzenie czy istnieje dany dokument
             Document document = documentOpt.get();
@@ -116,7 +116,7 @@ public class EmployerController {
 
     @GetMapping("/lista-dokumentow/usun/{id}")
     public String deleteDocumentEmployer(@PathVariable("id") Integer id){
-        employerService.deleteDocument(id);
+        employerService.deleteDocumentEmployer(id);
         return "redirect:/pracodawca/lista-dokumentow";
     }
 

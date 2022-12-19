@@ -17,7 +17,7 @@ public class DocumentRQ {
     private String documentType;
 
     @NotBlank(message = "Nie podano treści dokumentu")
-    @Size(min = 4,message = "Podaj treść dokumentu.")
+    @Size(min = 4,message = "Podaj treść dokumentu, która przekracza 4 znaki.")
     private String content;
 
 }

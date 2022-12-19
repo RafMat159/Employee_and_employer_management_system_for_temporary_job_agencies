@@ -1,4 +1,4 @@
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>Lista użytkowników</title>
@@ -29,15 +29,18 @@
         <tr th:each="document: ${documents}">
             <td th:text="${document.documentType}" />
             <td>
-                <a  th:href="@{/pracodawca/lista-dokumentow/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Wyświetl szczegóły</a>
+                <a sec:authorize="hasRole('PRACODAWCA')" th:href="@{/pracodawca/lista-dokumentow/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Wyświetl szczegóły</a>
+                <a sec:authorize="hasRole('PRACOWNIK')" th:href="@{/pracownik/lista-dokumentow/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Wyświetl szczegóły</a>
             </td>
             <td>
-                <a  th:href="@{/pracodawca/lista-dokumentow/usun/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Usuń dokument</a>
+                <a sec:authorize="hasRole('PRACODAWCA')" th:href="@{/pracodawca/lista-dokumentow/usun/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Usuń dokument</a>
+                <a sec:authorize="hasRole('PRACOWNIK')" th:href="@{/pracownik/lista-dokumentow/usun/{id}(id=${document.idDokumentu})}" class="btn btn-danger ml-2">Usuń dokument</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
+    <a sec:authorize="hasRole('PRACODAWCA')" th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
+    <a sec:authorize="hasRole('PRACOWNIK')" th:href= "@{/pracownik/home}">Powrót na stronę główną</a>
 </div>
 </body>
 

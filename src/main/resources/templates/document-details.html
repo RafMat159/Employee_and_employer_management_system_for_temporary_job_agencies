@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Szczegóły dokumentu</title>
@@ -9,7 +9,8 @@
 <p th:text="${content}"></p>
 
 <div>
-<a th:href= "@{/pracodawca/lista-dokumentow}">Powróć do listy dokumentów</a>
+<a sec:authorize="hasRole('PRACODAWCA')" th:href= "@{/pracodawca/lista-dokumentow}">Powróć do listy dokumentów</a>
+<a sec:authorize="hasRole('PRACOWNIK')" th:href= "@{/pracownik/lista-dokumentow}">Powróć do listy dokumentów</a>
 </div>
 </body>
 </html>

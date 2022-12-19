@@ -91,11 +91,12 @@ public class EmployerService {
 
 
     @Transactional
-    public Optional<Document> getDocument(Integer idDokumentu){
+    public Optional<Document> getDocumentEmployer(Integer idDokumentu){
         return documentRepository.findById(idDokumentu);
     }
 
-    public void deleteDocument(Integer id) {
+    @Transactional
+    public void deleteDocumentEmployer(Integer id) {
         documentRepository.deleteById(id);
     }
 }
