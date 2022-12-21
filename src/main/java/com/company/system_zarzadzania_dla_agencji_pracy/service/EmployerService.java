@@ -103,6 +103,11 @@ public class EmployerService {
         documentRepository.deleteById(id);
     }
 
+    @Transactional
+    public void deleteOrder(Integer id) {
+        orderRepository.deleteById(id);
+    }
+
 //    @Transactional
 //    public void deleteOwnAccount(Integer id) {
 //        userRepository.deleteById(id);

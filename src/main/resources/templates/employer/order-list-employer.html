@@ -1,0 +1,52 @@
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Lista zleceń</title>
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Lista zleceń</h3>
+
+    <table class="table table-bordered table-striped" id="employeeTable">
+
+        <thead>
+        <tr>
+            <th>Data udostępnienia</th>
+            <th>Miejsce wykonania</th>
+            <th>Charakter pracy</th>
+            <th>Godziny pracy</th>
+            <th>Stawka godzinowa</th>
+            <th>Ilość miejsc</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order: ${orders}">
+            <td th:text="${order.availabilityDate}" />
+            <td th:text="${order.performancePlace}" />
+            <td th:text="${order.workNature}" />
+            <td th:text="${order.workingHours}" />
+            <td th:text="${order.hourlyRate}" />
+            <td th:text="${order.vacanciesNumber}" />
+            <td>
+                <a sec:authorize="hasRole('PRACODAWCA')" th:href="@{/pracodawca/lista-zlecen/usun/{id}(id=${order.idZlecenia})}" class="btn btn-danger ml-2">Usuń zlecenie</a> <!--to jeszcze sie zmieni, bo jak beda pracownicy zapisani na zleceni, to wtedy nie bedzie sie dalo tego usunac i przycisku nie bedzie-->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a sec:authorize="hasRole('PRACODAWCA')" th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
+    <a sec:authorize="hasRole('PRACOWNIK')" th:href= "@{/pracownik/home}">Powrót na stronę główną</a>
+</div>
+</body>
+
+</html>

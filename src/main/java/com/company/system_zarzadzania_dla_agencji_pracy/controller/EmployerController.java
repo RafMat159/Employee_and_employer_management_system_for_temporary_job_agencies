@@ -2,6 +2,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployerService;
@@ -57,6 +58,37 @@ public class EmployerController {
 
         return "employer/add-order";
     }
+
+    @GetMapping("/lista-zlecen")
+    public String showAllOrders(Model model, Principal principal){
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+
+        if(employerOpt.isPresent()){
+            Employer employer = employerOpt.get();
+            List<Order> orders = employer.getOrders();
+            model.addAttribute("orders",orders);
+            return "employer/order-list-employer";
+        }
+        return "home-page";
+    }
+
+
+    @GetMapping("/lista-zlecen/usun/{id}")
+    public String deleteOrder(@PathVariable("id") Integer id){
+        employerService.deleteOrder(id);
+        return "redirect:/pracodawca/lista-zlecen";
+    }
+//EDYTOWANIE
+//    @GetMapping("/lista-zlecen/edytuj")
+//    public String showEditFormOrder(Model model){
+//        OrderRQ orderRQ = new OrderRQ();
+//        model.addAttribute("orderRQ",orderRQ);
+//        return "/employer/edit-order";
+//    }
+
+//    @PutMapping("/lista-zlecen/edytuj/{id}")
+//    public String updateOrder(@PathVariable("id") Integer id, Mode)
+
 
 
     @GetMapping("/lista-dokumentow")
