@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="inputs">
-                    <input type="checkbox" th:checked="*{studentStatus} ? false: true" autofocus id="student" style="width:min-content; margin-right: 2%;">
+                    <input type="checkbox" th:field="*{studentStatus}" th:value="*{studentStatus}" autofocus id="student" style="width:min-content; margin-right: 2%;">
                     <label for ="student">Status studenta</label>
                 </div>
 
