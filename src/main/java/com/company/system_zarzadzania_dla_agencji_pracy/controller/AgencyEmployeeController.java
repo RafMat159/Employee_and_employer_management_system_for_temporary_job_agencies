@@ -12,13 +12,18 @@ import java.security.Principal;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/pracownikagencji")
+@RequestMapping("/pracownik-agencji")
 public class AgencyEmployeeController {
     private AgencyEmployeeService agencyEmployeeService;
 
     @Autowired
     public AgencyEmployeeController(AgencyEmployeeService agencyEmployeeService) {
         this.agencyEmployeeService = agencyEmployeeService;
+    }
+
+    @GetMapping("/home")
+    public String getHomePageAgencyEmployee(){
+        return "home-page";
     }
 
     @GetMapping("/dane-uzytkownika")
