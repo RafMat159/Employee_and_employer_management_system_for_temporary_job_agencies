@@ -13,7 +13,9 @@
 <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}">Lista dokumentów</a></div>
 <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}">Mój profil</a></div>
 <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}">Mój profil</a></div>
+<div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownikagencji/dane-uzytkownika}">Mój profil</a></div>
 <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}">Lista zleceń</a></div>
+<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}">Lista zleceń</a></div>
 <div></div>
 <a th:href="@{/logout}">Wyloguj się</a></p>
 </body>

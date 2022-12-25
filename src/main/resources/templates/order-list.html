@@ -22,6 +22,7 @@
 
         <thead>
         <tr>
+            <th sec:authorize="hasRole('PRACOWNIK')"> Firma </th>
             <th>Data udostępnienia</th>
             <th>Miejsce wykonania</th>
             <th>Charakter pracy</th>
@@ -32,13 +33,14 @@
         </thead>
         <tbody>
         <tr th:each="order: ${orders}">
+            <td  sec:authorize="hasRole('PRACOWNIK')" th:text="${order.getEmployer().companyName}" />
             <td th:text="${order.availabilityDate}" />
             <td th:text="${order.performancePlace}" />
             <td th:text="${order.workNature}" />
             <td th:text="${order.workingHours}" />
             <td th:text="${order.hourlyRate}" />
             <td th:text="${order.vacanciesNumber}" />
-            <td>
+            <td sec:authorize="hasRole('PRACODAWCA')" >
                 <a sec:authorize="hasRole('PRACODAWCA')" th:href="@{/pracodawca/lista-zlecen/usun/{id}(id=${order.idZlecenia})}" class="btn btn-danger ml-2">Usuń zlecenie</a> <!--to jeszcze sie zmieni, bo jak beda pracownicy zapisani na zleceni, to wtedy nie bedzie sie dalo tego usunac i przycisku nie bedzie-->
             </td>
         </tr>

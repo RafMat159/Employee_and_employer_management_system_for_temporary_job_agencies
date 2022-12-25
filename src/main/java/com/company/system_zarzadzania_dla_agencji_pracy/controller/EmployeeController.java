@@ -3,6 +3,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployeeService;
@@ -99,6 +100,12 @@ public class EmployeeController {
             return "employee/employee-account-details";
         }
         return "index";
+    }
+
+    @GetMapping("/lista-zlecen")
+    public String getOrderListEmployee(Model model){
+        model.addAttribute("orders",employeeService.findAllOrders());
+        return "order-list";
     }
 
 }

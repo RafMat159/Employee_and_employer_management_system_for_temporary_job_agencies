@@ -67,7 +67,7 @@ public class EmployerController {
             Employer employer = employerOpt.get();
             List<Order> orders = employer.getOrders();
             model.addAttribute("orders",orders);
-            return "employer/order-list-employer";
+            return "order-list";
         }
         return "home-page";
     }

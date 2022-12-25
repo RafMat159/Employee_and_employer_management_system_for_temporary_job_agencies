@@ -1,20 +1,19 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.AdministratorRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.DocumentRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployeeRepository;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,15 +21,17 @@ public class EmployeeService {
 
     private EmployeeRepository employeeRepository;
     private PasswordEncoder passwordEncoder;
+    private DocumentRepository documentRepository;
+    private OrderRepository orderRepository;
     private AdministratorRepository administratorRepository;
-    DocumentRepository documentRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository,PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository,PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository, OrderRepository orderRepository) {
         this.employeeRepository = employeeRepository;
         this.passwordEncoder = passwordEncoder;
         this.administratorRepository= administratorRepository;
         this.documentRepository = documentRepository;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -82,4 +83,10 @@ public class EmployeeService {
     public void deleteDocumentEmployee(Integer id) {
         documentRepository.deleteById(id);
     }
+
+    @Transactional
+    public List<Order> findAllOrders(){
+        return orderRepository.findAllOrdersRep();
+    }
+
 }
