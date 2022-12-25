@@ -13,4 +13,7 @@ public interface EmployerRepository extends JpaRepository<Employer,Integer> {
 
     @Query("SELECT e FROM Employer e WHERE e.mail =:mail")
     Optional<Employer> findEmployerByMail(@Param("mail") String mail);
+
+    @Query("SELECT e FROM Employer e WHERE e.idUzytkownika =:idUzytkownika")
+    Optional<Employer> findEmployerById(@Param("idUzytkownika") Integer idUzytkownika);
 }

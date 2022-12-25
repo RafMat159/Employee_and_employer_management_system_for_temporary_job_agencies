@@ -108,4 +108,17 @@ public class EmployeeController {
         return "order-list";
     }
 
+    @GetMapping("/lista-zlecen/informacje-o-pracodawcy/{id}")
+    public String getEmployerInfo(@PathVariable("id") Integer id, Model model){
+
+        Optional<Employer> employerOpt = employeeService.getEmployerById(id);
+
+        if(employerOpt.isPresent()){
+            Employer employer = employerOpt.get();
+            model.addAttribute("employer",employer);
+            return "employee/employer-info";
+        }
+        return "order-list";
+    }
+
 }

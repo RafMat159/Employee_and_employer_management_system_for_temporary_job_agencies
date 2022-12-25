@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <title>Informacje o pracodawcy</title>
+</head>
+<body>
+<h3 th:text="'Firma: ' + ${employer.companyName} " ></h3>
+<div th:object="${employer}" >
+  <p>Adres e-mail <span th:text="*{mail}"></span></p>
+  <p>Nazwa firmy: <span th:text="*{companyName}" ></span></p>
+  <p>Rok zalożenia:<span th:text="*{foundationYear}" ></span></p>
+  <p>Adres siedziby:<span th:text="*{address}" ></span></p>
+  <p>NIP: <span th:text="*{NIP}" ></span></p>
+  <p>Numer telefonu :<span th:text="*{phoneNumber}" ></span></p>
+</div>
+<a th:href= "@{/pracownik/lista-zlecen}">Powrót na stronę zleceń</a>
+</body>
+</html>

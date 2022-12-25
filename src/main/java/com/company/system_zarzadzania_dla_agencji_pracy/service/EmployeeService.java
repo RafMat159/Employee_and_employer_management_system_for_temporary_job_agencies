@@ -4,10 +4,7 @@ import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployeeRQ;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.AdministratorRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.DocumentRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployeeRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,15 +20,17 @@ public class EmployeeService {
     private PasswordEncoder passwordEncoder;
     private DocumentRepository documentRepository;
     private OrderRepository orderRepository;
+    private EmployerRepository employerRepository;
     private AdministratorRepository administratorRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository,PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository, OrderRepository orderRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository,PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository, OrderRepository orderRepository, EmployerRepository employerRepository) {
         this.employeeRepository = employeeRepository;
         this.passwordEncoder = passwordEncoder;
         this.administratorRepository= administratorRepository;
         this.documentRepository = documentRepository;
         this.orderRepository = orderRepository;
+        this.employerRepository = employerRepository;
     }
 
 
@@ -87,6 +86,11 @@ public class EmployeeService {
     @Transactional
     public List<Order> findAllOrders(){
         return orderRepository.findAllOrdersRep();
+    }
+
+    @Transactional
+    public Optional<Employer> getEmployerById(Integer id) {
+        return employerRepository.findEmployerById(id);
     }
 
 }
