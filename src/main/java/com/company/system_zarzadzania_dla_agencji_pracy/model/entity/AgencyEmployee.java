@@ -38,7 +38,7 @@ public class AgencyEmployee extends User {
     @Column(name = "dataUrodzenia")
     private Date dateOfBirth;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //

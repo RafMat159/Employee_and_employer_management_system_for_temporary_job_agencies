@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -45,12 +46,12 @@ public class Order {
     private Integer vacanciesNumber;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "idPracodawcy")
     private Employer employer;
 
-//    @ManyToMany
-//    @JoinTable(name="zlecenie_pracownik",
-//    joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
-//    List<Employee> pracownicy;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name="zlecenie_pracownik",
+    joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
+    Set<Employee> employees;
 }

@@ -10,6 +10,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,18 +45,23 @@ public class Employee extends User{
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 //
 //    @OneToOne(mappedBy = "pracownik")
 //    private Salary wynagrodzenie;
 
-    @OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents;
-//
-//    @ManyToMany(mappedBy = "pracownicy")
-//    List<Order> zlecenia;
+
+    @ManyToMany(mappedBy = "employees")
+    Set<Order> orders;
+
+
+//    public void addOrder(Order order){
+//        zlecenia.add(order);
+//        order.getEmployer().setO
+//    }
 
 }

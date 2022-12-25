@@ -40,16 +40,14 @@ public class Employer extends User{
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 
-    @OneToMany(mappedBy = "employer",cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "employer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "employer",cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany(mappedBy = "employer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents;
 
 }
