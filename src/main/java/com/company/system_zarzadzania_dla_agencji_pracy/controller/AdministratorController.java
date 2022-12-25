@@ -101,7 +101,7 @@ public class AdministratorController {
     }
 
     @PostMapping("/nowa-firma")
-    public String newEmployee(@Valid @ModelAttribute("employerRQ")  EmployerRQ employerRQ, BindingResult bindingResult, Model model, Principal principal){
+    public String newEmployer(@Valid @ModelAttribute("employerRQ")  EmployerRQ employerRQ, BindingResult bindingResult, Model model, Principal principal){
 
         Optional<Administrator> administratorOpt = administratorService.checkIfAdministratorIsPresent(principal.getName());
 
@@ -124,14 +124,14 @@ public class AdministratorController {
 
 
     @GetMapping("/utworz-uzytkownika/nowy-pracownik-agencji")
-    public String getAgencyEmployerForm(Model model){
+    public String getAgencyEmployeeForm(Model model){
         AgencyEmployeeRQ agencyEmployeeRQ = new AgencyEmployeeRQ();
         model.addAttribute("agencyEmployeeRQ",agencyEmployeeRQ);
         return "administrator/agency-employee-creation-page";
     }
 
     @PostMapping("/nowy-pracownik-agencji")
-    public String newEmployee(@Valid @ModelAttribute("agencyEmployeeRQ")  AgencyEmployeeRQ agencyEmployeeRQ, BindingResult bindingResult, Model model, Principal principal){
+    public String newAgencyEmployee(@Valid @ModelAttribute("agencyEmployeeRQ")  AgencyEmployeeRQ agencyEmployeeRQ, BindingResult bindingResult, Model model, Principal principal){
 
         Optional<Administrator> administratorOpt = administratorService.checkIfAdministratorIsPresent(principal.getName());
 
