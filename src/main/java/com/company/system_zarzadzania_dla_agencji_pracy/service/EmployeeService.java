@@ -93,4 +93,21 @@ public class EmployeeService {
         return employerRepository.findEmployerById(id);
     }
 
+    @Transactional
+    public Optional<Order> findOrderEmployee(Integer id){
+        return orderRepository.findOrderById(id);
+    }
+
+    @Transactional
+    public Employee saveOrder(Order order, Employee employee){
+        employee.addOrder(order);
+        return employeeRepository.save(employee);
+    }
+
+    @Transactional
+    public Employee removeOrderEmployee(Order order, Employee employee){
+        employee.removeOrder(order);
+        return employeeRepository.save(employee);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/pracodawca")
@@ -64,9 +68,11 @@ public class EmployerController {
         Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
 
         if(employerOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
             Employer employer = employerOpt.get();
             List<Order> orders = employer.getOrders();
             model.addAttribute("orders",orders);
+            model.addAttribute("currDate",currDate);
             return "order-list";
         }
         return "home-page";
@@ -104,6 +110,22 @@ public class EmployerController {
         }
         return "home-page";
     }
+
+    @GetMapping("/lista-zlecen/historia-zlecen")
+    public String getOnlyEmployeeOrderListHistory(Model model,Principal principal){
+
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+        if(employerOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
+            Employer employer = employerOpt.get();
+            List<Order> orders = employer.getOrders();
+            model.addAttribute("orders",orders);
+            model.addAttribute("currDate",currDate);
+            return "/employer/order-list-hist";
+        }
+        return "home-page";
+    }
+
 
     @GetMapping("/lista-dokumentow/{id}")
     public String getDocumentDetailsEmployer(@PathVariable("id") Integer idDokumentu,  Model model){

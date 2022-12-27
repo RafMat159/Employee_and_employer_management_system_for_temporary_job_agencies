@@ -20,4 +20,7 @@ public interface OrderRepository extends JpaRepository<Order,Integer> {
 
     @Query("SELECT o FROM Order o")
     List<Order> findAllOrdersRep();
+
+    @Query("SELECT o FROM Order o WHERE o.idZlecenia = :idZlecenia")
+    Optional<Order> findOrderById(@Param("idZlecenia") Integer idZlecenia);
 }

@@ -1,0 +1,49 @@
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Lista zleceń</title>
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+          crossorigin="anonymous" />
+</head>
+<body>
+
+<h3>Historia odbytych zleceń</h3>
+<table class="table table-bordered table-striped" id="histEmployeeTable">
+
+    <thead>
+    <tr>
+        <th> Firma </th>
+        <th>Data udostępnienia</th>
+        <th>Data wykonania</th>
+        <th>Miejsce wykonania</th>
+        <th>Charakter pracy</th>
+        <th>Godziny pracy</th>
+        <th>Stawka godzinowa</th>
+        <th>Ilość miejsc</th>
+        <th>Liczba aktualnie dostępnych miejsc</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}"  th:if="${currDate} >= ${order.executionDate}">
+        <td th:text="${order.getEmployer().companyName}" />
+        <td th:text="${order.availabilityDate}" />
+        <td th:text="${order.executionDate}" />
+        <td th:text="${order.performancePlace}" />
+        <td th:text="${order.workNature}" />
+        <td th:text="${order.workingHours}" />
+        <td th:text="${order.hourlyRate}" />
+        <td th:text="${order.vacanciesNumber}" />
+        <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}" />
+    </tr>
+    </tbody>
+</table>
+    <a th:href= "@{/pracownik/moja-lista-zlecen}">Powrót na stronę główną</a>
+
+</body>
+</html>

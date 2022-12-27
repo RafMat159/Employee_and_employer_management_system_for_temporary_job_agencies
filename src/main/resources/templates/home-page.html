@@ -16,7 +16,7 @@
 <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}">Mój profil</a></div>
 <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}">Lista zleceń</a></div>
 <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}">Lista zleceń</a></div>
-<div></div>
+<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}">Moje zlecenia</a></div>
 <a th:href="@{/logout}">Wyloguj się</a></p>
 </body>
 </html>
