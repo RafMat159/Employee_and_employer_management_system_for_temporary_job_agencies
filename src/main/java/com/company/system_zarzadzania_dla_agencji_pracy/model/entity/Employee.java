@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -56,12 +57,17 @@ public class Employee extends User{
     private List<Document> documents;
 
     @ManyToMany(mappedBy = "employees")
-    Set<Order> orders;
+    Set<Order> orders = new HashSet<>();
 
 
-//    public void addOrder(Order order){
-//        zlecenia.add(order);
-//        order.getEmployer().setO
-//    }
+    public void addOrder(Order order){
+        orders.add(order);
+        order.getEmployees().add(this);
+    }
+
+    public void removeOrder(Order order){
+        this.orders.remove(order);
+        order.getEmployees().remove(this);
+    }
 
 }
