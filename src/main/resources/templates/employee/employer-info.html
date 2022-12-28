@@ -14,6 +14,39 @@
   <p>NIP: <span th:text="*{NIP}" ></span></p>
   <p>Numer telefonu :<span th:text="*{phoneNumber}" ></span></p>
 </div>
+
+<div>
+<table class="table table-bordered table-striped" id="employeeTable">
+
+  <thead>
+  <tr>
+    <th>Data udostępnienia</th>
+    <th>Data wykonania</th>
+    <th>Miejsce wykonania</th>
+    <th>Charakter pracy</th>
+    <th>Godziny pracy</th>
+    <th>Stawka godzinowa</th>
+    <th>Ilość miejsc</th>
+    <th>Liczba aktualnie dostępnych miejsc</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="order: ${orders}" th:if="${currDate} < ${order.executionDate}"> <!--sprawdzenie czy data wykonania zlecenia nie jest w przeszłości-->
+    <td th:text="${order.availabilityDate}" />
+    <td th:text="${order.executionDate}" />
+    <td th:text="${order.performancePlace}" />
+    <td th:text="${order.workNature}" />
+    <td th:text="${order.workingHours}" />
+    <td th:text="${order.hourlyRate}" />
+    <td th:text="${order.vacanciesNumber}" />
+    <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}" />
+  </tr>
+  </tbody>
+</table>
+</div>
+
+
+
 <a th:href= "@{/pracownik/lista-zlecen}">Powrót na stronę zleceń</a>
 </body>
 </html>

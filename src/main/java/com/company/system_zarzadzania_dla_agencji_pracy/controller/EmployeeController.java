@@ -165,8 +165,13 @@ public class EmployeeController {
             return "index";
         }
         if(employerOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
             Employer employer = employerOpt.get();
+            List<Order> orders = employer.getOrders();
             model.addAttribute("employer",employer);
+            model.addAttribute("orders",orders);
+            model.addAttribute("currDate",currDate);
+
             return "employee/employer-info";
         }
         return "order-list";
