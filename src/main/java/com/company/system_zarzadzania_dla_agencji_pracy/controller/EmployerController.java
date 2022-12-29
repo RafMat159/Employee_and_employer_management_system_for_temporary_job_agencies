@@ -12,14 +12,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/pracodawca")
@@ -186,4 +186,80 @@ public class EmployerController {
         }
         return "index";
     }
+
+    @GetMapping("/lista-pracownikow")
+    public String showListOfAllEmployees(Model model){
+        List<Employee> employees = employerService.findAllEmployees();
+        model.addAttribute("employees",employees);
+        return "/employer/list-of-all-employees";
+    }
+
+    @GetMapping("/lista-pracownikow/{id}")
+    public String showEmployeeDetails(@PathVariable("id") Integer id, Model model){
+
+        Optional<Employee> employeeOpt = employerService.getEmployeeById(id);
+        if(employeeOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
+            Employee employee = employeeOpt.get();
+            List<Order> orders = employee.getOrders().stream().sorted(Comparator.comparing(Order::getExecutionDate).reversed()).collect(Collectors.toList());
+            model.addAttribute("employee",employee);
+            model.addAttribute("orders",orders);
+            model.addAttribute("currDate",currDate);
+            return "/employer/employee-details";
+        }
+        return "/employer/list-of-all-employees";
+
+    }
+
+    @GetMapping("/moja-lista-pracownikow")
+    public String showCurrentlyEmployedEmployees(Model model, Principal principal){
+
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+
+        if(employerOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
+            List<Employee> employees = employerService.findCurrentlyEmployedEmployees(employerOpt.get().getIdUzytkownika(),currDate);
+            model.addAttribute("employees", employees);
+            return "employer/list-of-all-employed-employees";
+        }
+        return "index";
+    }
+
+    @GetMapping("/moja-lista-pracownikow/{id}")
+    public String showCurrentlyEmployedEmployeeDetails(@PathVariable("id") Integer id, Model model,Principal principal){
+
+        Optional<Employee> employeeOpt = employerService.getEmployeeById(id);
+        if(employeeOpt.isPresent()){
+            Date currDate = Date.valueOf(LocalDate.now());
+            Employee employee = employeeOpt.get();
+            List<Order> orders = employee.getOrders().stream().sorted(Comparator.comparing(Order::getExecutionDate).reversed()).collect(Collectors.toList());
+            model.addAttribute("employerMail",principal.getName());
+            model.addAttribute("employee",employee);
+            model.addAttribute("orders",orders);
+            model.addAttribute("currDate",currDate);
+            return "/employer/employed-employee-details";
+        }
+        return "/employer/list-of-all-employed-employees";
+    }
+
+
+    @GetMapping("/moja-lista-pracownikow/zrezygnuj/{idUzytkownika}/{idZlecenia}")
+    public String fireEmployee(@PathVariable("idUzytkownika") Integer idUzytkownika, @PathVariable("idZlecenia") Integer idZlecenia , Principal principal, RedirectAttributes redirectAttributes){
+
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+        Optional<Order> orderOpt = employerService.findOrderEmployer(idZlecenia);
+        Optional<Employee> employeeOpt = employerService.getEmployeeById(idUzytkownika);
+        if(employerOpt.isPresent()){
+            if(orderOpt.isPresent() && employeeOpt.isPresent()){
+                employerService.removeEmployeeFromOrder(orderOpt.get(),employeeOpt.get());    //zerwanie połączenia między pracownikiem, a zleceniem
+                redirectAttributes.addFlashAttribute("deletingMessage","Zrezygnowano z pracownika nr:" + employeeOpt.get().getIdUzytkownika() + " dla zlecenia nr:" + orderOpt.get().getIdZlecenia());
+                return "redirect:/pracodawca/moja-lista-pracownikow";
+            }
+            redirectAttributes.addFlashAttribute("deletingErrorMessage","Zrezygnowanie z pracownika nie powiodło się! Konto pracownika lub zlecenie zostało usunięte!");
+            return "redirect:/pracodawca/moja-lista-pracownikow";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych akcji, Twoje konto zostało usunięte!");
+        return "redirect:/";
+    }
+
 }

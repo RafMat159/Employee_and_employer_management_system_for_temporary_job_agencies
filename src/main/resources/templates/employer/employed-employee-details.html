@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dane zatrudnionego pracownika</title>
+</head>
+<body>
+<h3 th:text="'Pracownik: ' + ${employee.name} + ' ' + ${employee.surname}"></h3>
+<div th:object="${employee}">
+    <p>Adres e-mail <span th:text="*{mail}"></span></p>
+    <p>Numer telefonu:<span th:text="*{phoneNumber}"></span></p>
+    <p>Adres zamieszkania:<span th:text="*{address}"></span></p>
+    <p>PESEL:<span th:text="*{pesel}"></span></p>
+    <p>Data urodzenia:<span th:text="*{dateOfBirth}"></span></p>
+    <p>Status studenta:<span th:text="*{studentStatus} ? 'Tak' : 'Nie' "></span></p>
+</div>
+
+<table class="table table-bordered table-striped" id="employeeTable">
+
+    <thead>
+    <tr>
+        <th> Firma </th>
+        <th>Data udostępnienia</th>
+        <th>Data wykonania</th>
+        <th>Miejsce wykonania</th>
+        <th>Charakter pracy</th>
+        <th>Godziny pracy</th>
+        <th>Stawka godzinowa</th>
+        <th>Ilość miejsc</th>
+        <th>Liczba aktualnie dostępnych miejsc</th>
+        <th>Zrezygnuj z pracownika</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order: ${orders}">
+        <td th:text="${order.getEmployer().companyName}"/>
+        <td th:text="${order.availabilityDate}"/>
+        <td th:text="${order.executionDate}"/>
+        <td th:text="${order.performancePlace}"/>
+        <td th:text="${order.workNature}"/>
+        <td th:text="${order.workingHours}"/>
+        <td th:text="${order.hourlyRate}"/>
+        <td th:text="${order.vacanciesNumber}"/>
+        <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}"/>
+        <td >
+            <a th:if="${currDate} < ${order.executionDate} AND ${order.getEmployer().mail} == ${employerMail}" th:href="@{/pracodawca/moja-lista-pracownikow/zrezygnuj/{idUzytkownika}/{idZlecenia}(idUzytkownika=${employee.idUzytkownika},idZlecenia=${order.getIdZlecenia()})}"
+               class="btn btn-danger ml-2">Zrezygnuj</a>
+            <a th:if="${currDate} >= ${order.executionDate} AND ${order.getEmployer().mail} == ${employerMail}" class="btn btn-danger ml-2">Pracownik odbył zlecenie, nie można z niego zrezygnować</a>
+            <a th:if="${order.getEmployer().mail} != ${employerMail}" class="btn btn-danger ml-2">Zlecenie wykonywane dla innej firmy</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a th:href="@{/pracodawca/moja-lista-pracownikow}">Powrót do listy zatrudnionych pracowników</a>
+</body>
+</html>

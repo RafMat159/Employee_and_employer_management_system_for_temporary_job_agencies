@@ -1,17 +1,11 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Document;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployerRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.DocumentRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.OrderRepository;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepository;
+import com.company.system_zarzadzania_dla_agencji_pracy.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,17 +21,19 @@ public class EmployerService {
 
     private PasswordEncoder passwordEncoder;
     private EmployerRepository employerRepository;
+    private EmployeeRepository employeeRepository;
     private OrderRepository orderRepository;
     private DocumentRepository documentRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository, DocumentRepository documentRepository, UserRepository userRepository) {
+    public EmployerService(PasswordEncoder passwordEncoder, EmployerRepository employerRepository, OrderRepository orderRepository, DocumentRepository documentRepository, UserRepository userRepository, EmployeeRepository employeeRepository) {
         this.passwordEncoder = passwordEncoder;
         this.employerRepository = employerRepository;
         this.orderRepository = orderRepository;
         this.documentRepository = documentRepository;
         this.userRepository = userRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Transactional
@@ -106,6 +103,32 @@ public class EmployerService {
     @Transactional
     public void deleteOrder(Integer id) {
         orderRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<Employee> findAllEmployees(){
+        return employeeRepository.findAllEmployees();
+    }
+
+    @Transactional
+    public Optional<Employee> getEmployeeById(Integer id) {
+        return employeeRepository.findEmployeeById(id);
+    }
+
+    @Transactional
+    public List<Employee> findCurrentlyEmployedEmployees(Integer id, Date currDate){
+        return employeeRepository.findEmployeesByOrders(id,currDate);
+    }
+
+    @Transactional
+    public Optional<Order> findOrderEmployer(Integer id){
+        return orderRepository.findOrderById(id);
+    }
+
+    @Transactional
+    public Employee removeEmployeeFromOrder(Order order, Employee employee){
+        employee.removeOrder(order);
+        return employeeRepository.save(employee);
     }
 
 //    @Transactional
