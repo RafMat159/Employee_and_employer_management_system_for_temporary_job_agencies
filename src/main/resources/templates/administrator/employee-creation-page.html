@@ -21,7 +21,7 @@
 
     </div>
     <div class="navPanel">
-        <a href="" class="aPanel">Mój profil</a>
+        <a th:href="@{/administrator/dane-uzytkownika}" class="aPanel">Mój profil</a>
         <a th:href="@{/administrator/lista-uzytkownikow}" class="aPanel">Użytkownicy systemu</a>
         <a th:href="@{/administrator/utworz-uzytkownika}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Dodawanie użytkowników</a>
     </div>
@@ -93,8 +93,7 @@
                 </div>
 
                 <div class="inputs">
-                    <input type="checkbox" th:field="*{studentStatus}" th:value="*{studentStatus}" autofocus id="student" style="width:min-content; margin-right: 2%;">
-                    <label for ="student">Status studenta</label>
+                    <input type="checkbox" th:field="*{studentStatus}" th:value="*{studentStatus}" autofocus id="student" style="width:min-content; margin-right: 2%;">                    <label for ="student">Status studenta</label>
                 </div>
 
                 <div class="inputs">

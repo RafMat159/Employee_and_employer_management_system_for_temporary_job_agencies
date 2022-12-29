@@ -21,14 +21,13 @@
 
   </div>
   <div class="navPanel">
-    <a href="" class="aPanel">Mój profil</a>
+    <a th:href="@{/administrator/dane-uzytkownika}" class="aPanel">Mój profil</a>
     <a th:href="@{/administrator/lista-uzytkownikow}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Użytkownicy systemu</a>
     <a th:href="@{/administrator/utworz-uzytkownika}" class="aPanel">Dodawanie użytkowników</a>
   </div>
   <div class="contentBox">
     <h3>Lista użytkowników</h3>
-    <table class="tableUsers">
-
+    <table>
       <thead>
       <tr>
         <th>Mail</th>
