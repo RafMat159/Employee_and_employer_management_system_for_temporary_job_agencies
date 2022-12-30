@@ -1,24 +1,45 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Strona domowa</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
-<body>
-<h1>Nice to see you</h1>
 
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}">Dodaj zlecenie</a></div>
-<div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}">Dodaj dokument</a></div>
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}">Lista dokumentów</a></div>
-<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}">Lista dokumentów</a></div>
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}">Mój profil</a></div>
-<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}">Mój profil</a></div>
-<div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}">Mój profil</a></div>
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}">Lista zleceń</a></div>
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-pracownikow}">Lista wszystkich pracowników</a></div>
-<div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/moja-lista-pracownikow}">Lista zatrudnionych pracowników</a></div>
-<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}">Lista zleceń</a></div>
-<div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}">Moje zlecenia</a></div>
-<a th:href="@{/logout}">Wyloguj się</a></p>
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+        </div>
+
+    </div>
+    <div class="navPanel">
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}" class="aPanel">Dodaj zlecenie</a></div>
+        <div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}" class="aPanel">Dodaj dokument</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-pracownikow}" class="aPanel">Lista wszystkich pracowników</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/moja-lista-pracownikow}" class="aPanel">Lista zatrudnionych pracowników</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}" class="aPanel">Moje zlecenia</a></div>
+    </div>
+    <div class="contentBox">
+
+
+    </div>
+</section>
+
 </body>
+
 </html>

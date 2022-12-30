@@ -1,69 +1,91 @@
+<!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>Lista zleceń</title>
-
-  <link rel="stylesheet"
-        type="text/css"
-        href="https://cdn.datatables.net/v/bs4/dt-1.10.25/datatables.min.css" />
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-        crossorigin="anonymous" />
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moje zlecenia</title>
+  <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
 
-<body>
-
-<div class="container">
-
-  <h3>Moje zlecenia</h3>
-
-  <div th:if="${deletingMessage}" class ="alert alert-success" role="alert">
-    <p th:text="${deletingMessage}">success message</p>
-  </div>
-
-  <div th:if="${deletingErrorMessage}" class ="alert alert-errorMessage" role="alert">
-    <p th:text="${deletingErrorMessage}">error message</p>
-  </div>
+<body class="align">
+<section>
+  <div class="header" role="navigation"  style="background-color: #ffffff">
+    <div class="conStart">
+      <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+    </div>
+    <div class="conStartNav">
+      <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+    </div>
 
   </div>
+  <div class="navPanel">
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}" class="aPanel">Dodaj zlecenie</a></div>
+    <div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}" class="aPanel">Dodaj dokument</a></div>
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+    <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+    <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+    <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-pracownikow}" class="aPanel">Lista wszystkich pracowników</a></div>
+    <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/moja-lista-pracownikow}" class="aPanel">Lista zatrudnionych pracowników</a></div>
+    <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+    <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Moje zlecenia</a></div>
+  </div>
+  <div class="contentBox">
 
-  <table class="table table-bordered table-striped" id="employeeTable">
+    <h3>Moje zlecenia</h3>
 
-    <thead>
-    <tr>
-      <th> Firma </th>
-      <th>Data udostępnienia</th>
-      <th>Data wykonania</th>
-      <th>Miejsce wykonania</th>
-      <th>Charakter pracy</th>
-      <th>Godziny pracy</th>
-      <th>Stawka godzinowa</th>
-      <th>Ilość miejsc</th>
-      <th>Liczba aktualnie dostępnych miejsc</th>
-      <th>Zrezygnuj ze zlecenia</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="order: ${orders}" th:if="${currDate} < ${order.executionDate}"> <!--sprawdzenie czy data wykonania zlecenia nie jest w przeszłości-->
-      <td th:text="${order.getEmployer().companyName}" />
-      <td th:text="${order.availabilityDate}" />
-      <td th:text="${order.executionDate}" />
-      <td th:text="${order.performancePlace}" />
-      <td th:text="${order.workNature}" />
-      <td th:text="${order.workingHours}" />
-      <td th:text="${order.hourlyRate}" />
-      <td th:text="${order.vacanciesNumber}" />
-      <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}" />
-      <td>
-        <a th:href="@{/pracownik/lista-zlecen/zrezygnuj/{id}(id=${order.getIdZlecenia()})}" class="btn btn-danger ml-2">Zrezygnuj</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+    <div th:if="${deletingMessage}" class ="success" role="alert">
+      <p th:text="${deletingMessage}">success message</p>
+    </div>
 
-  <a th:href= "@{/pracownik/moja-lista-zlecen/historia-zlecen}">Sprawdź swoją historię zleceń</a>
-  <a th:href= "@{/pracownik/home}">Powrót na stronę główną</a>
+    <div th:if="${deletingErrorMessage}" class ="errorMessage" role="alert">
+      <p th:text="${deletingErrorMessage}">error message</p>
+    </div>
+
+    <table class="tableList" id="employeeTable">
+
+      <thead>
+      <tr>
+        <th>Firma</th>
+        <th>Data utworzenia</th>
+        <th>Data wykonania</th>
+        <th>Miejsce wykonania</th>
+        <th>Charakter pracy</th>
+        <th>Godziny pracy</th>
+        <th>Stawka godzinowa (zł)</th>
+        <th>Ilość miejsc</th>
+        <th>Liczba aktualnie dostępnych miejsc</th>
+        <th>Zrezygnuj ze zlecenia</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="order: ${orders}" th:if="${currDate} < ${order.executionDate}"> <!--sprawdzenie czy data wykonania zlecenia nie jest w przeszłości-->
+        <td th:text="${order.getEmployer().companyName}"></td>
+        <td th:text="${order.availabilityDate}"></td>
+        <td th:text="${order.executionDate}"></td>
+        <td th:text="${order.performancePlace}"></td>
+        <td th:text="${order.workNature}"></td>
+        <td th:text="${order.workingHours}"></td>
+        <td th:text="${order.hourlyRate}"></td>
+        <td th:text="${order.vacanciesNumber}"></td>
+        <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}"></td>
+        <td>
+          <a th:href="@{/pracownik/lista-zlecen/zrezygnuj/{id}(id=${order.getIdZlecenia()})}" class="aButton">Zrezygnuj</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <br><a th:href= "@{/pracownik/moja-lista-zlecen/historia-zlecen}" style="text-align:center; display:block">Sprawdź swoją historię zleceń</a>
+    <br><a th:href= "@{/pracownik/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+
+  </div>
+</section>
+
 </body>
 
 </html>

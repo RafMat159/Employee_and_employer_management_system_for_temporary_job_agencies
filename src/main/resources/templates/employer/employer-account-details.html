@@ -1,20 +1,57 @@
 <!DOCTYPE html>
-<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" >
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Twoje dane</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
-<body>
-    <h3>Twoje dane</h3>
-<div th:object="${employer}" >
-    <p>Adres e-mail <span th:text="*{mail}"></span></p>
-    <p>Nazwa firmy: <span th:text="*{companyName}" ></span></p>
-    <p>Rok zalożenia:<span th:text="*{foundationYear}" ></span></p>
-    <p>Adres siedziby:<span th:text="*{address}" ></span></p>
-    <p>NIP: <span th:text="*{NIP}" ></span></p>
-    <p>Numer telefonu :<span th:text="*{phoneNumber}" ></span></p>
-</div>
-    <a th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
-    <a th:href= "@{/usun-konto}">Usun konto</a>
+
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+        </div>
+
+    </div>
+    <div class="navPanel">
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}" class="aPanel">Dodaj zlecenie</a></div>
+        <div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}" class="aPanel">Dodaj dokument</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}" class="aPanel"  style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-pracownikow}" class="aPanel">Lista wszystkich pracowników</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/moja-lista-pracownikow}" class="aPanel">Lista zatrudnionych pracowników</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}" class="aPanel">Moje zlecenia</a></div>
+    </div>
+    <div class="contentBox">
+        <h3>Twoje dane</h3>
+        <div th:object="${employer}" >
+            <p><b>Adres e-mail: </b><span th:text="*{mail}"></span></p>
+            <p><b>Nazwa firmy: </b><span th:text="*{companyName}" ></span></p>
+            <p><b>Rok zalożenia: </b><span th:text="*{foundationYear}" ></span></p>
+            <p><b>Adres siedziby: </b><span th:text="*{address}" ></span></p>
+            <p><b>NIP: </b><span th:text="*{NIP}" ></span></p>
+            <p><b>Numer telefonu: </b><span th:text="*{phoneNumber}" ></span></p>
+        </div>
+
+        <p><b>Zaakceptowane zgody: </b><span>Zgoda na przetwarzanie danych firmy na potrzeby działania serwisu.</span></p>
+
+        <a th:href= "@{/usun-konto}" class="aButton" style="text-align:left; display:block" id="deleteButton" onclick="return confirm('Czy jesteś pewien, że chcesz usunąć konto?');">Usuń konto</a>
+        <br><a th:href= "@{/pracodawca/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+    </div>
+</section>
+
 </body>
+
 </html>

@@ -445,3 +445,39 @@ table, tr, td, th{
   padding-top: 5px;
   color: rgba(22, 22, 22, 0.849);
 }
+
+/* Tabele i listy */
+.tableList {
+  border: 1px solid rgba(68, 92, 122, 0.767);
+  font-size: 1vmax;
+  border-collapse: collapse;
+  padding: 5px;
+  background-color: #ffffff;
+  width: 100%;
+  text-align: center;
+  table-layout: fixed;
+}
+
+/* Wyskakujace informacje */
+.success {
+  border: 1px solid #8caa6e;
+  background-color: #AAC98C;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+
+.errorMessage {
+  border: 1px solid #ff6666;
+  background-color: #ff9999;
+  padding-left: 5px;
+  margin-bottom: 10px;
+}
+
+/* ACCESS DENIED */
+.accessDenied {
+  box-shadow: 0 0 250px rgba(32, 44, 72, 0.951);
+  text-align: center;
+  padding: 4rem 2rem;
+  border-radius: 25px;
+  margin: 0 auto;
+}

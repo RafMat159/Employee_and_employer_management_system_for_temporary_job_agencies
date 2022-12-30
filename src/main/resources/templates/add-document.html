@@ -1,58 +1,92 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nowy dokument</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
 
-
-<body>
-<div align="center">
-    <h1>Nowy dokument</h1>
-    <form sec:authorize="hasRole('PRACODAWCA')" th:action="@{/pracodawca/dodaj-dokument}" method="post" th:object="${documentRQ}">
-        <label>Typ dokumentu(tytuł):</label>
-        <input type="text" th:field="*{documentType}" /><br/>
-
-        <label>Treść:</label>
-        <textarea rows="5" cols="25" th:field="*{content}"></textarea>
-        <br/>
-        <button type="submit">Dodaj</button>
-
-        <div>
-        <a sec:authorize="hasRole('PRACODAWCA')" th:href= "@{/pracodawca/home}">Powrót na stronę główną</a>
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
         </div>
 
-        <div>
-            <span th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}"></span>
-        </div>
-        <div>
-            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
-        </div>
-    </form>
+    </div>
+    <div class="navPanel">
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dodaj-zlecenie-form}" class="aPanel">Dodaj zlecenie</a></div>
+        <div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Dodaj dokument</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-dokumentow}" class="aPanel" >Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-pracownikow}" class="aPanel">Lista wszystkich pracowników</a></div>
+        <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/moja-lista-pracownikow}" class="aPanel">Lista zatrudnionych pracowników</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}" class="aPanel">Moje zlecenia</a></div>
+    </div>
+    <div class="contentBox">
 
-    <form sec:authorize="hasRole('PRACOWNIK')" th:action="@{/pracownik/dodaj-dokument}" method="post" th:object="${documentRQ}">
-        <label>Typ dokumentu(tytuł):</label>
-        <input type="text" th:field="*{documentType}" /><br/>
+        <h3>Nowy dokument</h3>
+        <form sec:authorize="hasRole('PRACODAWCA')" th:action="@{/pracodawca/dodaj-dokument}" method="post" th:object="${documentRQ}">
+            <label>Typ dokumentu (tytuł):</label>
+            <input type="text" th:field="*{documentType}" style="width:50%" required>
 
-        <label>Treść:</label>
-        <textarea rows="5" cols="25" th:field="*{content}"></textarea>
-        <br/>
-        <button type="submit">Dodaj</button>
+            <div class="inputs">
+                <p>Treść:</p>
+                <textarea rows="10" cols="100" style="resize:none; width:100%" th:field="*{content}" required></textarea>
+            </div>
 
-        <div>
-            <a sec:authorize="hasRole('PRACOWNIK')" th:href= "@{/pracownik/home}">Powrót na stronę główną</a>
-        </div>
+            <div style="text-align: right;">
+                <input type="submit" value="Dodaj" class="submit" style="width: 15%">
+            </div>
+            <div>
+                <a sec:authorize="hasRole('PRACODAWCA')" th:href= "@{/pracodawca/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+            </div>
 
-        <div>
-            <span th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}"></span>
-        </div>
-        <div>
-            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
-        </div>
-    </form>
+            <div>
+                <span th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}"></span>
+            </div>
+            <div>
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+            </div>
+        </form>
 
-</div>
+        <form sec:authorize="hasRole('PRACOWNIK')" th:action="@{/pracownik/dodaj-dokument}" method="post" th:object="${documentRQ}">
+            <label>Typ dokumentu (tytuł):</label>
+            <input type="text" th:field="*{documentType}" style="width:50%" required>
+
+            <div class="inputs">
+                <p>Treść:</p>
+                <textarea rows="10" cols="100" style="resize:none; width:100%" th:field="*{content}" required></textarea>
+            </div>
+
+            <div style="text-align: right;">
+                <input type="submit" value="Dodaj" class="submit" style="width: 15%">
+            </div>
+
+            <br><a sec:authorize="hasRole('PRACOWNIK')" th:href= "@{/pracownik/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+
+            <div>
+                <span th:if="${#fields.hasErrors('documentType')}" th:errors="*{documentType}"></span>
+            </div>
+            <div>
+                <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+            </div>
+        </form>
+
+    </div>
+</section>
+
 </body>
+
 </html>
