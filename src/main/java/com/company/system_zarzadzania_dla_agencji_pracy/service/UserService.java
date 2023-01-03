@@ -26,6 +26,11 @@ public class UserService {
     }
 
     @Transactional
+    public Optional<User> getUserById(Integer id) {
+        return userRepository.findUserById(id);
+    }
+
+    @Transactional
     public void deleteOwnAccount(Integer id) {
         userRepository.deleteById(id);
     }

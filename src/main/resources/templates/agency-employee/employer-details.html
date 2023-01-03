@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="UTF-8">
+  <title>Informacje o pracodawcy</title>
+</head>
+<body>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -27,27 +39,56 @@
     <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
     <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
     <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
-    <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Mój profil</a></div>
+    <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel" >Mój profil</a></div>
     <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/lista-pracodawcow}" class="aPanel" >Lista pracodawców</a></div>
     <div sec:authorize="hasRole('PRACODAWCA')"><a th:href="@{/pracodawca/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
     <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
   </div>
   <div class="contentBox">
-    <h3>Twoje dane</h3>
-    <div th:object="${agencyEmployee}" >
-      <p><b>Adres e-mail: </b><span th:text="*{mail}"></span></p>
-      <p><b>Imie: </b><span th:text="*{name}" ></span></p>
-      <p><b>Nazwisko: </b><span th:text="*{surname}" ></span></p>
-      <p><b>Numer telefonu: </b><span th:text="*{phoneNumber}" ></span></p>
-      <p><b>Adres zamieszkania: </b><span th:text="*{address}" ></span></p>
-      <p><b>PESEL: </b><span th:text="*{pesel}" ></span></p>
-      <p><b>Data urodzenia: </b><span th:text="*{dateOfBirth}" ></span></p>
+
+    <h3 th:text="'Firma: ' + ${employer.companyName} " ></h3>
+    <div th:object="${employer}" >
+      <p>Adres e-mail: <span th:text="*{mail}"></span></p>
+      <p>Nazwa firmy: <span th:text="*{companyName}" ></span></p>
+      <p>Rok zalożenia: <span th:text="*{foundationYear}" ></span></p>
+      <p>Adres siedziby: <span th:text="*{address}" ></span></p>
+      <p>NIP: <span th:text="*{NIP}" ></span></p>
+      <p>Numer telefonu: <span th:text="*{phoneNumber}" ></span></p>
     </div>
 
-    <p><b>Zaakceptowane zgody: </b><span>Zgoda na przetwarzanie twoich danych na potrzeby działania serwisu.</span></p>
+    <div>
+      <br>
+      <h3 style="font-size: medium">Zlecenia tej firmy</h3>
+      <table class="tableList" id="employeeTable">
 
-    <a th:href= "@{/usun-konto}" class="aButton" style="text-align:left; display:block" id="deleteButton" onclick="return confirm('Czy jesteś pewien, że chcesz usunąć konto?');">Usuń konto</a>
-    <br><a th:href= "@{/pracownik-agencji/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+        <thead>
+        <tr>
+          <th>Data utworzenia</th>
+          <th>Data wykonania</th>
+          <th>Miejsce wykonania</th>
+          <th>Charakter pracy</th>
+          <th>Godziny pracy</th>
+          <th>Stawka godzinowa (zł)</th>
+          <th>Ilość miejsc</th>
+          <th>Liczba aktualnie dostępnych miejsc</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order: ${orders}" >
+          <td th:text="${order.availabilityDate}" />
+          <td th:text="${order.executionDate}" />
+          <td th:text="${order.performancePlace}" />
+          <td th:text="${order.workNature}" />
+          <td th:text="${order.workingHours}" />
+          <td th:text="${order.hourlyRate}" />
+          <td th:text="${order.vacanciesNumber}" />
+          <td th:text="${order.getVacanciesNumber() - order.getEmployees().size()}" />
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br><a th:href= "@{/pracownik-agencji/lista-pracodawcow}" style="text-align:center; display:block">Powrót na stronę z listą pracodawców</a>
   </div>
 </section>
 

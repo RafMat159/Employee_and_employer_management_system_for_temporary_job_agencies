@@ -12,7 +12,6 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
-
      @Query("SELECT u from User u where u.mail = :mail")
      Optional<User> findUserByMail(@Param("mail") String mail);
 
@@ -22,8 +21,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
      //jak 1:1 to zaciągaj
      //jak kolekcja to nie zaciągaj
 
-//     @Query("SELECT u FROM User u WHERE u.idUzytkownika = :idUzytkownika")
-//     Optional<User> findUserById(@Param("idUzytkownika") Integer idUzytkownika);
+     @Query("SELECT u FROM User u WHERE u.idUzytkownika = :idUzytkownika")
+     Optional<User> findUserById(@Param("idUzytkownika") Integer idUzytkownika);
 
 
      @Modifying
