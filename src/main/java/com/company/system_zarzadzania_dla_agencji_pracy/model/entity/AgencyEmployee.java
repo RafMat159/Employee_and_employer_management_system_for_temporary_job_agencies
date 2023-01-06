@@ -9,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 
 @Entity
@@ -41,12 +42,8 @@ public class AgencyEmployee extends User {
     @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
-//
-//    @OneToMany(mappedBy = "pracownikAgencji")
-//    private List<Salary> wynagrodzenia;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-//    private User uzytkownik;
-//
+
+    @OneToMany(mappedBy = "agencyEmployee", fetch = FetchType.LAZY,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Salary> salaries;
+
 }

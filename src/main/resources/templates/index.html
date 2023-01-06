@@ -16,6 +16,9 @@
             <a href="#">Strona główna</a>
             <a href="#kontakt" style="margin-left: 2rem">Kontakt</a>
         </div>
+        <div th:if="${errorMessage}" class ="errorMessage" role="alert">
+            <p th:text="${errorMessage}">error message</p>
+        </div>
         <div class="conStartNav">
             <a th:href="@{/login}" class="aStart">Zaloguj</a>
             <a th:href="@{/register}" class="aStart">Zarejestruj</a>
@@ -119,7 +122,7 @@
     </div>
 
     <div id="kontakt" class="kontakt">
-        <h3>Konatkt</h3>
+        <h3>Kontakt</h3>
         <div class="small">
             <p>
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"

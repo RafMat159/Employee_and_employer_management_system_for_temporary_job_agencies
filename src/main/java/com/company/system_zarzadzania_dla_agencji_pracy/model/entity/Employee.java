@@ -49,15 +49,15 @@ public class Employee extends User{
     @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
-//
-//    @OneToOne(mappedBy = "pracownik")
-//    private Salary wynagrodzenie;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Salary salary;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents;
 
     @ManyToMany(mappedBy = "employees")
-    Set<Order> orders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
 
     public void addOrder(Order order){

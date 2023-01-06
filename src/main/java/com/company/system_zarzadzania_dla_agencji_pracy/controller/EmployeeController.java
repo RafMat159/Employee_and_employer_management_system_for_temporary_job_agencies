@@ -5,8 +5,6 @@ import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
-import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -187,6 +184,7 @@ public class EmployeeController {
             Employee employee = employeeOpt.get();
             if(orderOpt.isPresent()){
                 Order order = orderOpt.get();
+                employeeService.addSalary(order,employee);
                 employeeService.saveOrder(order,employee); //zapisywanie w bazie danych że dany pracownik zapisuje się na zlecenie
                 redirectAttributes.addFlashAttribute("savingMessage","Zapisano na zlecenie nr:" + order.getIdZlecenia());
                 return "redirect:/pracownik/lista-zlecen";
@@ -208,8 +206,9 @@ public class EmployeeController {
             Employee employee = employeeOpt.get();
             if(orderOpt.isPresent()){
                 Order order = orderOpt.get();
+                employeeService.substractSalary(order,employee);
                 employeeService.removeOrderEmployee(order,employee);    //zerwanie połączenia między pracownikiem, a zleceniem
-                redirectAttributes.addFlashAttribute("deletingMessage","Zrezygnowano ze zlecenia nr:" + order.getIdZlecenia());
+                redirectAttributes.addFlashAttribute("deletingMessage","Zrezygnowano ze zlecenia nr:" + order.getIdZlecenia() +  ". Jeśli kwota za to zlecenie została przelana na Twoje konto, będziesz musiał dokonać zwrotu pieniędzy.");
                 return "redirect:/pracownik/moja-lista-zlecen";
             }
             redirectAttributes.addFlashAttribute("deletingErrorMessage","Zrezygnowanie ze zlecenia nie powiodło się! Zlecenie zostało usunięte!");
@@ -219,4 +218,29 @@ public class EmployeeController {
         return "redirect:/";
     }
 
+
+    @GetMapping("/moje-wynagrodzenie")
+    public String getSalaryPage(Model model, Principal principal,RedirectAttributes redirectAttributes){
+        Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
+        if(employeeOpt.isPresent()){
+            Employee employee = employeeOpt.get();
+            model.addAttribute("salary",employee.getSalary());
+            model.addAttribute("isStudent",employee.isStudentStatus());
+            return "employee/check-salary";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+        return "redirect:/";
+    }
+
+    @GetMapping("/moje-wynagrodzenie/ureguluj-wynagrodzenie")
+    public String settleSalary(Principal principal, RedirectAttributes redirectAttributes){
+        Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
+        if(employeeOpt.isPresent()){
+            Employee employee = employeeOpt.get();
+            employeeService.settleSalary(employee.getSalary());
+            return "redirect:/pracownik/moje-wynagrodzenie";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+        return "redirect:/";
+    }
 }

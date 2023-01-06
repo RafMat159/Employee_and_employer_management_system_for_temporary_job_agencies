@@ -36,7 +36,7 @@ public class AgencyEmployeeController {
     }
 
     @GetMapping("/dane-uzytkownika")
-    public String getAccountInformation(Model model, Principal principal){
+    public String getAccountInformation(Model model, RedirectAttributes redirectAttributes, Principal principal){
 
         Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
 
@@ -45,12 +45,13 @@ public class AgencyEmployeeController {
             model.addAttribute("agencyEmployee",agencyEmployee);
             return "agency-employee/agency-employee-account-details";
         }
-        return "index";
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+        return "redirect:/";
     }
 
 
     @GetMapping("/lista-pracodawcow")
-    public String showListOfAllEmployers(Model model,RedirectAttributes redirectAttributes ,Principal principal){
+    public String showListOfAllEmployers(Model model, RedirectAttributes redirectAttributes,Principal principal){
 
         Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
         if(agencyEmployeeOpt.isPresent()) {
@@ -58,17 +59,18 @@ public class AgencyEmployeeController {
             model.addAttribute("employers", employers);
             return "agency-employee/list-of-all-employers";
         }
-        redirectAttributes.addFlashAttribute("errorMessage","Twoje konto zostało usunięte, nie możesz wykonywać żadnych operacji.");
-        return "index";
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+        return "redirect:/";
     }
 
     @GetMapping("/lista-pracodawcow/informacje-o-pracodawcy/{id}")
-    public String getEmployerInfo(@PathVariable("id") Integer id, Model model, Principal principal){
+    public String getEmployerInfo(@PathVariable("id") Integer id, Model model, Principal principal, RedirectAttributes redirectAttributes){
 
         Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
 
         if(agencyEmployeeOpt.isEmpty()){
-            return "index";
+            redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+            return "redirect:/";
         }
 
         Optional<Employer> employerOpt = agencyEmployeeService.getEmployerById(id);
@@ -91,7 +93,8 @@ public class AgencyEmployeeController {
         Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
 
         if(agencyEmployeeOpt.isEmpty()){
-            return "index";
+            redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+            return "redirect:/";
         }
 
         Optional<User> userOpt = userService.getUserById(id);
@@ -104,4 +107,39 @@ public class AgencyEmployeeController {
         return "redirect:/pracownik-agencji/lista-pracodawcow";
     }
 
+
+    @GetMapping("/lista-wynagrodzen")
+    public String getSalaryList(Model model, Principal principal, RedirectAttributes redirectAttributes){
+
+        Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
+        List<Salary> salaries = agencyEmployeeService.getAllSalaries();
+
+        if(agencyEmployeeOpt.isEmpty()){
+            redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+            return "redirect:/";
+        }
+        model.addAttribute("salaries",salaries);
+        return "agency-employee/salary-list";
+    }
+
+    @GetMapping("/lista-wynagrodzen/{id}")
+    public String paySalary (@PathVariable("id") Integer id, Principal principal, RedirectAttributes redirectAttributes){
+        Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.getAgencyEmployee(principal.getName());
+
+        if(agencyEmployeeOpt.isEmpty()){
+            redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
+            return "redirect:/";
+        }
+
+        Optional<Salary> salaryOpt = agencyEmployeeService.getSalaryById(id);
+
+        if(salaryOpt.isPresent()){
+            Salary salary = salaryOpt.get();
+            agencyEmployeeService.changeSalaryValueOnZero(salary,agencyEmployeeOpt.get());
+            redirectAttributes.addFlashAttribute("paySalaryMessage","Wynagrodzenie o numerze id równym "+ salary.getIdWynagrodzenia() + " zostało przelane na konto pracownika");
+            return "redirect:/pracownik-agencji/lista-wynagrodzen";
+        }
+        redirectAttributes.addFlashAttribute("paySalaryErrorMessage","Wystąpił błąd podczas wykonywania przelewu na konto pracownika");
+        return "redirect:/pracownik-agencji/lista-wynagrodzen";
+    }
 }

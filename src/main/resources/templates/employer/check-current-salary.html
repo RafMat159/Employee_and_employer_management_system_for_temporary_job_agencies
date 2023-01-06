@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Bieżące wynagrodzenie</title>
+</head>
+<body>
+<div>
+  <p><b>Kwota do wypłacenia: </b><span th:text="${currentCosts}"></span></p>
+</div>
+<br><a th:href= "@{/pracodawca/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+</body>
+</html>

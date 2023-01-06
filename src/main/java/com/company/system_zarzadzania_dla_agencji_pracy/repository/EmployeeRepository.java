@@ -1,7 +1,6 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.repository;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
-    @Query("SELECT e FROM Employee e WHERE e.mail = :mail")
+    @Query("SELECT e FROM Employee e JOIN FETCH e.salary WHERE e.mail = :mail")
     Optional<Employee> findEmployeeByMail(@Param("mail") String mail);
 
     @Query("SELECT e FROM Employee e")

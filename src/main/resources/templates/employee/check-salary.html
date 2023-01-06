@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Moje wynagrodzenie</title>
+</head>
+<body>
+<div th:if="${salary.ifPaid}" th:object="${salary}">
+    <p><b>Aktualnie Twoje wszystkie zlecenia zostały opłacone</b></p>
+</div>
+<div th:unless="${salary.ifPaid}" th:object="${salary}">
+    <p><b>Kwota netto: </b><span th:text="*{netSum}"></span></p>
+    <p><b>Kwota brutto: </b><span th:text="*{grossAmount}"></span></p>
+
+    <p><b>Kwota do wypłacenia: </b><span th:text="${isStudent} ? *{grossAmount} : *{netSum} "></span></p>
+    <a th:if="${salary.netSum < 0}" th:href="@{/pracownik/moje-wynagrodzenie/ureguluj-wynagrodzenie}" class="aButton">Wynagrodzenie zostało uregulowane</a>
+</div>
+<br><a th:href= "@{/pracownik/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+</body>
+</html>

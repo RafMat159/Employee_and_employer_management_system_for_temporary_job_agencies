@@ -46,7 +46,7 @@
             <p th:text="${savingErrorMessage}">error message</p>
         </div>
 
-        <table sec:authorize="hasRole('PRACOWNIK')" id="employeeTable" class="tableList">
+        <table th:if="${employee.salary.netSum >= 0}" sec:authorize="hasRole('PRACOWNIK')" id="employeeTable" class="tableList">
 
             <thead>
             <tr>
@@ -87,6 +87,10 @@
             </tr>
             </tbody>
         </table>
+        <div th:unless="${employee.salary.netSum >= 0}" sec:authorize="hasRole('PRACOWNIK')">
+            <h4>Nie możesz przeglądać zleceń do momentu uregulowania wynagrodzenia z agencją pracy!</h4>
+            <a th:href="@{/pracownik/moje-wynagrodzenie}">Przekieruj mnie do strony umożliwiającej potwierdzenie uregulowania wynagrodzenia</a>
+        </div>
 
         <table sec:authorize="hasRole('PRACODAWCA')" id="employerTable" class="tableList">
 

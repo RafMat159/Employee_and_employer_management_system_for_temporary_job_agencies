@@ -1,6 +1,5 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.repository;
 
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,4 +22,7 @@ public interface EmployerRepository extends JpaRepository<Employer,Integer> {
     @Query("SELECT e FROM Employer e")
     List<Employer> findAllEmployers();
 
+    @Modifying
+    @Query("UPDATE Employer e SET e.currentCosts=:currentCosts WHERE e.idUzytkownika=:idUzytkownika")
+    void modifyCurrentCostsValue(@Param("idUzytkownika")Integer idUzytkownika, @Param("currentCosts") Double currentCosts);
 }

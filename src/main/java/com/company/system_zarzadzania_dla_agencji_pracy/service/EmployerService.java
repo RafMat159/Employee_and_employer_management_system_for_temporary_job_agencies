@@ -1,5 +1,6 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
+import com.company.system_zarzadzania_dla_agencji_pracy.converter.TimeConverter;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -126,13 +128,30 @@ public class EmployerService {
     }
 
     @Transactional
-    public Employee removeEmployeeFromOrder(Order order, Employee employee){
+    public Employee removeEmployeeFromOrder(Employer employer,Order order, Employee employee){
+        BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
+        BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts());
+        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(),currentCostsBD.subtract(grossAmount).doubleValue());
         employee.removeOrder(order);
         return employeeRepository.save(employee);
     }
 
-//    @Transactional
-//    public void deleteOwnAccount(Integer id) {
-//        userRepository.deleteById(id);
-//    }
+    @Transactional
+    public void refreshCurrentCosts(Employer employer){
+        List<Order> orders = employer.getOrders();
+        boolean modified = false;
+        for (int i = 0; i < orders.size(); i++) {
+            Order order = orders.get(i);
+            if (order.getExecutionDate().compareTo(Date.valueOf(LocalDate.now())) <= 0){
+                BigDecimal numberOfEmployees = new BigDecimal(order.getEmployees().size());
+                BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
+                BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts()).multiply(numberOfEmployees);
+                employer.setCurrentCosts(currentCostsBD.subtract(grossAmount).doubleValue());
+                modified = true;
+            }
+        }
+        if (modified)
+            employerRepository.modifyCurrentCostsValue(employer.getIdUzytkownika(),employer.getCurrentCosts());
+
+    }
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista wynagrodzeń</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
+</head>
+<body>
+<h3>Lista wynagrodzeń<h3>
+
+<div th:if="${paySalaryMessage}" class ="success" role="alert">
+    <p th:text="${paySalaryMessage}">success message</p>
+</div>
+
+<div th:if="${paySalaryErrorMessage}" class ="errorMessage" role="alert">
+    <p th:text="${paySalaryErrorMessage}">error message</p>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID Pracownika</th>
+        <th>Kwota netto</th>
+        <th>Kwota brutto</th>
+        <th>Przelano</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="salary: ${salaries}">
+        <td th:text="${salary.employee.getIdUzytkownika()}"></td>
+        <td th:text="${salary.netSum}"></td>
+        <td th:text="${salary.grossAmount}"></td>
+        <td th:text="${salary.ifPaid} ? 'Tak' : 'Nie'"></td>
+        <td th:if="${salary.netSum < 0}">
+            <a  class="aButton">Nie mozna wykonać przelewu do momentu uregulowania należności przez pracownika</a>
+        </td>
+        <td th:unless="${salary.netSum < 0}">
+            <a th:if="${salary.ifPaid}" class="aButton">Aktualnie nie ma środków do przelania na konto tego pracownika</a>
+            <a th:unless="${salary.ifPaid}" th:href="@{/pracownik-agencji/lista-wynagrodzen/{id}(id=${salary.idWynagrodzenia})}" class="aButton">Przelej</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <br><a th:href= "@{/pracownik-agencji/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+</body>
+</html>

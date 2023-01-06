@@ -6,6 +6,7 @@ import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Order;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.DocumentRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.OrderRQ;
+import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployeeService;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,10 +27,12 @@ import java.util.stream.Collectors;
 public class EmployerController {
 
     private EmployerService employerService;
+    private EmployeeService employeeService;
 
     @Autowired
-    public EmployerController(EmployerService employerService) {
+    public EmployerController(EmployerService employerService,EmployeeService employeeService) {
         this.employerService = employerService;
+        this.employeeService = employeeService;
     }
 
 
@@ -141,15 +144,6 @@ public class EmployerController {
         return "documents-list";
     }
 
-
-
-//    @GetMapping("/dodaj-dokument-form")
-//    public String getDocumentForm(Model model){
-//        DocumentRQ documentRQ = new DocumentRQ();
-//        model.addAttribute("documentRQ",documentRQ);
-//        return "add-document";
-//    }
-
     @PostMapping("/dodaj-dokument")
     public String addNewOrderEmployer(@Valid @ModelAttribute("documentRQ") DocumentRQ documentRQ, BindingResult bindingResult, Model model, Principal principal){
 
@@ -251,14 +245,28 @@ public class EmployerController {
         Optional<Employee> employeeOpt = employerService.getEmployeeById(idUzytkownika);
         if(employerOpt.isPresent()){
             if(orderOpt.isPresent() && employeeOpt.isPresent()){
-                employerService.removeEmployeeFromOrder(orderOpt.get(),employeeOpt.get());    //zerwanie połączenia między pracownikiem, a zleceniem
-                redirectAttributes.addFlashAttribute("deletingMessage","Zrezygnowano z pracownika nr:" + employeeOpt.get().getIdUzytkownika() + " dla zlecenia nr:" + orderOpt.get().getIdZlecenia());
+                employeeService.substractSalary(orderOpt.get(),employeeOpt.get());
+                employerService.removeEmployeeFromOrder(employerOpt.get(),orderOpt.get(),employeeOpt.get());    //zerwanie połączenia między pracownikiem, a zleceniem
+                redirectAttributes.addFlashAttribute("deletingMessage","Zrezygnowano z pracownika nr:" + employeeOpt.get().getIdUzytkownika() + " dla zlecenia nr:" + orderOpt.get().getIdZlecenia() + ". Jeśli z Twojego konta została pobrana opłata za tego pracownika, wszystkie środki zostaną zwrócone.");
                 return "redirect:/pracodawca/moja-lista-pracownikow";
             }
             redirectAttributes.addFlashAttribute("deletingErrorMessage","Zrezygnowanie z pracownika nie powiodło się! Konto pracownika lub zlecenie zostało usunięte!");
             return "redirect:/pracodawca/moja-lista-pracownikow";
         }
         redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych akcji, Twoje konto zostało usunięte!");
+        return "redirect:/";
+    }
+
+    @GetMapping("/moje-biezace-koszty")
+    public String getCurrentSalaryPage(Model model, Principal principal, RedirectAttributes redirectAttributes){
+        Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
+        if(employerOpt.isPresent()){
+            Employer employer = employerOpt.get();
+            employerService.refreshCurrentCosts(employer);
+            model.addAttribute("currentCosts",employer.getCurrentCosts());
+            return "employer/check-current-salary";
+        }
+        redirectAttributes.addFlashAttribute("errorMessage","Nie możesz wykonywać żadnych działań, Twoje konto zostało usunięte.");
         return "redirect:/";
     }
 
