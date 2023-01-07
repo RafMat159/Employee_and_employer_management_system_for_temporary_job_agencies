@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @OnDelete(action = OnDeleteAction.CASCADE)
-@Table(name="pracownikagencji")
+@Table(name = "pracownikagencji")
 public class AgencyEmployee extends User {
 
     @Column(name = "imie")
@@ -43,7 +43,7 @@ public class AgencyEmployee extends User {
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 
-    @OneToMany(mappedBy = "agencyEmployee", fetch = FetchType.LAZY,cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "agencyEmployee", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Salary> salaries;
 
 }

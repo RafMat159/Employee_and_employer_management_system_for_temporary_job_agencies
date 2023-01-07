@@ -71,7 +71,7 @@
             </div>
 
             <div th:if="${existingUsername != null}" class="alert alert-danger notification" role="alert">
-                <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajeta</p>
+                <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajęta</p>
             </div>
             <div>
                 <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>

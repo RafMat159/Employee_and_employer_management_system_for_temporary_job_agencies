@@ -11,19 +11,18 @@
 
 <body class="align">
 <section>
+    <div th:if="${errorMessage}" class ="errorMessage" role="alert" style = "margin-bottom: 0; text-align:center;">
+        <p th:text="${errorMessage}">error message</p>
+    </div>
     <div class="header" role="navigation">
         <div class="conStart">
             <a href="#">Strona główna</a>
             <a href="#kontakt" style="margin-left: 2rem">Kontakt</a>
         </div>
-        <div th:if="${errorMessage}" class ="errorMessage" role="alert">
-            <p th:text="${errorMessage}">error message</p>
-        </div>
         <div class="conStartNav">
             <a th:href="@{/login}" class="aStart">Zaloguj</a>
             <a th:href="@{/register}" class="aStart">Zarejestruj</a>
         </div>
-
     </div>
     <div class="start">
         <div>

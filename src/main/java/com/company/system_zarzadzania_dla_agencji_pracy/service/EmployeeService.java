@@ -28,10 +28,10 @@ public class EmployeeService {
     private SalaryRepository salaryRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository,PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository, OrderRepository orderRepository, EmployerRepository employerRepository, SalaryRepository salaryRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder, AdministratorRepository administratorRepository, DocumentRepository documentRepository, OrderRepository orderRepository, EmployerRepository employerRepository, SalaryRepository salaryRepository) {
         this.employeeRepository = employeeRepository;
         this.passwordEncoder = passwordEncoder;
-        this.administratorRepository= administratorRepository;
+        this.administratorRepository = administratorRepository;
         this.documentRepository = documentRepository;
         this.orderRepository = orderRepository;
         this.employerRepository = employerRepository;
@@ -45,15 +45,15 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void addEmployee(EmployeeRQ employeeRQ,Administrator administrator) {    //dodanie pracownika po walidacji danych
+    public void addEmployee(EmployeeRQ employeeRQ, Administrator administrator) {    //dodanie pracownika po walidacji danych
         Employee employee = new Employee();
-        Salary salary  = new Salary();
+        Salary salary = new Salary();
 
         employee.setName(employeeRQ.getName());
         employee.setSurname(employeeRQ.getSurname());
         employee.setPhoneNumber(employeeRQ.getPhoneNumber());
 
-        if(employeeRQ.getAddress() != null)
+        if (employeeRQ.getAddress() != null)
             employee.setAddress(employeeRQ.getAddress());
 
         employee.setPesel(employeeRQ.getPesel());
@@ -76,7 +76,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void addNewDocumentEmployee(DocumentRQ documentRQ, Employee employee){
+    public void addNewDocumentEmployee(DocumentRQ documentRQ, Employee employee) {
         Document document = new Document();
         document.setDocumentType(documentRQ.getDocumentType());
         document.setContent(documentRQ.getContent());
@@ -86,7 +86,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Optional<Document> getDocumentEmployee(Integer idDokumentu){
+    public Optional<Document> getDocumentEmployee(Integer idDokumentu) {
         return documentRepository.findById(idDokumentu);
     }
 
@@ -96,7 +96,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public List<Order> findAllOrders(){
+    public List<Order> findAllOrders() {
         return orderRepository.findAllOrdersRep();
     }
 
@@ -106,18 +106,18 @@ public class EmployeeService {
     }
 
     @Transactional
-    public Optional<Order> findOrderEmployee(Integer id){
+    public Optional<Order> findOrderEmployee(Integer id) {
         return orderRepository.findOrderById(id);
     }
 
     @Transactional
-    public Employee saveOrder(Order order, Employee employee){
+    public Employee saveOrder(Order order, Employee employee) {
         employee.addOrder(order);
         return employeeRepository.save(employee);
     }
 
     @Transactional
-    public void substractSalary(Order order, Employee employee){
+    public void substractSalary(Order order, Employee employee) {
         Salary salary = employee.getSalary();
         salary.setIfPaid(false);
 
@@ -125,20 +125,20 @@ public class EmployeeService {
 
         Employer employer = order.getEmployer();
         BigDecimal currentCosts = BigDecimal.valueOf(employer.getCurrentCosts());
-        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(),currentCosts.subtract(grossAmount).doubleValue());
+        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(), currentCosts.subtract(grossAmount).doubleValue());
 
         salary.setGrossAmount(salary.getGrossAmount() - grossAmount.doubleValue());
-        if(employee.isStudentStatus())                      //jesli student, to taka sama kwota netto co brutto
+        if (employee.isStudentStatus())                      //jesli student, to taka sama kwota netto co brutto
             salary.setNetSum(salary.getNetSum() - grossAmount.doubleValue());
         else
             salary.setNetSum(salary.getNetSum() - countNetSumFromGrossAmount(grossAmount));  //jesli nie to liczymy
 
-        salaryRepository.substractSalary(employee.getIdUzytkownika(),salary.getGrossAmount(), salary.getNetSum());
+        salaryRepository.substractSalary(employee.getIdUzytkownika(), salary.getGrossAmount(), salary.getNetSum());
     }
 
 
     @Transactional
-    public void addSalary(Order order, Employee employee){
+    public void addSalary(Order order, Employee employee) {
         Salary salary = employee.getSalary();
         salary.setIfPaid(false);
 
@@ -146,30 +146,30 @@ public class EmployeeService {
 
         Employer employer = order.getEmployer();
         BigDecimal currentCosts = BigDecimal.valueOf(employer.getCurrentCosts());
-        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(),currentCosts.add(grossAmount).doubleValue());
+        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(), currentCosts.add(grossAmount).doubleValue());
 
         salary.setGrossAmount(salary.getGrossAmount() + grossAmount.doubleValue());
-        if(employee.isStudentStatus())                      //jesli student, to taka sama kwota netto co brutto
-            salary.setNetSum(salary.getNetSum()+ grossAmount.doubleValue());
+        if (employee.isStudentStatus())                      //jesli student, to taka sama kwota netto co brutto
+            salary.setNetSum(salary.getNetSum() + grossAmount.doubleValue());
         else
-            salary.setNetSum(salary.getNetSum()+ countNetSumFromGrossAmount(grossAmount));  //jesli nie to liczymy
+            salary.setNetSum(salary.getNetSum() + countNetSumFromGrossAmount(grossAmount));  //jesli nie to liczymy
 
-        salaryRepository.newValueOfGrossAmountAndNetSum(employee.getIdUzytkownika(),salary.getGrossAmount(), salary.getNetSum(),salary.isIfPaid());
+        salaryRepository.newValueOfGrossAmountAndNetSum(employee.getIdUzytkownika(), salary.getGrossAmount(), salary.getNetSum(), salary.isIfPaid());
     }
 
-    private Double countNetSumFromGrossAmount(BigDecimal grossAmount){
+    private Double countNetSumFromGrossAmount(BigDecimal grossAmount) {
         BigDecimal divisor = new BigDecimal("1.23");
-        return grossAmount.divide(divisor,2,RoundingMode.HALF_UP).doubleValue();
+        return grossAmount.divide(divisor, 2, RoundingMode.HALF_UP).doubleValue();
     }
 
     @Transactional
-    public Employee removeOrderEmployee(Order order, Employee employee){
+    public Employee removeOrderEmployee(Order order, Employee employee) {
         employee.removeOrder(order);
         return employeeRepository.save(employee);
     }
 
     @Transactional
-    public void settleSalary(Salary salary){
+    public void settleSalary(Salary salary) {
         salary.setNetSum(0.0);
         salary.setGrossAmount(0.0);
         salaryRepository.settleSalaryUpdate(salary.getIdWynagrodzenia());

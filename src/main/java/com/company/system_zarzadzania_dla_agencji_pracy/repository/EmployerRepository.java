@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmployerRepository extends JpaRepository<Employer,Integer> {
+public interface EmployerRepository extends JpaRepository<Employer, Integer> {
 
     @Query("SELECT e FROM Employer e WHERE e.mail =:mail")
     Optional<Employer> findEmployerByMail(@Param("mail") String mail);
@@ -24,5 +24,5 @@ public interface EmployerRepository extends JpaRepository<Employer,Integer> {
 
     @Modifying
     @Query("UPDATE Employer e SET e.currentCosts=:currentCosts WHERE e.idUzytkownika=:idUzytkownika")
-    void modifyCurrentCostsValue(@Param("idUzytkownika")Integer idUzytkownika, @Param("currentCosts") Double currentCosts);
+    void modifyCurrentCostsValue(@Param("idUzytkownika") Integer idUzytkownika, @Param("currentCosts") Double currentCosts);
 }

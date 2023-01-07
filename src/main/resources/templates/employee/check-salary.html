@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Moje wynagrodzenie</title>
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
-<body>
-<div th:if="${salary.ifPaid}" th:object="${salary}">
-    <p><b>Aktualnie Twoje wszystkie zlecenia zostały opłacone</b></p>
-</div>
-<div th:unless="${salary.ifPaid}" th:object="${salary}">
-    <p><b>Kwota netto: </b><span th:text="*{netSum}"></span></p>
-    <p><b>Kwota brutto: </b><span th:text="*{grossAmount}"></span></p>
 
-    <p><b>Kwota do wypłacenia: </b><span th:text="${isStudent} ? *{grossAmount} : *{netSum} "></span></p>
-    <a th:if="${salary.netSum < 0}" th:href="@{/pracownik/moje-wynagrodzenie/ureguluj-wynagrodzenie}" class="aButton">Wynagrodzenie zostało uregulowane</a>
-</div>
-<br><a th:href= "@{/pracownik/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+        </div>
+
+    </div>
+    <div class="navPanel">
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/dane-uzytkownika}" class="aPanel">Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-zlecen}" class="aPanel">Lista zleceń</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moja-lista-zlecen}" class="aPanel">Moje zlecenia</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/moje-wynagrodzenie}" class="aPanel" style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Moje wynagrodzenie</a></div>
+        <div sec:authorize="hasRole('PRACOWNIK')"><a th:href="@{/pracownik/lista-dokumentow}" class="aPanel">Lista dokumentów</a></div>
+        <div sec:authorize="hasAnyRole('PRACODAWCA','PRACOWNIK')"><a th:href="@{/dodaj-dokument-form}" class="aPanel">Dodaj dokument</a></div>
+    </div>
+    <div class="contentBox">
+        <h3>Moje wynagrodzenie</h3>
+        <div th:if="${salary.ifPaid}" th:object="${salary}">
+            <p><b>Aktualnie Twoje wszystkie zlecenia zostały opłacone</b></p>
+        </div>
+        <div th:unless="${salary.ifPaid}" th:object="${salary}">
+            <p><b>Kwota netto: </b><span th:text="*{netSum}"></span></p>
+            <p><b>Kwota brutto: </b><span th:text="*{grossAmount}"></span></p>
+
+            <p><b>Kwota do wypłacenia: </b><span th:text="${isStudent} ? *{grossAmount} : *{netSum} "></span></p>
+            <p><a th:if="${salary.netSum < 0}" th:href="@{/pracownik/moje-wynagrodzenie/ureguluj-wynagrodzenie}" class="aButton2" onclick="return confirm('Czy potwierdzasz uregulowanie wynagrodzenia?');" >Wynagrodzenie uregulowano</a></p>
+        </div>
+        <br><a th:href= "@{/pracownik/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+    </div>
+</section>
+
 </body>
 </html>

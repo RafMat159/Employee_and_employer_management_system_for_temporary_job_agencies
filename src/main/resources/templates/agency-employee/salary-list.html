@@ -1,47 +1,74 @@
 <!DOCTYPE html>
 <html lang="pl-PL" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lista wynagrodzeń</title>
     <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
-<body>
-<h3>Lista wynagrodzeń<h3>
 
-<div th:if="${paySalaryMessage}" class ="success" role="alert">
-    <p th:text="${paySalaryMessage}">success message</p>
-</div>
+<body class="align">
+<section>
+    <div class="header" role="navigation"  style="background-color: #ffffff">
+        <div class="conStart">
+            <h3><a href="#" style="color:rgba(68, 92, 122)">Witaj w swoim panelu</a></h3>
+        </div>
+        <div class="conStartNav">
+            <a th:href="@{/logout}" class="aLogout">Wyloguj się</a>
+        </div>
 
-<div th:if="${paySalaryErrorMessage}" class ="errorMessage" role="alert">
-    <p th:text="${paySalaryErrorMessage}">error message</p>
-</div>
+    </div>
+    <div class="navPanel">
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/dane-uzytkownika}" class="aPanel" >Mój profil</a></div>
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/lista-pracodawcow}" class="aPanel">Lista pracodawców</a></div>
+        <div sec:authorize="hasRole('PRACOWNIKAGENCJI')"><a th:href="@{/pracownik-agencji/lista-wynagrodzen}" class="aPanel"  style="color:#f3f3f3; background-color:  rgba(68, 92, 122, 0.767);">Lista wynagrodzeń</a></div>
+    </div>
+    <div class="contentBox">
 
-<table>
-    <thead>
-    <tr>
-        <th>ID Pracownika</th>
-        <th>Kwota netto</th>
-        <th>Kwota brutto</th>
-        <th>Przelano</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="salary: ${salaries}">
-        <td th:text="${salary.employee.getIdUzytkownika()}"></td>
-        <td th:text="${salary.netSum}"></td>
-        <td th:text="${salary.grossAmount}"></td>
-        <td th:text="${salary.ifPaid} ? 'Tak' : 'Nie'"></td>
-        <td th:if="${salary.netSum < 0}">
-            <a  class="aButton">Nie mozna wykonać przelewu do momentu uregulowania należności przez pracownika</a>
-        </td>
-        <td th:unless="${salary.netSum < 0}">
-            <a th:if="${salary.ifPaid}" class="aButton">Aktualnie nie ma środków do przelania na konto tego pracownika</a>
-            <a th:unless="${salary.ifPaid}" th:href="@{/pracownik-agencji/lista-wynagrodzen/{id}(id=${salary.idWynagrodzenia})}" class="aButton">Przelej</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
-    <br><a th:href= "@{/pracownik-agencji/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+        <h3>Lista wynagrodzeń</h3>
+
+        <div th:if="${paySalaryMessage}" class ="success" role="alert">
+            <p th:text="${paySalaryMessage}">success message</p>
+        </div>
+
+        <div th:if="${paySalaryErrorMessage}" class ="errorMessage" role="alert">
+            <p th:text="${paySalaryErrorMessage}">error message</p>
+        </div>
+
+        <table class="tableList">
+            <thead>
+            <tr>
+                <th>ID Pracownika</th>
+                <th>Kwota netto</th>
+                <th>Kwota brutto</th>
+                <th>Przelano</th>
+                <th style="width:200%;">Akcje</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="salary: ${salaries}">
+                <td th:text="${salary.employee.getIdUzytkownika()}"></td>
+                <td th:text="${salary.netSum}"></td>
+                <td th:text="${salary.grossAmount}"></td>
+                <td th:text="${salary.ifPaid} ? 'Tak' : 'Nie'"></td>
+                <td th:if="${salary.netSum < 0}">
+                    <a  class="aButton" style="font-size: 0.7vmax;">Nie mozna wykonać przelewu, pracownik nie uregulował należności</a>
+                </td>
+                <td th:unless="${salary.netSum < 0}">
+                    <a th:if="${salary.ifPaid} OR ${salary.netSum == 0}" class="aButton" style="font-size: 0.7vmax;">Aktualnie nie ma środków do przelania na konto tego pracownika</a>
+                    <a th:unless="${salary.ifPaid} OR ${salary.netSum == 0}" th:href="@{/pracownik-agencji/lista-wynagrodzen/{id}(id=${salary.idWynagrodzenia})}" class="detailsButton">Przelej</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br><a th:href= "@{/pracownik-agencji/home}" style="text-align:center; display:block">Powrót na stronę główną</a>
+    </div>
+
+</section>
+
 </body>
+
 </html>

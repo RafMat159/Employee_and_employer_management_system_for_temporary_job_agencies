@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AdministratorRepository extends JpaRepository<Administrator,Integer> {
+public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
 
     @Query("SELECT a FROM Administrator a LEFT JOIN FETCH a.agencyEmployees pa WHERE a.mail = :mail")
     Optional<Administrator> findAdministratorByMail(@Param("mail") String mail);

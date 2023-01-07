@@ -18,7 +18,7 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 @OnDelete(action = OnDeleteAction.CASCADE)
 @Table(name = "pracodawca")
-public class Employer extends User{
+public class Employer extends User {
 
     @Column(name = "nazwaFirmy")
     private String companyName;
@@ -37,7 +37,6 @@ public class Employer extends User{
 
     @Column(name = "biezaceKoszty")
     private Double currentCosts;
-
 
 
     @ManyToOne(optional = false)

@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "pracownik")
 @PrimaryKeyJoinColumn(name = "idUzytkownika")
 @OnDelete(action = OnDeleteAction.CASCADE)
-public class Employee extends User{
+public class Employee extends User {
 
     @Column(name = "imie")
     private String name;
@@ -45,7 +45,6 @@ public class Employee extends User{
     private Date dateOfBirth;
 
 
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
@@ -53,19 +52,19 @@ public class Employee extends User{
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private Salary salary;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents;
 
     @ManyToMany(mappedBy = "employees")
     private Set<Order> orders = new HashSet<>();
 
 
-    public void addOrder(Order order){
+    public void addOrder(Order order) {
         orders.add(order);
         order.getEmployees().add(this);
     }
 
-    public void removeOrder(Order order){
+    public void removeOrder(Order order) {
         this.orders.remove(order);
         order.getEmployees().remove(this);
     }

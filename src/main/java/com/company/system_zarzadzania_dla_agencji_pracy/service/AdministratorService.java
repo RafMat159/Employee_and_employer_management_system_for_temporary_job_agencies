@@ -15,7 +15,7 @@ import java.util.Optional;
 public class AdministratorService {
 
     private UserRepository userRepository;
-    private AdministratorRepository administratorRepository; //moze sie przyda
+    private AdministratorRepository administratorRepository;
 
     @Autowired
     public AdministratorService(UserRepository userRepository, AdministratorRepository administratorRepository) {

@@ -46,7 +46,7 @@ public class EmployerService {
         employer.setAdministrator(administrator);
         employer.setCompanyName(employerRQ.getCompanyName());
 
-        if(employerRQ.getFoundationYear() != null && employerRQ.getFoundationYear() != 0)
+        if (employerRQ.getFoundationYear() != null && employerRQ.getFoundationYear() != 0)
             employer.setFoundationYear(employerRQ.getFoundationYear());
 
         employer.setAddress(employerRQ.getAddress());
@@ -66,7 +66,7 @@ public class EmployerService {
     }
 
     @Transactional
-    public void addNewOrder(OrderRQ orderRQ, Employer employer){
+    public void addNewOrder(OrderRQ orderRQ, Employer employer) {
         Order order = new Order();
         Date date = Date.valueOf(LocalDate.now());          //ustawienie biezacej daty
         order.setExecutionDate(orderRQ.getExecutionDate());
@@ -77,12 +77,13 @@ public class EmployerService {
         order.setHourlyRate(orderRQ.getHourlyRate());
         order.setVacanciesNumber(orderRQ.getVacanciesNumber());
         order.setEmployer(employer);
+        order.setSettled(false);
 
         orderRepository.save(order);
     }
 
     @Transactional
-    public void addNewDocumentEmployer(DocumentRQ documentRQ, Employer employer){
+    public void addNewDocumentEmployer(DocumentRQ documentRQ, Employer employer) {
         Document document = new Document();
         document.setDocumentType(documentRQ.getDocumentType());
         document.setContent(documentRQ.getContent());
@@ -93,7 +94,7 @@ public class EmployerService {
 
 
     @Transactional
-    public Optional<Document> getDocumentEmployer(Integer idDokumentu){
+    public Optional<Document> getDocumentEmployer(Integer idDokumentu) {
         return documentRepository.findById(idDokumentu);
     }
 
@@ -108,7 +109,7 @@ public class EmployerService {
     }
 
     @Transactional
-    public List<Employee> findAllEmployees(){
+    public List<Employee> findAllEmployees() {
         return employeeRepository.findAllEmployees();
     }
 
@@ -118,40 +119,42 @@ public class EmployerService {
     }
 
     @Transactional
-    public List<Employee> findCurrentlyEmployedEmployees(Integer id, Date currDate){
-        return employeeRepository.findEmployeesByOrders(id,currDate);
+    public List<Employee> findCurrentlyEmployedEmployees(Integer id, Date currDate) {
+        return employeeRepository.findEmployeesByOrders(id, currDate);
     }
 
     @Transactional
-    public Optional<Order> findOrderEmployer(Integer id){
+    public Optional<Order> findOrderEmployer(Integer id) {
         return orderRepository.findOrderById(id);
     }
 
     @Transactional
-    public Employee removeEmployeeFromOrder(Employer employer,Order order, Employee employee){
+    public Employee removeEmployeeFromOrder(Employer employer, Order order, Employee employee) {
         BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
         BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts());
-        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(),currentCostsBD.subtract(grossAmount).doubleValue());
+        employerRepository.modifyCurrentCostsValue(order.getEmployer().getIdUzytkownika(), currentCostsBD.subtract(grossAmount).doubleValue());
         employee.removeOrder(order);
         return employeeRepository.save(employee);
     }
 
     @Transactional
-    public void refreshCurrentCosts(Employer employer){
+    public void refreshCurrentCosts(Employer employer) {
         List<Order> orders = employer.getOrders();
         boolean modified = false;
         for (int i = 0; i < orders.size(); i++) {
             Order order = orders.get(i);
-            if (order.getExecutionDate().compareTo(Date.valueOf(LocalDate.now())) <= 0){
+            if (order.getExecutionDate().compareTo(Date.valueOf(LocalDate.now())) <= 0 && !order.isSettled()) {
                 BigDecimal numberOfEmployees = new BigDecimal(order.getEmployees().size());
                 BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
                 BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts()).multiply(numberOfEmployees);
                 employer.setCurrentCosts(currentCostsBD.subtract(grossAmount).doubleValue());
+                order.setSettled(true);
                 modified = true;
             }
         }
-        if (modified)
-            employerRepository.modifyCurrentCostsValue(employer.getIdUzytkownika(),employer.getCurrentCosts());
-
+        if (modified) {
+            employer.setOrders(orders);
+            employerRepository.save(employer);
+        }
     }
 }

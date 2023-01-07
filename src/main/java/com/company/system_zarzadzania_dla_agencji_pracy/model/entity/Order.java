@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,7 +19,7 @@ import java.util.Set;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idZlecenia")
     private Integer idZlecenia;
 
@@ -31,7 +30,7 @@ public class Order {
     private Date availabilityDate;
 
     @Column(name = "miejsceWykonania")
-    private String performancePlace ;
+    private String performancePlace;
 
     @Column(name = "charakterPracy")
     private String workNature;
@@ -40,18 +39,20 @@ public class Order {
     private String workingHours;
 
     @Column(name = "stawkaGodzinowa")
-    private Double hourlyRate ;
+    private Double hourlyRate;
 
     @Column(name = "iloscMiejsc")
     private Integer vacanciesNumber;
 
+    @Column(name = "rozliczone")
+    private boolean settled;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "idPracodawcy")
     private Employer employer;
 
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name="zlecenie_pracownik",
-    joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
+    @JoinTable(name = "zlecenie_pracownik",
+            joinColumns = @JoinColumn(name = "idZlecenia"), inverseJoinColumns = @JoinColumn(name = "idPracownika"))
     Set<Employee> employees;
 }

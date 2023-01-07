@@ -8,11 +8,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DocumentRepository extends JpaRepository<Document,Integer> {
+public interface DocumentRepository extends JpaRepository<Document, Integer> {
 
     @Modifying
     @Query("DELETE FROM Document d WHERE d.idDokumentu = :idDokumentu")
     void deleteById(@Param("idDokumentu") Integer idDokumentu);
-
-
 }

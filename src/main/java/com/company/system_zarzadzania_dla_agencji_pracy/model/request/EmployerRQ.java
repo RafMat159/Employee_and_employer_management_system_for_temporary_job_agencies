@@ -20,18 +20,21 @@ public class EmployerRQ {
     private String password;
 
     @NotBlank(message = "Nie podano nazwy firmy.")
+    @Size(max=20, message = "Podana nazwa firmy jest za długa.")
     private String companyName;
 
     @Min(value = 4, message = "Podano niewlasciwy rok zalozenia")
     private Integer foundationYear;
 
     @NotBlank(message = "Nie podano adresu.")
+    @Size(max = 60, message = "Adres nie może przekraczać 60 znaków")
     private String address;
 
     @NotBlank(message = "Nie podano numeru NIP.")
     private String NIP;
 
     @NotBlank(message = "Nie podanu numeru telefonu.")
+    @Size(max = 15, message = "Numer telefonu powienien mieć 15 znaków")
     private String phoneNumber;
 
 

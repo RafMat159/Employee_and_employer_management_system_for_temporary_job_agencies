@@ -16,21 +16,23 @@ public class EmployeeRQ {
     @NotBlank
     private String mail;
 
-    @NotBlank(message = "Nie podano hasla")
-    @Size(min = 2, message = "Podaj dluzsze haslo.")
+    @NotBlank(message = "Nie podano hasła")
+    @Size(min = 2, message = "Podaj dłuższe hasło.")
     private String password;
 
     @NotBlank(message = "Nie podano imienia")
-    @Size(min = 2, max = 18)
+    @Size(min = 2, max = 15, message = "Podane imie jest niepoprawne.")
     private String name;
 
     @NotBlank(message = "Nie podano nazwiska")
-    @Size(min = 2, message = "Nazwisko powinno miec wiecej niz dwa znaki")
+    @Size(min = 2, max = 15, message = "Nazwisko powinno miec wiecej niz dwa znaki")
     private String surname;
 
     @NotBlank(message = "Nie podano numeru telefonu.")
+    @Size(max = 15, message = "Numer telefonu powienien mieć 15 znaków")
     private String phoneNumber;
 
+    @Size(max = 60, message = "Adres nie może przekraczać 60 znaków")
     private String address;
 
     @NotBlank(message = "Nie podano poprawnego peselu")

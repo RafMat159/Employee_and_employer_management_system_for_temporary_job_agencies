@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SalaryRepository extends JpaRepository<Salary,Integer> {
+public interface SalaryRepository extends JpaRepository<Salary, Integer> {
 
     @Query("SELECT s FROM Salary s")
     List<Salary> findAllSalaries();
@@ -30,7 +30,7 @@ public interface SalaryRepository extends JpaRepository<Salary,Integer> {
 
     @Modifying
     @Query("UPDATE Salary s SET s.grossAmount = 0, s.netSum =0,s.ifPaid=1,s.agencyEmployee=:agencyEmployee WHERE s.idWynagrodzenia=:idWynagrodzenia")
-    void changeSalaryValueOnZero(@Param("idWynagrodzenia") Integer idWynagrodzenia, @Param("agencyEmployee")AgencyEmployee agencyEmployee);
+    void changeSalaryValueOnZero(@Param("idWynagrodzenia") Integer idWynagrodzenia, @Param("agencyEmployee") AgencyEmployee agencyEmployee);
 
     @Modifying
     @Query("UPDATE Salary s SET s.grossAmount = 0, s.netSum =0 WHERE s.idWynagrodzenia=:idWynagrodzenia")

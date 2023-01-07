@@ -1,7 +1,10 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.service;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.Role;
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.AgencyEmployee;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Employer;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Salary;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.AgencyEmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.AgencyEmployeeRepository;
 import com.company.system_zarzadzania_dla_agencji_pracy.repository.EmployerRepository;
@@ -45,7 +48,7 @@ public class AgencyEmployeeService {
         agencyEmployee.setSurname(agencyEmployeeRQ.getSurname());
         agencyEmployee.setPhoneNumber(agencyEmployeeRQ.getPhoneNumber());
 
-        if(agencyEmployeeRQ.getAddress() != null)
+        if (agencyEmployeeRQ.getAddress() != null)
             agencyEmployee.setAddress(agencyEmployeeRQ.getAddress());
 
         agencyEmployee.setPesel(agencyEmployeeRQ.getPesel());
@@ -60,36 +63,36 @@ public class AgencyEmployeeService {
     }
 
     @Transactional
-    public List<Employer> findAllEmployers(){
+    public List<Employer> findAllEmployers() {
         return employerRepository.findAllEmployers();
     }
 
     @Transactional
-    public Optional<Employer> getEmployerById(Integer id){
+    public Optional<Employer> getEmployerById(Integer id) {
         return employerRepository.findEmployerById(id);
     }
 
     @Transactional
-    public List<Salary> getAllSalaries(){
+    public List<Salary> getAllSalaries() {
         return salaryRepository.findAllSalaries();
     }
 
     @Transactional
-    public Optional<Salary> getSalaryById(Integer id){
+    public Optional<Salary> getSalaryById(Integer id) {
         return salaryRepository.findSalaryById(id);
     }
 
     @Transactional
-    public void changeSalaryValueOnZero(Salary salary,AgencyEmployee agencyEmployee){
+    public void changeSalaryValueOnZero(Salary salary, AgencyEmployee agencyEmployee) {
         salary.setIfPaid(true);
         salary.setGrossAmount(0.0);
         salary.setNetSum(0.0);
         salary.setAgencyEmployee(agencyEmployee);
-        salaryRepository.changeSalaryValueOnZero(salary.getIdWynagrodzenia(),salary.getAgencyEmployee());
+        salaryRepository.changeSalaryValueOnZero(salary.getIdWynagrodzenia(), salary.getAgencyEmployee());
     }
 
     @Transactional
-    public void breakingConnectionWithAgencyEmployee(AgencyEmployee agencyEmployee){
+    public void breakingConnectionWithAgencyEmployee(AgencyEmployee agencyEmployee) {
         salaryRepository.breakingConnectionWithAgencyEmployee(agencyEmployee.getIdUzytkownika());
     }
 

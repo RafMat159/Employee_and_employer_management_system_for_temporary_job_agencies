@@ -32,26 +32,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(HttpSecurity http) throws Exception{
+    public void configure(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requests -> requests
                 .mvcMatchers("/").permitAll()
                 .mvcMatchers("/img/**", "/styles/**").permitAll()
                 .mvcMatchers("/static/**").permitAll()
                 .mvcMatchers("/register/**").permitAll()
-                .mvcMatchers("/usun-konto").hasAnyRole("PRACOWNIK","PRACOWNIKAGENCJI","PRACODAWCA")
+                .mvcMatchers("/usun-konto").hasAnyRole("PRACOWNIK", "PRACOWNIKAGENCJI", "PRACODAWCA")
                 .mvcMatchers("/pracownik/**").hasAnyRole("PRACOWNIK")
                 .mvcMatchers("/pracownikagencji/**").hasAnyRole("PRACOWNIKAGENCJI")
                 .mvcMatchers("/pracodawca/**").hasAnyRole("PRACODAWCA")
                 .mvcMatchers("/administrator/**").hasRole("ADMINISTRATOR")
-                .mvcMatchers("/dodaj-dokument-form").hasAnyRole("PRACODAWCA","PRACOWNIK")
+                .mvcMatchers("/dodaj-dokument-form").hasAnyRole("PRACODAWCA", "PRACOWNIK")
                 .anyRequest().authenticated()
         );
         http.formLogin(login -> login.loginPage("/login")
-                .loginProcessingUrl("/authenticateUser")
-                .defaultSuccessUrl("/home",true)
-                .permitAll())
+                        .loginProcessingUrl("/authenticateUser")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll())
                 .logout(LogoutConfigurer::permitAll)
-                .exceptionHandling(configurer->configurer.accessDeniedPage("/access-denied"));
+                .exceptionHandling(configurer -> configurer.accessDeniedPage("/access-denied"));
         http.csrf().disable();
     }
 

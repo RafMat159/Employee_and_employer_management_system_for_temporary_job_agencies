@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,13 +28,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         Optional<User> userByMail = userRepository.findUserByMail(username);
 
-        User user = userByMail.orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", username)) );
+        User user = userByMail.orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not found", username)));
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getMail())
                 .password(user.getPassword())
                 .roles(user.getRole().toString())
-                //.authorities(user.getRole().toString())
                 .build();
     }
 }

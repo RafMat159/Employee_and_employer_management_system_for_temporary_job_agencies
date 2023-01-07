@@ -49,10 +49,4 @@ public class Administrator extends User{
 
     @OneToMany(mappedBy = "administrator", fetch = FetchType.LAZY,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Employer> employers;
-//
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idUzytkownika", referencedColumnName = "idUzytkownika")
-//    private User uzytkownik;
-
 }

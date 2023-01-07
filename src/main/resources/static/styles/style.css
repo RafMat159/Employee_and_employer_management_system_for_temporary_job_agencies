@@ -308,7 +308,7 @@ img {
 .navPanel {
   width: 20%;
   float: left;
-  min-height:1000px;
+  height: 100%;
   background-color: #bdceef;
   padding: 1%;
 }
@@ -316,7 +316,7 @@ img {
 .contentBox {
   width: 80%;
   margin-left: 20%;
-  min-height: 1000px;
+  height: 100%;
   background-color: #f3f3f3;
   padding: 5%;
 }
@@ -480,4 +480,21 @@ table, tr, td, th{
   padding: 4rem 2rem;
   border-radius: 25px;
   margin: 0 auto;
+}
+
+.aButton2 {
+  appearance: button;
+  display:inline;
+  width: fit-content;
+  height: fit-content;
+  padding: 1%;
+  text-align: center;
+  text-decoration: none;
+  color: #f3f3f3;
+  font-size: 1vmax;
+  background-color: rgba(68, 92, 122, 0.571);
+}
+
+.aButton2:hover {
+  background-color: #bdceef;
 }
