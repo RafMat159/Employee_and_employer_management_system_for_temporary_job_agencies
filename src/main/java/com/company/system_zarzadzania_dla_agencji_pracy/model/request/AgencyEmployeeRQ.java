@@ -36,7 +36,7 @@ public class AgencyEmployeeRQ {
     private String phoneNumber;
 
     @Size(max = 60, message = "Adres nie może przekraczać 60 znaków.")
-    @Pattern(regexp = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]+", message = "Podaj poprawny adres. Preferowany format adresu to: ul. nazwaulicy nr, kodpocztowy miasto")
+    @Pattern(regexp = "^[^*&$#%^=<>!@\"]*$", message = "Podaj poprawny adres. Preferowany format adresu to: ul. nazwaulicy nr, kodpocztowy miasto")
     private String address;
 
     @NotBlank(message = "Nie podano poprawnego peselu")

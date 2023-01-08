@@ -29,7 +29,7 @@ public class EmployerRQ {
 
     @NotBlank(message = "Nie podano adresu.")
     @Size(min = 3, max = 60, message = "Adres nie może mieć mniej niż 3 znaki i nie może przekraczać 60 znaków.")
-    @Pattern(regexp = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]+", message = "Podaj poprawny adres. Preferowany format adresu to: ul. nazwaulicy nr, kodpocztowy miasto")
+    @Pattern(regexp = "^[^*&$#%^=<>!@\"]+$", message = "Podaj poprawny adres. Preferowany format adresu to: ul. nazwaulicy nr, kodpocztowy miasto")
     private String address;
 
     @NotBlank(message = "Nie podano numeru NIP.")
