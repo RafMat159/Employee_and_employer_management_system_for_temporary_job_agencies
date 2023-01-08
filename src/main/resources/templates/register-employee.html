@@ -79,6 +79,38 @@
                 <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajeta</p>
             </div>
 
+            <div>
+                <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('pesel')}" th:errors="*{pesel}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+            </div>
+
         </form>
     </div>
 </div>

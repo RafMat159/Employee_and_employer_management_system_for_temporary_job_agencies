@@ -15,7 +15,7 @@ public class DocumentRQ {
 
     @NotBlank(message = "Nie podano jakiego typu jest to dokument - TYTUŁ")
     @Size(min = 2, max = 100, message = "Typ dokumentu powinien być opisany w conajmniej dwóch znakach i nie przekraczać stu znaków.")
-    @Pattern(regexp = "^[^<>*%:&/\\\\]+[A-Za-z\s]+[0-9]*$", message = "Tytuł nie może zawierać takich znaków jak:<>*%:&/\\")
+    @Pattern(regexp = "^[^<>*%:&/\\\\]+[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+[0-9]*$", message = "Tytuł nie może zawierać takich znaków jak:<>*%:&/\\")
     private String documentType;
 
     @NotBlank(message = "Nie podano treści dokumentu")

@@ -92,7 +92,7 @@ public class AdministratorController {
         Optional<Administrator> administratorOpt = administratorService.checkIfAdministratorIsPresent(principal.getName());
 
         if (bindingResult.hasErrors()) {
-            return "administrator/user-creation-page";
+            return "administrator/employee-creation-page";
         }
         if (administratorService.checkIfUserIsPresent(employeeRQ.getMail())) {
             model.addAttribute("existingUsername", employeeRQ.getMail());

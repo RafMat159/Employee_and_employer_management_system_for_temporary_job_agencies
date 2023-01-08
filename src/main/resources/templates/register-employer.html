@@ -77,6 +77,31 @@
             <div>
                 <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
             </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('companyName')}" th:errors="*{companyName}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('foundationYear')}" th:errors="*{foundationYear}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('NIP')}" th:errors="*{NIP}"></span>
+            </div>
+
+            <div>
+                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+            </div>
+
         </form>
     </div>
 </div>

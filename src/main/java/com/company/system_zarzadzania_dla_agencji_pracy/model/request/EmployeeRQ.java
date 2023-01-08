@@ -17,22 +17,26 @@ public class EmployeeRQ {
     private String mail;
 
     @NotBlank(message = "Nie podano hasła")
-    @Size(min = 2, message = "Podaj dłuższe hasło.")
+    @Size(min = 4, message = "Hasło powinno zawierać więcej niż 4 znaki")
+    @Pattern(regexp = "^[A-Za-z0-9#%@!&]+$", message = "Hasło nie powinno zawierać białych znaków.Może zawierać znaki takie jak: A-Z, a-z, 0-9, #%@!&")
     private String password;
 
     @NotBlank(message = "Nie podano imienia")
-    @Size(min = 2, max = 15, message = "Podane imie jest niepoprawne.")
+    @Size(min = 2, max = 15, message = "Podane imie jest niepoprawne. Liczba znaków dla imienia powinna zawierać od 2 do 15 liter")
+    @Pattern(regexp = "[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "Imie użytkownika może zawierać tylko litery.")
     private String name;
 
     @NotBlank(message = "Nie podano nazwiska")
-    @Size(min = 2, max = 15, message = "Nazwisko powinno miec wiecej niz dwa znaki")
+    @Size(min = 2, max = 15, message = "Podane nazwisko jest niepoprawne. Liczba znaków dla nazwiska powinna zawierać od 2 do 15 liter")
+    @Pattern(regexp = "[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+", message = "Nazwisko użytkownika może zawierać tylko litery.")
     private String surname;
 
     @NotBlank(message = "Nie podano numeru telefonu.")
     @Size(max = 15, message = "Numer telefonu powienien mieć 15 znaków")
     private String phoneNumber;
 
-    @Size(max = 60, message = "Adres nie może przekraczać 60 znaków")
+    @Size(max = 60, message = "Adres nie może przekraczać 60 znaków.")
+    @Pattern(regexp = "[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]+", message = "Podaj poprawny adres. Preferowany format adresu to: ul. nazwaulicy nr, kodpocztowy miasto")
     private String address;
 
     @NotBlank(message = "Nie podano poprawnego peselu")

@@ -25,8 +25,6 @@ import java.util.Optional;
 @Controller
 public class RegisterController {
 
-    private UserDetailServiceImpl userDetailService;
-
     private static final String adminMail = "michal@admin.com";
     private EmployeeService employeeService;
     private EmployerService employerService;
@@ -35,8 +33,7 @@ public class RegisterController {
     private AgencyEmployeeService agencyEmployeeService;
 
     @Autowired
-    public RegisterController(UserDetailServiceImpl userDetailService, EmployeeService employeeService, EmployerService employerService, AdministratorRepository administratorRepository, UserRepository userRepository, AgencyEmployeeService agencyEmployeeService) {
-        this.userDetailService = userDetailService;
+    public RegisterController(EmployeeService employeeService, EmployerService employerService, AdministratorRepository administratorRepository, UserRepository userRepository, AgencyEmployeeService agencyEmployeeService) {
         this.employeeService = employeeService;
         this.employerService = employerService;
         this.administratorRepository = administratorRepository;
@@ -66,19 +63,19 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(employeeRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if (userOpt.isPresent()) {                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
+        if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
             return "register-employee";
         }
 
 
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             employeeService.addEmployee(employeeRQ, administrator);
             return "redirect:/login";
         }
-        //tutaj mozna dodac przerwa techniczna czy cos (bo wtedy nie ma admina)
+
         return "redirect:/register";
     }
 
@@ -98,19 +95,19 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(employerRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if (userOpt.isPresent()) {                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
+        if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
             return "register-employer";
         }
 
 
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             employerService.addEmployer(employerRQ, administrator);
             return "redirect:/login";
         }
-        //tutaj mozna dodac przerwa techniczna czy cos (bo wtedy nie ma admina)
+
         return "redirect:/register";
     }
 
@@ -131,21 +128,17 @@ public class RegisterController {
         Optional<User> userOpt = userRepository.findUserByMail(agencyEmployeeRQ.getMail());
         Optional<Administrator> administratorOpt = administratorRepository.findAdministratorByMail(adminMail);
 
-        if (userOpt.isPresent()) {                        //sprawdzenie czy nie istnieje user o takim mailu //TODO mozna wydzielic osobna funkcje tutaj
+        if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
             return "register-agencyemployee";
         }
 
-
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             agencyEmployeeService.addAgencyEmployee(agencyEmployeeRQ, administrator);
             return "redirect:/login";
         }
-        //tutaj mozna dodac przerwa techniczna czy cos (bo wtedy nie ma admina)
         return "redirect:/register";
     }
-
-
 }
