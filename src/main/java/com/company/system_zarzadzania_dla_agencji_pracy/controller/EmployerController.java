@@ -62,7 +62,7 @@ public class EmployerController {
 
         Optional<Employer> employerOpt = employerService.getEmployer(principal.getName());
 
-        if (employerOpt.isPresent()) {               //sprawdzenie czy istnieje pracodawca, jesli nie to nie mozna dodac zlecenia
+        if (employerOpt.isPresent()) {
             Employer employer = employerOpt.get();
             employerService.addNewOrder(orderRQ, employer);
             return "redirect:/pracodawca/dodaj-zlecenie-form";
@@ -138,7 +138,7 @@ public class EmployerController {
         if (employerOpt.isPresent()) {
             Optional<Document> documentOpt = employerService.getDocumentEmployer(idDokumentu);
 
-            if (documentOpt.isPresent()) {               //sprawdzenie czy istnieje dany dokument
+            if (documentOpt.isPresent()) {
                 Document document = documentOpt.get();
                 model.addAttribute("content", document.getContent());
                 model.addAttribute("documentType", document.getDocumentType());

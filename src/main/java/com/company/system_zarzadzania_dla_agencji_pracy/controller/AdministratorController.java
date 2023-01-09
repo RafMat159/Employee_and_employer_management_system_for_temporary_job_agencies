@@ -99,7 +99,7 @@ public class AdministratorController {
             return "administrator/employee-creation-page";
         }
 
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             employeeService.addEmployee(employeeRQ, administrator);
             return "redirect:/administrator/utworz-uzytkownika";
@@ -134,7 +134,7 @@ public class AdministratorController {
             return "administrator/employer-creation-page";
         }
 
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             employerService.addEmployer(employerRQ, administrator);
             return "redirect:/administrator/utworz-uzytkownika";
@@ -170,7 +170,7 @@ public class AdministratorController {
             return "administrator/agency-employee-creation-page";
         }
 
-        if (administratorOpt.isPresent()) {               //sprawdzenie czy istnieje administrator do zarzadzania systemem, jesli nie to nie mozna sie zarejestrowac
+        if (administratorOpt.isPresent()) {
             Administrator administrator = administratorOpt.get();
             agencyEmployeeService.addAgencyEmployee(agencyEmployeeRQ, administrator);
             return "redirect:/administrator/utworz-uzytkownika";
