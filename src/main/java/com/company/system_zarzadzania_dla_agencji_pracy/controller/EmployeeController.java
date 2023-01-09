@@ -58,7 +58,7 @@ public class EmployeeController {
         Optional<Employee> employeeOpt = employeeService.getEmployee(principal.getName());
         Optional<Document> documentOpt = employeeService.getDocumentEmployee(idDokumentu);
         if (employeeOpt.isPresent()) {
-            if (documentOpt.isPresent()) {               //sprawdzenie czy istnieje dany dokument
+            if (documentOpt.isPresent()) {
                 Document document = documentOpt.get();
                 model.addAttribute("content", document.getContent());
                 model.addAttribute("documentType", document.getDocumentType());

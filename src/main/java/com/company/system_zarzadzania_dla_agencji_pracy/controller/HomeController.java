@@ -15,7 +15,7 @@ public class HomeController {
 
     private UserRepository userRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(HomeController.class); //pozniej pododaje
+    private final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     public HomeController(UserRepository userRepository) {
         this.userRepository = userRepository;
