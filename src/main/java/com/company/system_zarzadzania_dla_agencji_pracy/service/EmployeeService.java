@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +109,11 @@ public class EmployeeService {
     @Transactional
     public Optional<Order> findOrderEmployee(Integer id) {
         return orderRepository.findOrderById(id);
+    }
+
+    @Transactional
+    public List<Order> findCurrentOrders(Date date) {
+        return orderRepository.findOrderByExecutionDateOrderByExecutionDate(date);
     }
 
     @Transactional

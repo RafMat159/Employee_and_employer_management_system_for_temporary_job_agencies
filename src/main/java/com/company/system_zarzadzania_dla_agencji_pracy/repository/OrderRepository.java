@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,4 +23,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT o FROM Order o WHERE o.idZlecenia = :idZlecenia")
     Optional<Order> findOrderById(@Param("idZlecenia") Integer idZlecenia);
+
+    @Query("SELECT o FROM Order o LEFT JOIN FETCH o.employer WHERE o.executionDate >=:currentDate ORDER BY o.executionDate")
+    List<Order> findOrderByExecutionDateOrderByExecutionDate(@Param("currentDate") Date currentDate);
 }

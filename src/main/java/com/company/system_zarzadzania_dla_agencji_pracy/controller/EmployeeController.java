@@ -122,8 +122,9 @@ public class EmployeeController {
         if (employeeOpt.isPresent()) {
             Date currDate = Date.valueOf(LocalDate.now());
             Employee employee = employeeOpt.get();
+            List<Order> orders = employeeService.findCurrentOrders(currDate);
             model.addAttribute("employee", employee);
-            model.addAttribute("orders", employeeService.findAllOrders());
+            model.addAttribute("orders", orders);
             model.addAttribute("currDate", currDate);
             return "order-list";
         }
