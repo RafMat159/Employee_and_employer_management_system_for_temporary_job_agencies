@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Rejestracja</title>
-    <link rel="stylesheet" href="../static/styles/style.css" th:href="@{/styles/style.css}" >
+    <link rel="stylesheet" href="../../static/styles/style.css" th:href="@{/styles/style.css}" >
 </head>
 
 <body class="align">
@@ -17,7 +17,7 @@
         <h2>REJESTRACJA</h2>
         <h3>KROK 2</h3>
 
-        <form th:action="@{/register/pracownik-agencji}"  th:object="${agencyEmployeeRQ}" method="post" class="form">
+        <form th:action="@{/register/pracownik}"  th:object="${employeeRQ}" method="post" class="form">
 
             <div class="inputs">
                 <p class = "registration">Adres e-mail *</p>
@@ -59,6 +59,11 @@
                 <input type="date" th:field="*{dateOfBirth}" autofocus required>
             </div>
 
+            <div class="inputs student">
+                <input type="checkbox" th:field="*{studentStatus}" th:value="*{studentStatus}" autofocus id="student">
+                <label for ="student">Status studenta</label>
+            </div>
+
             <div class="inputs">
                 <input type="checkbox" autofocus required id="accept">
                 <label for ="accept">Zgoda na przetwarzanie twoich danych na potrzeby działania serwisu *</label>
@@ -71,7 +76,7 @@
             </div>
 
             <div th:if="${existingUsername != null}" class="alert alert-danger notification" role="alert">
-                <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajęta</p>
+                <p th:text="${existingUsername}"></p><p> Podana nazwa maila jest zajeta</p>
             </div>
 
             <div>
@@ -111,4 +116,4 @@
 </div>
 
 </body>
-</html>
+</html>s

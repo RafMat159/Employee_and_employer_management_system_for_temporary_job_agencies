@@ -45,7 +45,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void addEmployee(EmployeeRQ employeeRQ, Administrator administrator) {    //dodanie pracownika po walidacji danych
+    public void addEmployee(EmployeeRQ employeeRQ, Administrator administrator) {
         Employee employee = new Employee();
         Salary salary = new Salary();
 

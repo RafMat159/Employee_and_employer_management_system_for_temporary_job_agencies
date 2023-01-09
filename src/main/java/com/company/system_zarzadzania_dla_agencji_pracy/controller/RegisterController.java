@@ -10,7 +10,6 @@ import com.company.system_zarzadzania_dla_agencji_pracy.repository.UserRepositor
 import com.company.system_zarzadzania_dla_agencji_pracy.service.AgencyEmployeeService;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployeeService;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployerService;
-import com.company.system_zarzadzania_dla_agencji_pracy.service.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,20 +43,20 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String getRegisterForm() {
-        return "register";
+        return "registration/register";
     }
 
     @GetMapping("/register/pracownik")
     public String getEmployeeForm(Model model) {
         EmployeeRQ employeeRQ = new EmployeeRQ();
         model.addAttribute("employeeRQ", employeeRQ);
-        return "register-employee";
+        return "registration/register-employee";
     }
 
     @PostMapping("/register/pracownik")
     public String newEmployee(@Valid @ModelAttribute("employeeRQ") EmployeeRQ employeeRQ, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "register-employee";
+            return "registration/register-employee";
         }
 
         Optional<User> userOpt = userRepository.findUserByMail(employeeRQ.getMail());
@@ -66,7 +65,7 @@ public class RegisterController {
         if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
-            return "register-employee";
+            return "registration/register-employee";
         }
 
 
@@ -83,13 +82,13 @@ public class RegisterController {
     public String getEmployerForm(Model model) {
         EmployerRQ employerRQ = new EmployerRQ();
         model.addAttribute("employerRQ", employerRQ);
-        return "register-employer";
+        return "registration/register-employer";
     }
 
     @PostMapping("/register/pracodawca")
     public String newEmployer(@Valid @ModelAttribute("employerRQ") EmployerRQ employerRQ, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "register-employer";
+            return "registration/register-employer";
         }
 
         Optional<User> userOpt = userRepository.findUserByMail(employerRQ.getMail());
@@ -98,7 +97,7 @@ public class RegisterController {
         if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
-            return "register-employer";
+            return "registration/register-employer";
         }
 
 
@@ -116,13 +115,13 @@ public class RegisterController {
     public String getAgencyEmployeeForm(Model model) {
         AgencyEmployeeRQ agencyEmployeeRQ = new AgencyEmployeeRQ();
         model.addAttribute("agencyEmployeeRQ", agencyEmployeeRQ);
-        return "register-agencyemployee";
+        return "registration/register-agencyemployee";
     }
 
     @PostMapping("/register/pracownik-agencji")
     public String newAgencyEmployee(@Valid @ModelAttribute("agencyEmployeeRQ") AgencyEmployeeRQ agencyEmployeeRQ, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "register-agencyemployee";
+            return "registration/register-agencyemployee";
         }
 
         Optional<User> userOpt = userRepository.findUserByMail(agencyEmployeeRQ.getMail());
@@ -131,7 +130,7 @@ public class RegisterController {
         if (userOpt.isPresent()) {
             String mail = userOpt.get().getMail();
             model.addAttribute("existingUsername", mail);
-            return "register-agencyemployee";
+            return "registration/register-agencyemployee";
         }
 
         if (administratorOpt.isPresent()) {

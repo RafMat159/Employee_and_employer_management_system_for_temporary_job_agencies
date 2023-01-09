@@ -41,7 +41,7 @@ public class AgencyEmployeeService {
 
 
     @Transactional
-    public void addAgencyEmployee(AgencyEmployeeRQ agencyEmployeeRQ, Administrator administrator) {    //dodanie pracownika po walidacji danych
+    public void addAgencyEmployee(AgencyEmployeeRQ agencyEmployeeRQ, Administrator administrator) {
         AgencyEmployee agencyEmployee = new AgencyEmployee();
 
         agencyEmployee.setName(agencyEmployeeRQ.getName());

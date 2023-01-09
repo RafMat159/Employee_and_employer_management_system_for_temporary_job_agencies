@@ -22,7 +22,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String welcomePage() {
+    public String mainPage() {
         logger.info("Got request");
         return "index";
     }
