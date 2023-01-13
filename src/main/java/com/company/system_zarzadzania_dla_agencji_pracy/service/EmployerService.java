@@ -146,8 +146,8 @@ public class EmployerService {
             if (order.getExecutionDate().compareTo(Date.valueOf(LocalDate.now())) <= 0 && !order.isSettled()) {
                 BigDecimal numberOfEmployees = new BigDecimal(order.getEmployees().size());
                 BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
-                BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts()).multiply(numberOfEmployees);
-                employer.setCurrentCosts(currentCostsBD.subtract(grossAmount).doubleValue());
+                BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts());
+                employer.setCurrentCosts(currentCostsBD.subtract(grossAmount.multiply(numberOfEmployees)).doubleValue());
                 order.setSettled(true);
                 modified = true;
             }

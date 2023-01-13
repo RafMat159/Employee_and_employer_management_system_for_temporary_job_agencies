@@ -96,4 +96,8 @@ public class AgencyEmployeeService {
         salaryRepository.breakingConnectionWithAgencyEmployee(agencyEmployee.getIdUzytkownika());
     }
 
+    public Optional<AgencyEmployee> returnIfExists(List<AgencyEmployee> agencyEmployees, Integer id) {
+        return agencyEmployees.stream().filter(agencyEmployee -> id.equals(agencyEmployee.getIdUzytkownika())).findAny();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Administrator;
+import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.AgencyEmployee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.AgencyEmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployeeRQ;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.request.EmployerRQ;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -57,6 +59,11 @@ public class AdministratorController {
     public String deleteUser(@PathVariable("id") Integer id, Principal principal, RedirectAttributes redirectAttributes) {
         Optional<Administrator> administratorOpt = administratorService.checkIfAdministratorIsPresent(principal.getName());
         if (administratorOpt.isPresent()) {
+            List<AgencyEmployee> agencyEmployees = administratorOpt.get().getAgencyEmployees();
+            Optional<AgencyEmployee> agencyEmployeeOpt = agencyEmployeeService.returnIfExists(agencyEmployees, id);
+            if (agencyEmployeeOpt.isPresent()) {
+                agencyEmployeeService.breakingConnectionWithAgencyEmployee(agencyEmployeeOpt.get());
+            }
             administratorService.deleteUser(id);
             return "redirect:/administrator/lista-uzytkownikow";
         }
