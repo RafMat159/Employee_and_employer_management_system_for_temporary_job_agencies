@@ -88,7 +88,7 @@ public class AgencyEmployeeService {
         salary.setGrossAmount(0.0);
         salary.setNetSum(0.0);
         salary.setAgencyEmployee(agencyEmployee);
-        salaryRepository.changeSalaryValueOnZero(salary.getIdWynagrodzenia(), salary.getAgencyEmployee());
+        salaryRepository.save(salary);
     }
 
     @Transactional
