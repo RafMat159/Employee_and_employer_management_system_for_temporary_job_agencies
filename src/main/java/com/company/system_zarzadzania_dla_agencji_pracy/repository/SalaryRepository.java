@@ -1,6 +1,5 @@
 package com.company.system_zarzadzania_dla_agencji_pracy.repository;
 
-import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.AgencyEmployee;
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.Salary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
