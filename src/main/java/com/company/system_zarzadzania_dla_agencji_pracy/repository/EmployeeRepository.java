@@ -16,7 +16,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query("SELECT e FROM Employee e JOIN FETCH e.salary WHERE e.mail = :mail")
     Optional<Employee> findEmployeeByMail(@Param("mail") String mail);
 
-    @Query("SELECT e FROM Employee e")
+    @Query("SELECT e FROM Employee e JOIN FETCH e.salary")
     List<Employee> findAllEmployees();
 
     @Query("SELECT e FROM Employee e WHERE e.idUzytkownika = :idUzytkownika")

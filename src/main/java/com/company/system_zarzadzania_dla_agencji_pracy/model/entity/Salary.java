@@ -35,7 +35,7 @@ public class Salary {
     private boolean ifPaid;
 
 
-    @ManyToOne(optional = true)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "idPracownikaAgencji", referencedColumnName = "idUzytkownika")
     private AgencyEmployee agencyEmployee;
 
