@@ -58,7 +58,7 @@
                 </td>
                 <td th:unless="${salary.netSum < 0}">
                     <a th:if="${salary.ifPaid} OR ${salary.netSum == 0}" class="aButton" style="font-size: 0.7vmax;">Aktualnie nie ma środków do przelania na konto tego pracownika</a>
-                    <a th:unless="${salary.ifPaid} OR ${salary.netSum == 0}" th:href="@{/pracownik-agencji/lista-wynagrodzen/{id}(id=${salary.idWynagrodzenia})}" class="detailsButton">Przelej</a>
+                    <a th:unless="${salary.ifPaid} OR ${salary.netSum == 0}" th:href="@{/pracownik-agencji/lista-wynagrodzen/{id}(id=${salary.idPracownika})}" class="detailsButton">Przelej</a>
                 </td>
             </tr>
             </tbody>

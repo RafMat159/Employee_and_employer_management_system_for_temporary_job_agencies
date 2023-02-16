@@ -18,9 +18,7 @@ import javax.persistence.*;
 public class Salary {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idWynagrodzenia")
-    private Integer idWynagrodzenia;
+    private Integer idPracownika;
 
     @NonNull
     @Column(name = "kwotaNetto")
@@ -39,8 +37,9 @@ public class Salary {
     @JoinColumn(name = "idPracownikaAgencji", referencedColumnName = "idUzytkownika")
     private AgencyEmployee agencyEmployee;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idPracownika", referencedColumnName = "idUzytkownika")
+    @MapsId
     private Employee employee;
 
 }

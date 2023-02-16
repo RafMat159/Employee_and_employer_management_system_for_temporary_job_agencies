@@ -49,7 +49,8 @@ public class Employee extends User {
     @JoinColumn(name = "idAdministratora")
     private Administrator administrator;
 
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, optional = false)
+    @PrimaryKeyJoinColumn
     private Salary salary;
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)

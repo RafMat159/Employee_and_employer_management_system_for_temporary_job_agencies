@@ -96,10 +96,6 @@ public class EmployeeService {
         documentRepository.deleteById(id);
     }
 
-    @Transactional
-    public List<Order> findAllOrders() {
-        return orderRepository.findAllOrdersRep();
-    }
 
     @Transactional
     public Optional<Employer> getEmployerById(Integer id) {
@@ -178,7 +174,7 @@ public class EmployeeService {
     public void settleSalary(Salary salary) {
         salary.setNetSum(0.0);
         salary.setGrossAmount(0.0);
-        salaryRepository.settleSalaryUpdate(salary.getIdWynagrodzenia());
+        salaryRepository.settleSalaryUpdate(salary.getIdPracownika());
     }
 
 }

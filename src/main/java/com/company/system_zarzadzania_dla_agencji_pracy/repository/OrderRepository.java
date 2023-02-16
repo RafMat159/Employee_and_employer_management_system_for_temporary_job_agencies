@@ -18,8 +18,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query("DELETE FROM Order o WHERE o.idZlecenia = :idZlecenia")
     void deleteById(@Param("idZlecenia") Integer idZlecenia);
 
-    @Query("SELECT o FROM Order o")
-    List<Order> findAllOrdersRep();
+    @Query("SELECT o FROM Order o LEFT JOIN FETCH o.employees WHERE o.employer.idUzytkownika = :idPracodawcy")
+    List<Order> findAllOrdersByEmployerId(@Param("idPracodawcy") Integer idPracodawcy);
 
     @Query("SELECT o FROM Order o WHERE o.idZlecenia = :idZlecenia")
     Optional<Order> findOrderById(@Param("idZlecenia") Integer idZlecenia);

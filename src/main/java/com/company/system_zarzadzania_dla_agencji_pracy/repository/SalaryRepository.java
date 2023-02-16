@@ -16,8 +16,8 @@ public interface SalaryRepository extends JpaRepository<Salary, Integer> {
     @Query("SELECT s FROM Salary s JOIN FETCH s.employee")
     List<Salary> findAllSalaries();
 
-    @Query("SELECT s FROM Salary s JOIN FETCH s.employee WHERE s.idWynagrodzenia=:idWynagrodzenia")
-    Optional<Salary> findSalaryById(@Param("idWynagrodzenia") Integer idWynagrodzenia);
+    @Query("SELECT s FROM Salary s JOIN FETCH s.employee WHERE s.idPracownika=:idPracownika")
+    Optional<Salary> findSalaryById(@Param("idPracownika") Integer idPracownika);
 
     @Modifying
     @Query("UPDATE Salary s SET s.grossAmount =:grossAmount, s.netSum =:netSum, s.ifPaid =:ifPaid WHERE s.employee.idUzytkownika =:idUzytkownika")
@@ -28,8 +28,8 @@ public interface SalaryRepository extends JpaRepository<Salary, Integer> {
     void substractSalary(@Param("idUzytkownika") Integer idUzytkownika, @Param("grossAmount") Double grossAmount, @Param("netSum") Double netSum);
 
     @Modifying
-    @Query("UPDATE Salary s SET s.grossAmount = 0, s.netSum =0 WHERE s.idWynagrodzenia=:idWynagrodzenia")
-    void settleSalaryUpdate(@Param("idWynagrodzenia") Integer idWynagrodzenia);
+    @Query("UPDATE Salary s SET s.grossAmount = 0, s.netSum =0 WHERE s.idPracownika=:idPracownika")
+    void settleSalaryUpdate(@Param("idPracownika") Integer idPracownika);
 
     @Modifying
     @Query("UPDATE Salary s SET s.agencyEmployee = null, s.netSum =0 WHERE s.agencyEmployee.idUzytkownika=:idUzytkownika")

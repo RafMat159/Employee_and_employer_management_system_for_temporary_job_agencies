@@ -2,6 +2,7 @@ package com.company.system_zarzadzania_dla_agencji_pracy.controller;
 
 import com.company.system_zarzadzania_dla_agencji_pracy.model.entity.*;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.AgencyEmployeeService;
+import com.company.system_zarzadzania_dla_agencji_pracy.service.EmployerService;
 import com.company.system_zarzadzania_dla_agencji_pracy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,13 @@ public class AgencyEmployeeController {
 
     private AgencyEmployeeService agencyEmployeeService;
     private UserService userService;
+    private EmployerService employerService;
 
     @Autowired
-    public AgencyEmployeeController(AgencyEmployeeService agencyEmployeeService, UserService userService) {
+    public AgencyEmployeeController(AgencyEmployeeService agencyEmployeeService, UserService userService, EmployerService employerService) {
         this.agencyEmployeeService = agencyEmployeeService;
         this.userService = userService;
+        this.employerService = employerService;
     }
 
     @GetMapping("/home")
@@ -77,7 +80,7 @@ public class AgencyEmployeeController {
         if (employerOpt.isPresent()) {
             Date currDate = Date.valueOf(LocalDate.now());
             Employer employer = employerOpt.get();
-            List<Order> orders = employer.getOrders();
+            List<Order> orders = employerService.findAllOrdersByEmployerId(id);
             model.addAttribute("employer", employer);
             model.addAttribute("orders", orders);
             model.addAttribute("currDate", currDate);
@@ -136,7 +139,7 @@ public class AgencyEmployeeController {
         if (salaryOpt.isPresent()) {
             Salary salary = salaryOpt.get();
             agencyEmployeeService.changeSalaryValueOnZero(salary, agencyEmployeeOpt.get());
-            redirectAttributes.addFlashAttribute("paySalaryMessage", "Wynagrodzenie o numerze id równym " + salary.getIdWynagrodzenia() + " zostało przelane na konto pracownika");
+            redirectAttributes.addFlashAttribute("paySalaryMessage", "Wynagrodzenie o numerze id równym " + salary.getIdPracownika() + " zostało przelane na konto pracownika");
             return "redirect:/pracownik-agencji/lista-wynagrodzen";
         }
         redirectAttributes.addFlashAttribute("paySalaryErrorMessage", "Wystąpił błąd podczas wykonywania przelewu na konto pracownika");

@@ -129,6 +129,11 @@ public class EmployerService {
     }
 
     @Transactional
+    public List<Order> findAllOrdersByEmployerId(Integer id) {
+        return orderRepository.findAllOrdersByEmployerId(id);
+    }
+
+    @Transactional
     public Employee removeEmployeeFromOrder(Employer employer, Order order, Employee employee) {
         BigDecimal grossAmount = TimeConverter.getGrossAmount(order);
         BigDecimal currentCostsBD = BigDecimal.valueOf(employer.getCurrentCosts());
