@@ -21,7 +21,7 @@ A web application that allows users to get a new job (employees) and to give tha
 - MySQL
 
 ## Database model
-![image](https://user-images.githubusercontent.com/85128542/215264218-abd2699c-5177-4c48-b85e-072a682c16a1.png)
+![baza_danych](https://user-images.githubusercontent.com/85128542/219392069-aa1a3c0f-4c6a-4f17-9a02-7dfa718ee39d.png)
 
 ## Class diagram
 ![system_zarzadzania_dla_agencji_pracy](https://user-images.githubusercontent.com/85128542/215267377-848f9f4c-0d9b-4241-a449-b78e408c05fb.png)
